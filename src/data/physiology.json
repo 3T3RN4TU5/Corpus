@@ -1,0 +1,237 @@
+[
+  {
+    "id": "bones-adult-total",
+    "label": "Bones in the adult skeleton",
+    "value": 206, "unit": "bones", "range": null,
+    "ageGroup": "adult", "sex": "all",
+    "note": "Younger people have more bones because some fuse with age.",
+    "source": { "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system" },
+    "confidence": "high"
+  },
+  {
+    "id": "bones-axial",
+    "label": "Bones in the axial skeleton",
+    "value": 80, "unit": "bones", "range": null,
+    "ageGroup": "adult", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system" },
+    "confidence": "high"
+  },
+  {
+    "id": "bones-appendicular",
+    "label": "Bones in the appendicular skeleton",
+    "value": 126, "unit": "bones", "range": null,
+    "ageGroup": "adult", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system" },
+    "confidence": "high"
+  },
+  {
+    "id": "organ-systems",
+    "label": "Organ systems covered by the textbook",
+    "value": 11, "unit": "systems", "range": null,
+    "ageGroup": "all", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 1.2 Structural Organization of the Human Body", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-2-structural-organization-of-the-human-body" },
+    "confidence": "high"
+  },
+  {
+    "id": "blood-share-body-weight",
+    "label": "Blood as a share of body weight",
+    "value": 8, "unit": "%", "range": null,
+    "ageGroup": "adult", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "blood-volume-male",
+    "label": "Average blood volume",
+    "value": null, "unit": "L", "range": [5, 6],
+    "ageGroup": "adult", "sex": "male",
+    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "blood-volume-female",
+    "label": "Average blood volume",
+    "value": null, "unit": "L", "range": [4, 5],
+    "ageGroup": "adult", "sex": "female",
+    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "hematocrit-male",
+    "label": "Hematocrit",
+    "value": 47, "unit": "%", "range": [42, 52],
+    "ageGroup": "adult", "sex": "male",
+    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "confidence": "high"
+  },
+  {
+    "id": "hematocrit-female",
+    "label": "Hematocrit",
+    "value": 41, "unit": "%", "range": [37, 47],
+    "ageGroup": "adult", "sex": "female",
+    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "confidence": "high"
+  },
+  {
+    "id": "heart-rate-rest-adult",
+    "label": "Resting heart rate",
+    "value": 75, "unit": "bpm", "range": [60, 100],
+    "ageGroup": "adult", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology" },
+    "confidence": "high"
+  },
+  {
+    "id": "stroke-volume-rest",
+    "label": "Resting stroke volume",
+    "value": 70, "unit": "mL", "range": [55, 100],
+    "ageGroup": "adult", "sex": "all",
+    "note": "The mean is for a resting 70 kg person. The source lists sex as a factor but gives no sex-specific values.",
+    "source": { "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "cardiac-output-rest",
+    "label": "Cardiac output",
+    "value": 5.25, "unit": "L/min", "range": [4, 8],
+    "ageGroup": "adult", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "heart-chambers",
+    "label": "Heart chambers",
+    "value": 4, "unit": "chambers", "range": null,
+    "ageGroup": "all", "sex": "all",
+    "source": { "title": "NHLBI, How the Heart Works: What the Heart Looks Like", "url": "https://www.nhlbi.nih.gov/health/heart/anatomy" },
+    "confidence": "high"
+  },
+  {
+    "id": "heart-valves",
+    "label": "Heart valves",
+    "value": 4, "unit": "valves", "range": null,
+    "ageGroup": "all", "sex": "all",
+    "note": "Tricuspid, pulmonary semilunar, mitral and aortic semilunar.",
+    "source": { "title": "OpenStax A&P 2e, 19.1 Heart Anatomy", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-newborn",
+    "label": "Resting heart rate, 0 to 1 month",
+    "value": null, "unit": "bpm", "range": [70, 190],
+    "ageGroup": "newborn", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-infant",
+    "label": "Resting heart rate, 1 to 11 months",
+    "value": null, "unit": "bpm", "range": [80, 160],
+    "ageGroup": "infant", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-child-1-2",
+    "label": "Resting heart rate, 1 to 2 years",
+    "value": null, "unit": "bpm", "range": [80, 130],
+    "ageGroup": "child", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-child-3-4",
+    "label": "Resting heart rate, 3 to 4 years",
+    "value": null, "unit": "bpm", "range": [80, 120],
+    "ageGroup": "child", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-child-5-6",
+    "label": "Resting heart rate, 5 to 6 years",
+    "value": null, "unit": "bpm", "range": [75, 115],
+    "ageGroup": "child", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-child-7-9",
+    "label": "Resting heart rate, 7 to 9 years",
+    "value": null, "unit": "bpm", "range": [70, 110],
+    "ageGroup": "child", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-10-plus",
+    "label": "Resting heart rate, 10 years and older",
+    "value": null, "unit": "bpm", "range": [60, 100],
+    "ageGroup": "10+", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "pulse-athlete",
+    "label": "Resting heart rate, well-trained athletes",
+    "value": null, "unit": "bpm", "range": [40, 60],
+    "ageGroup": "adult", "sex": "all",
+    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "confidence": "high"
+  },
+  {
+    "id": "breathing-rate-adolescent-adult",
+    "label": "Resting breathing rate",
+    "value": null, "unit": "breaths/min", "range": [12, 18],
+    "ageGroup": "adolescent and adult", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 22.3 The Process of Breathing", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing" },
+    "confidence": "high"
+  },
+  {
+    "id": "breathing-rate-under-1",
+    "label": "Breathing rate, under 1 year",
+    "value": null, "unit": "breaths/min", "range": [30, 60],
+    "ageGroup": "infant", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 22.3 The Process of Breathing", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing" },
+    "confidence": "high"
+  },
+  {
+    "id": "breathing-rate-age-10",
+    "label": "Breathing rate, about 10 years",
+    "value": null, "unit": "breaths/min", "range": [18, 30],
+    "ageGroup": "child", "sex": "all",
+    "source": { "title": "OpenStax A&P 2e, 22.3 The Process of Breathing", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing" },
+    "confidence": "high"
+  },
+  {
+    "id": "prevalence-turner",
+    "label": "Turner syndrome",
+    "value": 1, "unit": "per 2,000 female newborns", "range": null,
+    "ageGroup": "newborn", "sex": "female",
+    "source": { "title": "MedlinePlus Genetics: Turner syndrome", "url": "https://medlineplus.gov/genetics/condition/turner-syndrome/" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "prevalence-klinefelter",
+    "label": "Klinefelter syndrome",
+    "value": 1, "unit": "per 650 male newborns", "range": null,
+    "ageGroup": "newborn", "sex": "male",
+    "source": { "title": "MedlinePlus Genetics: Klinefelter syndrome", "url": "https://medlineplus.gov/genetics/condition/klinefelter-syndrome/" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "prevalence-cais",
+    "label": "Complete androgen insensitivity",
+    "value": null, "unit": "per 100,000 newborn females", "range": [2, 5],
+    "ageGroup": "newborn", "sex": "female",
+    "source": { "title": "MedlinePlus Genetics: Androgen insensitivity syndrome", "url": "https://medlineplus.gov/genetics/condition/androgen-insensitivity-syndrome/" },
+    "confidence": "approximate"
+  },
+  {
+    "id": "prevalence-21-hydroxylase-classic",
+    "label": "Classic 21-hydroxylase deficiency",
+    "value": 1, "unit": "per 15,000 newborns", "range": null,
+    "ageGroup": "newborn", "sex": "all",
+    "source": { "title": "MedlinePlus Genetics: 21-hydroxylase deficiency", "url": "https://medlineplus.gov/genetics/condition/21-hydroxylase-deficiency/" },
+    "confidence": "approximate"
+  }
+]

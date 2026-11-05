@@ -1,0 +1,43 @@
+import type { LayerId, Part } from '../data/anatomy'
+
+/** Layers fainter than this are click-through, so people can select what lies beneath a ghosted layer. */
+export const MIN_PICKABLE_OPACITY = 0.35
+
+const XRAY_SOFT_TISSUE: LayerId[] = ['skin', 'fat', 'muscle']
+
+export interface AppearanceInput {
+  layers: Record<LayerId, { visible: boolean; opacity: number }>
+  xray: boolean
+  isolate: boolean
+  selectedId: string | null
+}
+
+export interface Appearance {
+  visible: boolean
+  opacity: number
+  pickable: boolean
+  xray: boolean
+}
+
+const HIDDEN: Appearance = { visible: false, opacity: 0, pickable: false, xray: false }
+
+export function partAppearance(part: Part, input: AppearanceInput): Appearance {
+  const { layers, xray, isolate, selectedId } = input
+
+  if (isolate && selectedId) {
+    if (part.id === selectedId) return { visible: true, opacity: 1, pickable: true, xray: false }
+    // A faint body outline keeps the isolated part in context.
+    if (part.layer === 'skin') return { visible: true, opacity: 0.08, pickable: false, xray: false }
+    return HIDDEN
+  }
+
+  const layer = layers[part.layer]
+  if (!layer.visible || layer.opacity <= 0) return HIDDEN
+
+  if (xray) {
+    const soft = XRAY_SOFT_TISSUE.includes(part.layer)
+    return { visible: true, opacity: (soft ? 0.05 : 0.6) * layer.opacity, pickable: !soft, xray: true }
+  }
+
+  return { visible: true, opacity: layer.opacity, pickable: layer.opacity >= MIN_PICKABLE_OPACITY, xray: false }
+}
