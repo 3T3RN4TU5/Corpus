@@ -1,14 +1,18 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useBodyStore } from './store/useBodyStore'
 import { InfoPanel } from './ui/InfoPanel'
+import { LabPanel } from './ui/LabPanel'
 import { LayerPanel } from './ui/LayerPanel'
 import { LoadingPlate } from './ui/LoadingPlate'
 import { SearchBox } from './ui/SearchBox'
 import { SexPanel } from './ui/SexPanel'
+import { SystemMenu } from './ui/SystemMenu'
 import { Toolbar } from './ui/Toolbar'
 
 const BodyScene = lazy(() => import('./scene/BodyScene'))
 const SourcesPage = lazy(() => import('./ui/SourcesPage'))
+// This imports the 3D library, which should stay out of the first download.
+const ModelProgress = lazy(() => import('./ui/ModelProgress'))
 
 export const DISCLAIMER = 'Educational simplification. Not for diagnosis or medical decisions.'
 
@@ -24,6 +28,7 @@ export function App() {
   const [hash, setHash] = useState(window.location.hash)
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>(null)
   const selectedId = useBodyStore((state) => state.selectedId)
+  const openSystem = useBodyStore((state) => state.openSystem)
 
   useEffect(() => {
     const onChange = () => setHash(window.location.hash)
@@ -33,14 +38,14 @@ export function App() {
 
   // A part's details and an open panel would overlap on a phone, so the newest one wins.
   useEffect(() => {
-    if (selectedId) setMobilePanel(null)
-  }, [selectedId])
+    if (selectedId || openSystem) setMobilePanel(null)
+  }, [selectedId, openSystem])
 
   return (
     <div className="relative h-dvh overflow-hidden">
       <main className="stage absolute inset-0" aria-label="3D body viewer">
         {/* On wider screens the canvas fills only the space the panels leave free, so they never cover the body. */}
-        <div className="absolute inset-0 pb-24 pt-14 md:bottom-[10.5rem] md:left-[19rem] md:pb-0 xl:bottom-[6.5rem]">
+        <div className={`absolute inset-0 pb-24 pt-14 md:bottom-[10.5rem] md:left-[19rem] md:pb-0 xl:bottom-[6.5rem] ${openSystem ? 'md:right-[26rem]' : selectedId ? 'md:right-[23rem]' : ''}`}>
           <Suspense fallback={<LoadingPlate />}>
             <BodyScene />
           </Suspense>
@@ -52,9 +57,12 @@ export function App() {
         <div className="pointer-events-auto min-w-0 flex-1 md:mx-auto md:max-w-md">
           <SearchBox />
         </div>
-        <a className="eyebrow pointer-events-auto pt-2 !text-bone" href="#sources">
-          Sources
-        </a>
+        <div className="pointer-events-auto flex items-start gap-3">
+          <SystemMenu />
+          <a className="eyebrow pt-2 !text-bone" href="#sources">
+            Sources
+          </a>
+        </div>
       </header>
 
       <aside
@@ -68,7 +76,10 @@ export function App() {
         </div>
       </aside>
 
-      <InfoPanel />
+      {openSystem ? <LabPanel /> : <InfoPanel />}
+      <Suspense fallback={null}>
+        <ModelProgress />
+      </Suspense>
 
       <div
         className={`${mobilePanel === 'tools' ? 'block' : 'hidden'} sheet absolute inset-x-4 bottom-24 z-20 max-h-[58dvh] overflow-y-auto md:bottom-8 md:left-[19rem] md:right-4 md:block md:max-h-none md:overflow-visible`}

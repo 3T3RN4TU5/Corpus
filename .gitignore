@@ -6,3 +6,5 @@ dist/
 coverage/
 .vite/
 .claude/
+.assets-raw/
+.playwright-mcp/

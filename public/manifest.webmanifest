@@ -1,0 +1,10 @@
+{
+  "name": "Corpus",
+  "short_name": "Corpus",
+  "description": "An educational 3D simulator of the human body. Not for diagnosis or medical decisions.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#12100e",
+  "theme_color": "#12100e",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

@@ -179,3 +179,23 @@ input[type='radio'] {
     animation: none;
   }
 }
+
+.chart .u-legend {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--color-dust);
+  text-align: left;
+  padding: 0;
+}
+
+.chart .u-legend th {
+  font-weight: 400;
+}
+
+.chart .u-legend .u-value {
+  display: none;
+}
+
+select.control {
+  background: var(--color-ink);
+}
