@@ -1,6 +1,7 @@
 import { LAYERS } from '../data/anatomy'
 import { MIN_PICKABLE_OPACITY } from '../scene/appearance'
 import { useBodyStore } from '../store/useBodyStore'
+import { PartBrowser } from './PartBrowser'
 
 export function LayerPanel() {
   const layers = useBodyStore((state) => state.layers)
@@ -56,6 +57,7 @@ export function LayerPanel() {
           ? 'In X-ray mode, clicks pass through skin, fat and muscle.'
           : `Clicks pass through layers below ${MIN_PICKABLE_OPACITY * 100}% opacity.`}
       </p>
+      <PartBrowser />
     </section>
   )
 }

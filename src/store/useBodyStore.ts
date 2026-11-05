@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import { getPart, LAYERS, type LayerId } from '../data/anatomy'
 import { DEFAULT_CUSTOM, resolveProfile, type CustomSexConfig, type SexProfile } from '../data/sexProfiles'
 import { MIN_PICKABLE_OPACITY } from '../scene/appearance'
+import { prefersReducedMotion } from '../sim/clock'
+import { decodeView } from './shareState'
 
 export type Quality = 'low' | 'medium' | 'high'
 export type ClipAxis = 'none' | 'axial' | 'sagittal' | 'coronal'
@@ -51,7 +53,13 @@ interface BodyStore {
   /** Changes whenever the camera should fly. The target is `cameraTargetId`, or the home view when null. */
   cameraNonce: number
   cameraTargetId: string | null
+  /** The simulation panel that is open, if any. */
+  openSystem: string | null
+  reducedMotion: boolean
+  setReducedMotion: (on: boolean) => void
 
+  setOpenSystem: (id: string | null, layers?: Partial<Record<LayerId, number>>) => void
+  setSim: (patch: Partial<SimulationState>) => void
   setLayerVisible: (id: LayerId, visible: boolean) => void
   setLayerOpacity: (id: LayerId, opacity: number) => void
   showAllLayers: () => void
@@ -92,7 +100,25 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
   hoveredId: null,
   cameraNonce: 0,
   cameraTargetId: null,
+  openSystem: null,
+  reducedMotion: prefersReducedMotion(),
+  setReducedMotion: (reducedMotion) => set({ reducedMotion }),
 
+  setOpenSystem: (openSystem, layers) =>
+    set((state) => ({
+      openSystem,
+      selectedId: openSystem ? null : state.selectedId,
+      isolate: openSystem ? false : state.isolate,
+      layers: layers
+        ? (Object.fromEntries(
+            LAYERS.map(({ id }) => [
+              id,
+              layers[id] === undefined ? { ...state.layers[id], visible: false } : { visible: true, opacity: layers[id] as number },
+            ]),
+          ) as Record<LayerId, LayerState>)
+        : state.layers,
+    })),
+  setSim: (patch) => set((state) => ({ sim: { ...state.sim, ...patch } })),
   setLayerVisible: (id, visible) =>
     set((state) => ({ layers: { ...state.layers, [id]: { ...state.layers[id], visible } } })),
   setLayerOpacity: (id, opacity) =>
@@ -156,6 +182,25 @@ function clearUnavailableSelection(
   if (part?.requires && !selectProfile(get()).structures.includes(part.requires)) {
     set({ selectedId: null, isolate: false })
   }
+}
+
+/** Restores the view from a shared link, if the page was opened with one. */
+export function applySharedView(): void {
+  const match = window.location.hash.match(/^#view=(.+)$/)
+  if (!match) return
+  const { layers, custom } = useBodyStore.getState()
+  const view = decodeView(decodeURIComponent(match[1]), { layers, custom })
+  useBodyStore.setState((state) => ({
+    sim: view.sex ? { ...state.sim, sexProfileId: view.sex } : state.sim,
+    custom: view.custom ?? state.custom,
+    layers: view.layers ?? state.layers,
+    xray: view.xray ?? state.xray,
+    clipAxis: view.clipAxis ?? state.clipAxis,
+    clipPosition: view.clipPosition ?? state.clipPosition,
+    quality: view.quality ?? state.quality,
+    openSystem: view.openSystem ?? null,
+    selectedId: view.selectedId && getPart(view.selectedId) ? view.selectedId : null,
+  }))
 }
 
 export function selectProfile(state: Pick<BodyStore, 'sim' | 'custom'>): SexProfile {

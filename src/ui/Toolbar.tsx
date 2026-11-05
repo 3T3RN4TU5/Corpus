@@ -1,4 +1,5 @@
 import { useBodyStore, type ClipAxis, type Quality } from '../store/useBodyStore'
+import { ExportTools } from './ExportTools'
 
 const SLICES: { id: ClipAxis; label: string }[] = [
   { id: 'none', label: 'Off' },
@@ -93,6 +94,8 @@ export function Toolbar() {
           ))}
         </div>
       </div>
+
+      <ExportTools />
 
       <p id="performance-readout" className="ml-auto whitespace-nowrap pb-1.5 font-mono text-[0.68rem] text-dust" aria-live="off">
         – fps

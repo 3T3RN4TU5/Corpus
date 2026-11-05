@@ -93,11 +93,25 @@ export default function SourcesPage() {
           ))}
         </ul>
 
+        <h3 className="eyebrow mt-10">3D models</h3>
+        <ul className="mt-2 leading-snug">
+          <li className="border-t border-line py-2">
+            <a href="https://github.com/hubmapconsortium/ccf-3d-reference-object-library" target="_blank" rel="noreferrer">
+              HuBMAP Human Reference Atlas, CCF 3D Reference Object Library
+            </a>
+            , licensed under CC BY 4.0. Female and male skin, organs and trunk blood vessels, pelvis, vertebrae and spinal cord. Reduced in detail and compressed for this app.
+          </li>
+          <li className="border-t border-line py-2">
+            <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/" target="_blank" rel="noreferrer">
+              BodyParts3D, © The Database Center for Life Science
+            </a>
+            . Skeleton, muscles, limb vessels, stomach, esophagus and testes. Reduced in detail, compressed, and reshaped to fit each body. The database lists CC BY 4.0, and the files themselves carry CC BY-SA 2.1 Japan.
+          </li>
+        </ul>
+
         <h3 className="eyebrow mt-10">What is illustrative</h3>
         <p className="mt-2 leading-snug">
-          The 3D body is a procedural placeholder. Its shapes, positions and sizes are illustrative and were not measured,
-          including the shoulder and hip proportions and the reduced organ sizes in some sex profiles. The function
-          descriptions are short summaries written for this app, with the textbook chapter listed above as the reference.
+          BodyParts3D comes from one male body. Its skeleton and muscles were fitted to the female body by computer, so their shape is not female-specific, and hands in particular do not line up exactly. Peripheral nerves, lymph nodes, the thoracic duct, rectus abdominis, latissimus dorsi and the fat layer are hand-placed or simple shapes. Sex profiles use the female or male body model with typical organs, and reduced organ sizes in some profiles are illustrative. The function descriptions are short summaries written for this app, with the textbook chapter listed above as the reference.
         </p>
       </div>
     </div>
