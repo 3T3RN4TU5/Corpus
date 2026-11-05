@@ -54,7 +54,16 @@ export default function BodyLab() {
         <dl className="grid grid-cols-2 gap-x-3">
           <Stat label="Resting heart rate" value={formatFact(pulse)} />
           <Stat label="Breathing rate" value={stage.breathingFact ? formatFact(getFact(stage.breathingFact)) : 'Not in the sources used'} />
-          <Stat label="Recommended sleep" value={stage.sleepFact ? `${factRange(stage.sleepFact).join(' to ')} h` : 'See the CDC table'} />
+          <Stat
+            label="Recommended sleep"
+            value={
+              stage.sleepFact
+                ? factRange(stage.sleepFact)[0] === factRange(stage.sleepFact)[1]
+                  ? `${factRange(stage.sleepFact)[0]} or more h`
+                  : `${factRange(stage.sleepFact).join(' to ')} h`
+                : 'See the hygiene panel'
+            }
+          />
           <Stat label="Estimated maximum heart rate" value={age >= 18 ? `${factNumber('max-hr-base') - Math.round(age)} bpm` : 'Adult estimate only'} />
           <Stat label="Organ reserve, on average" value={`${Math.round(organReserve(age) * 100)}%`} />
           <Stat label="Bones" value={age < 18 ? `More than ${factNumber('bones-adult-total')}, fusing with age` : `${factNumber('bones-adult-total')}`} />

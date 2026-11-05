@@ -17,7 +17,26 @@ export default function DigestiveScene() {
   const body = useBodyStore(useShallow((state) => selectProfile(state).body))
   const { curve, stops } = useMemo(() => {
     const path = digestivePath(body)
-    return { curve: new CatmullRomCurve3(path.points.map((p) => new Vector3(...p))), stops: path.stops }
+    const curve = new CatmullRomCurve3(path.points.map((p) => new Vector3(...p)))
+    curve.arcLengthDivisions = 800
+    const samples = curve.getSpacedPoints(800)
+    // Measures where each stage ends along the curve, because the curve's spacing is uneven.
+    const shareOf = (target: [number, number, number]) => {
+      const goal = new Vector3(...target)
+      let best = 0
+      samples.forEach((sample, index) => {
+        if (sample.distanceToSquared(goal) < samples[best].distanceToSquared(goal)) best = index
+      })
+      return best / 800
+    }
+    const stops = {
+      mouth: 0,
+      esophagus: shareOf(path.stopPoints.esophagus),
+      stomach: shareOf(path.stopPoints.stomach),
+      small: shareOf(path.stopPoints.small),
+      large: 1,
+    }
+    return { curve, stops }
   }, [body])
   const marker = useRef<Mesh>(null)
   const point = useMemo(() => new Vector3(), [])

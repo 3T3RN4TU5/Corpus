@@ -222,7 +222,9 @@ export function LiveChart({ series, sample, windowLength, height = 120, yRange, 
       resize.disconnect()
       chart.destroy()
     }
-  }, [series, windowLength, height, yRange, xLabel])
+    // The range is compared by value, so an inline array doesn't rebuild the chart and lose its history.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [series, windowLength, height, yRange?.[0], yRange?.[1], xLabel])
 
   return <div ref={host} role="img" aria-label={`Live chart of ${series.map((item) => item.label).join(', ')}`} className="chart mt-1 w-full" />
 }
@@ -286,7 +288,8 @@ export function TimelineChart({ x, series, height = 150, yRange, xLabel, marker 
       resize.disconnect()
       chart.destroy()
     }
-  }, [x, series, height, yRange, xLabel])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [x, series, height, yRange?.[0], yRange?.[1], xLabel])
 
   return <div ref={host} role="img" aria-label={`Chart of ${series.map((item) => item.label).join(', ')}`} className="chart mt-1 w-full" />
 }

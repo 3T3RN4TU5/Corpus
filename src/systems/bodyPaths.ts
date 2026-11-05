@@ -50,8 +50,8 @@ export function bloodPaths(body: BodyId): ParticlePath[] {
   return [arm(1), arm(-1), leg(1), leg(-1), head, lung(left, 1), lung(right, -1)]
 }
 
-/** Route of food through the digestive tract, from the mouth, as shares of the path used by the timeline. */
-export function digestivePath(body: BodyId): { points: Point[]; stops: Record<string, number> } {
+/** Route of food through the digestive tract, from the mouth, with the point where each stage ends. */
+export function digestivePath(body: BodyId): { points: Point[]; stopPoints: Record<'esophagus' | 'stomach' | 'small' | 'large', Point> } {
   const p = placer(body)
   const stomach = centre(body, 'stomach')
   const small = centre(body, 'small-intestine')
@@ -78,7 +78,7 @@ export function digestivePath(body: BodyId): { points: Point[]; stops: Record<st
     [large[0] + 0.02, large[1] - 0.12, large[2] - 0.03],
     [0, large[1] - 0.15, large[2] - 0.05],
   ]
-  return { points, stops: { mouth: 0, esophagus: 0.14, stomach: 0.26, small: 0.6, large: 0.97, rectum: 1 } }
+  return { points, stopPoints: { esophagus: points[3], stomach: points[5], small: points[11], large: points[points.length - 1] } }
 }
 
 /** Reflex route for the knee-jerk: from the knee up to the spinal cord and back. Illustrative. */

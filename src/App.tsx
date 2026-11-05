@@ -45,16 +45,16 @@ export function App() {
     <div className="relative h-dvh overflow-hidden">
       <main className="stage absolute inset-0" aria-label="3D body viewer">
         {/* On wider screens the canvas fills only the space the panels leave free, so they never cover the body. */}
-        <div className={`absolute inset-0 pb-24 pt-14 md:bottom-[10.5rem] md:left-[19rem] md:pb-0 xl:bottom-[6.5rem] ${openSystem ? 'md:right-[26rem]' : selectedId ? 'md:right-[23rem]' : ''}`}>
+        <div className={`absolute inset-0 pb-24 pt-28 md:bottom-[10.5rem] md:left-[19rem] md:pb-0 md:pt-14 2xl:bottom-[6.5rem] ${openSystem ? 'md:right-[26rem]' : ''}`}>
           <Suspense fallback={<LoadingPlate />}>
             <BodyScene />
           </Suspense>
         </div>
       </main>
 
-      <header className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-start gap-3 p-4 md:gap-6">
+      <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-wrap items-start justify-between gap-x-3 gap-y-2 p-4 md:flex-nowrap md:justify-start md:gap-6">
         <h1 className="reveal pointer-events-auto font-display text-3xl italic leading-none md:text-4xl">Corpus</h1>
-        <div className="pointer-events-auto min-w-0 flex-1 md:mx-auto md:max-w-md">
+        <div className="pointer-events-auto order-last w-full min-w-0 md:order-none md:mx-auto md:w-auto md:max-w-md md:flex-1">
           <SearchBox />
         </div>
         <div className="pointer-events-auto flex items-start gap-3">

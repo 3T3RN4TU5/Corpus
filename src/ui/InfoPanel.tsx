@@ -25,7 +25,7 @@ export function InfoPanel() {
     <aside
       key={part.id}
       aria-label={`${part.name} details`}
-      className="sheet reveal absolute inset-x-4 bottom-24 z-30 max-h-[58dvh] overflow-y-auto p-4 md:bottom-[10.5rem] md:left-auto md:right-4 md:top-20 md:max-h-none md:w-[22rem] xl:bottom-[6.5rem]"
+      className="sheet reveal absolute inset-x-4 bottom-24 z-30 max-h-[58dvh] overflow-y-auto p-4 md:bottom-[10.5rem] md:left-auto md:right-4 md:top-20 md:max-h-none md:w-[22rem] 2xl:bottom-[6.5rem]"
     >
       <div className="flex items-start justify-between gap-2">
         <div>
