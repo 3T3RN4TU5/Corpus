@@ -1,3 +1,4 @@
+import type { BodyId } from './models'
 import type { DataSex, Source } from './physiology'
 
 export type ReproStructure = 'ovaries' | 'uterus' | 'testes' | 'prostate'
@@ -11,8 +12,8 @@ export interface SexProfile {
   /** Which sex-specific reference ranges apply. null shows both, because sources report no separate range. */
   referenceSex: Exclude<DataSex, 'all'> | null
   structures: ReproStructure[]
-  /** Placeholder body proportions, from 0 (narrower shoulders, wider hips) to 1 (the reverse). Illustrative only. */
-  frame: number
+  /** Which real body model to show. The models are not specific to any variation. */
+  body: BodyId
   testesPosition: 'external' | 'internal'
   /** Placeholder size multipliers. Illustrative only. */
   ovaryScale: number
@@ -44,7 +45,7 @@ export const SEX_PROFILES: SexProfile[] = [
     summary: 'Typical female anatomy, with ovaries and a uterus.',
     referenceSex: 'female',
     structures: ['ovaries', 'uterus'],
-    frame: 0,
+    body: 'female',
     testesPosition: 'external',
     ovaryScale: 1,
     testesScale: 1,
@@ -58,7 +59,7 @@ export const SEX_PROFILES: SexProfile[] = [
     summary: 'Typical male anatomy, with testes and a prostate.',
     referenceSex: 'male',
     structures: ['testes', 'prostate'],
-    frame: 1,
+    body: 'male',
     testesPosition: 'external',
     ovaryScale: 1,
     testesScale: 1,
@@ -73,7 +74,7 @@ export const SEX_PROFILES: SexProfile[] = [
       'External sex characteristics are typical of females. There is no uterus, and undescended testes sit in the pelvis or abdomen.',
     referenceSex: null,
     structures: ['testes'],
-    frame: 0,
+    body: 'female',
     testesPosition: 'internal',
     ovaryScale: 1,
     testesScale: 1,
@@ -91,7 +92,7 @@ export const SEX_PROFILES: SexProfile[] = [
     summary: 'Testes are typically small and produce a reduced amount of testosterone.',
     referenceSex: null,
     structures: ['testes', 'prostate'],
-    frame: 1,
+    body: 'male',
     testesPosition: 'external',
     ovaryScale: 1,
     testesScale: 0.6,
@@ -110,7 +111,7 @@ export const SEX_PROFILES: SexProfile[] = [
     summary: 'One X chromosome is missing or altered. Ovarian function is reduced, and most ovarian tissue breaks down before birth.',
     referenceSex: null,
     structures: ['ovaries', 'uterus'],
-    frame: 0,
+    body: 'female',
     testesPosition: 'external',
     ovaryScale: 0.55,
     testesScale: 1,
@@ -129,7 +130,7 @@ export const SEX_PROFILES: SexProfile[] = [
     summary: 'In the classic forms, affected females typically have external genitalia that do not look clearly male or female.',
     referenceSex: null,
     structures: ['ovaries', 'uterus'],
-    frame: 0,
+    body: 'female',
     testesPosition: 'external',
     ovaryScale: 1,
     testesScale: 1,
@@ -139,19 +140,19 @@ export const SEX_PROFILES: SexProfile[] = [
     },
     prevalenceFactId: 'prevalence-21-hydroxylase-classic',
     modelNote:
-      'The ovaries and uterus are female-typical placeholders. The cited page describes external anatomy only, and this placeholder body does not model external genitalia.',
+      'This uses the typical female body model, with typical ovaries and uterus. The cited page describes external anatomy only, and the model does not show the external differences it describes.',
   },
 ]
 
 export interface CustomSexConfig {
   structures: ReproStructure[]
-  frame: number
+  body: BodyId
   testesPosition: 'external' | 'internal'
 }
 
 export const DEFAULT_CUSTOM: CustomSexConfig = {
   structures: ['ovaries', 'testes'],
-  frame: 0.5,
+  body: 'female',
   testesPosition: 'internal',
 }
 
@@ -168,7 +169,7 @@ export function resolveProfile(id: string, custom: CustomSexConfig): SexProfile 
         'Choose any combination of structures to explore. This is a free-form tool, and not every combination describes a documented condition.',
       referenceSex: null,
       structures: custom.structures,
-      frame: custom.frame,
+      body: custom.body,
       testesPosition: custom.testesPosition,
       ovaryScale: 1,
       testesScale: 1,

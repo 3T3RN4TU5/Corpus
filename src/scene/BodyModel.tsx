@@ -1,30 +1,56 @@
-import { Html } from '@react-three/drei'
+import { Html, useGLTF } from '@react-three/drei'
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
-import { memo, useEffect, useMemo, useRef } from 'react'
-import { AdditiveBlending, DoubleSide, FrontSide, Plane, Vector3, type BufferGeometry, type Intersection } from 'three'
+import { memo, Suspense, useEffect, useMemo, useRef } from 'react'
+import { AdditiveBlending, DoubleSide, FrontSide, Mesh, Plane, Vector3, type BufferGeometry, type Group, type Intersection, type MeshStandardMaterial } from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import { useShallow } from 'zustand/react/shallow'
-import { getPart, LAYERS, partsForProfile, type Part } from '../data/anatomy'
+import { getPart, LAYERS, partsForProfile, type LayerId, type Part } from '../data/anatomy'
+import { DRACO_PATH, filesFor, MODEL_BASE, modelManifest, partIdFromNodeName, partModel, type BodyId, type ModelFile } from '../data/models'
+import type { SexProfile } from '../data/sexProfiles'
+import { bodyEffects } from '../sim/bodyEffects'
 import { selectProfile, useBodyStore } from '../store/useBodyStore'
+import { getPlugin } from '../systems'
 import { partAppearance } from './appearance'
-import { BUILDERS, DETAIL, landmarks } from './bodyGeometry'
 import { setClipPlane } from './clip'
-
-export const HOME_CAMERA: [number, number, number] = [0, 1.02, 3.75]
-export const HOME_TARGET: [number, number, number] = [0, 0.9, 0]
 
 const ACCENT = '#ff6a3d'
 const XRAY_TINT = '#9fc4e8'
 const CLICK_DRAG_LIMIT_PX = 5
 
-interface Bounds {
-  center: Vector3
-  radius: number
-}
+export const HOME_CAMERA: [number, number, number] = [0, 0.95, 3.7]
+export const HOME_TARGET: [number, number, number] = [0, 0.88, 0]
 
 const layerOrder = new Map(LAYERS.map((layer, index) => [layer.id, LAYERS.length - index]))
 
-const PartMesh = memo(function PartMesh({ part, geometry, flat }: { part: Part; geometry: BufferGeometry; flat: boolean }) {
+interface PartPlacement {
+  position: [number, number, number]
+  scale: number
+}
+
+/**
+ * Sex profiles can resize some organs, or place testes inside the pelvis. This keeps a part's centre where it
+ * belongs while it scales. The resized organs are illustrative, as the profile notes state.
+ */
+function placement(id: string, body: BodyId, profile: SexProfile): PartPlacement | undefined {
+  const model = partModel(body, id)
+  if (!model) return undefined
+  const [x, y, z] = model.centre
+  if (id === 'ovaries' && profile.ovaryScale !== 1) {
+    const s = profile.ovaryScale
+    return { position: [x * (1 - s), y * (1 - s), z * (1 - s)], scale: s }
+  }
+  if (id === 'testes') {
+    const s = profile.testesScale
+    if (profile.testesPosition === 'internal') {
+      const [px, py, pz] = modelManifest.bodies[body].pelvisCentre
+      return { position: [px - x * s, py - y * s, pz + 0.02 - z * s], scale: s }
+    }
+    if (s !== 1) return { position: [x * (1 - s), y * (1 - s), z * (1 - s)], scale: s }
+  }
+  return undefined
+}
+
+const PartMesh = memo(function PartMesh({ part, geometry, place, centre }: { part: Part; geometry: BufferGeometry; place?: PartPlacement; centre: [number, number, number] }) {
   const appearance = useBodyStore(
     useShallow((state) =>
       partAppearance(part, {
@@ -38,16 +64,45 @@ const PartMesh = memo(function PartMesh({ part, geometry, flat }: { part: Part; 
   const selected = useBodyStore((state) => state.selectedId === part.id)
   const hovered = useBodyStore((state) => state.hoveredId === part.id)
   const clipped = useBodyStore((state) => state.clipAxis !== 'none')
+  const mesh = useRef<Mesh>(null)
+
+  // Simulations move and light parts through this loop, so animation never re-renders React.
+  useFrame(() => {
+    const object = mesh.current
+    if (!object) return
+    const effect = bodyEffects.scale.get(part.id)
+    const glow = bodyEffects.glow.get(part.id)
+    if (effect !== undefined || object.userData.effected) {
+      const base = place?.scale ?? 1
+      const [sx, sy, sz] = effect === undefined ? [1, 1, 1] : typeof effect === 'number' ? [effect, effect, effect] : effect
+      const [px, py, pz] = place?.position ?? [0, 0, 0]
+      object.scale.set(base * sx, base * sy, base * sz)
+      object.position.set(px + centre[0] * base * (1 - sx), py + centre[1] * base * (1 - sy), pz + centre[2] * base * (1 - sz))
+      object.userData.effected = effect !== undefined
+    }
+    const material = object.material as MeshStandardMaterial
+    if (material.emissiveIntensity !== undefined && (glow !== undefined || object.userData.glowing)) {
+      material.emissiveIntensity = Math.max(glow ?? 0, selected ? 0.5 : hovered ? 0.16 : 0)
+      object.userData.glowing = glow !== undefined
+    }
+  })
 
   if (!appearance.visible) return null
 
   const transparent = appearance.opacity < 1
   const side = clipped ? DoubleSide : FrontSide
   // These settings change the compiled shader, so the material must be replaced when they change.
-  const materialKey = `${flat}-${clipped}-${transparent}`
+  const materialKey = `${clipped}-${transparent}`
 
   return (
-    <mesh geometry={geometry} renderOrder={layerOrder.get(part.layer)} userData={{ partId: part.id, pickable: appearance.pickable }}>
+    <mesh
+      ref={mesh}
+      geometry={geometry}
+      position={place?.position}
+      scale={place?.scale ?? 1}
+      renderOrder={layerOrder.get(part.layer)}
+      userData={{ partId: part.id, pickable: appearance.pickable }}
+    >
       {appearance.xray ? (
         <meshBasicMaterial
           key={`xray-${clipped}`}
@@ -62,11 +117,10 @@ const PartMesh = memo(function PartMesh({ part, geometry, flat }: { part: Part; 
         <meshStandardMaterial
           key={materialKey}
           color={part.color}
-          roughness={part.layer === 'skeleton' ? 0.82 : 0.58}
+          roughness={part.layer === 'skeleton' ? 0.72 : part.layer === 'skin' ? 0.62 : 0.45}
           metalness={0}
-          flatShading={flat}
           emissive={ACCENT}
-          emissiveIntensity={selected ? 0.55 : hovered ? 0.18 : 0}
+          emissiveIntensity={selected ? 0.5 : hovered ? 0.16 : 0}
           transparent={transparent}
           opacity={appearance.opacity}
           depthWrite={!transparent}
@@ -77,8 +131,29 @@ const PartMesh = memo(function PartMesh({ part, geometry, flat }: { part: Part; 
   )
 })
 
+/** Renders every part in one model file. Each layer's files load only once the layer is switched on. */
+function ModelFileParts({ file, allowed, body, profile }: { file: ModelFile; allowed: Map<string, Part>; body: BodyId; profile: SexProfile }) {
+  const gltf = useGLTF(MODEL_BASE + file.file, DRACO_PATH)
+  const meshes = useMemo(() => {
+    const found: { name: string; id: string; geometry: BufferGeometry }[] = []
+    gltf.scene.traverse((object) => {
+      if (object instanceof Mesh) found.push({ name: object.name, id: partIdFromNodeName(object.name), geometry: object.geometry })
+    })
+    return found
+  }, [gltf])
+
+  return (
+    <>
+      {meshes.map(({ name, id, geometry }) => {
+        const part = allowed.get(id)
+        return part ? <PartMesh key={name} part={part} geometry={geometry} place={placement(id, body, profile)} centre={partModel(body, id)?.centre ?? [0, 0, 0]} /> : null
+      })}
+    </>
+  )
+}
+
 /** Flies the camera whenever the store asks for it, and stops as soon as the person takes over. */
-function CameraRig({ bounds }: { bounds: Map<string, Bounds> }) {
+function CameraRig({ body }: { body: BodyId }) {
   const nonce = useBodyStore((state) => state.cameraNonce)
   const camera = useThree((state) => state.camera)
   const controls = useThree((state) => state.controls) as unknown as OrbitControlsImpl | null
@@ -87,15 +162,16 @@ function CameraRig({ bounds }: { bounds: Map<string, Bounds> }) {
   useEffect(() => {
     if (nonce === 0 || !controls) return
     const id = useBodyStore.getState().cameraTargetId
-    const part = id ? bounds.get(id) : undefined
-    if (part) {
+    const model = id ? partModel(body, id) : undefined
+    if (model) {
+      const centre = new Vector3(...model.centre)
       const direction = camera.position.clone().sub(controls.target).normalize()
-      const distance = Math.min(3.75, Math.max(0.5, part.radius * 5))
-      flight.current = { target: part.center.clone(), position: part.center.clone().addScaledVector(direction, distance) }
+      const distance = Math.min(4.3, Math.max(0.45, model.radius * 4.2))
+      flight.current = { target: centre, position: centre.clone().addScaledVector(direction, distance) }
     } else {
       flight.current = { target: new Vector3(...HOME_TARGET), position: new Vector3(...HOME_CAMERA) }
     }
-  }, [nonce, bounds, camera, controls])
+  }, [nonce, body, camera, controls])
 
   useEffect(() => {
     if (!controls) return
@@ -120,13 +196,13 @@ function CameraRig({ bounds }: { bounds: Map<string, Bounds> }) {
   return null
 }
 
-function SelectionLabel({ bounds }: { bounds: Map<string, Bounds> }) {
+function SelectionLabel({ body }: { body: BodyId }) {
   const selectedId = useBodyStore((state) => state.selectedId)
   const part = selectedId ? getPart(selectedId) : undefined
-  const center = selectedId ? bounds.get(selectedId)?.center : undefined
-  if (!part || !center) return null
+  const model = selectedId ? partModel(body, selectedId) : undefined
+  if (!part || !model) return null
   return (
-    <Html position={center} zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
+    <Html position={model.centre} zIndexRange={[5, 0]} style={{ pointerEvents: 'none' }}>
       <div className="callout">
         <span className="callout-dot" />
         <span className="callout-line" />
@@ -139,34 +215,35 @@ function SelectionLabel({ bounds }: { bounds: Map<string, Bounds> }) {
 export function BodyModel() {
   const quality = useBodyStore((state) => state.quality)
   const profile = useBodyStore(useShallow(selectProfile))
-  const { frame, testesPosition, ovaryScale, testesScale, structures } = profile
   const selectPart = useBodyStore((state) => state.selectPart)
   const setHovered = useBodyStore((state) => state.setHovered)
+  const openSystem = useBodyStore((state) => state.openSystem)
+  const SystemScene = getPlugin(openSystem)?.model
+  const body = profile.body
+  const bodyGroup = useRef<Group>(null)
 
-  const built = useMemo(() => {
-    const options = { frame, testesPosition, ovaryScale, testesScale }
-    const marks = landmarks(frame)
-    const detail = DETAIL[quality]
-    const geometries = new Map<string, BufferGeometry>()
-    const bounds = new Map<string, Bounds>()
-    for (const [id, build] of Object.entries(BUILDERS)) {
-      const geometry = build(marks, detail, options)
-      geometry.computeBoundingSphere()
-      const sphere = geometry.boundingSphere!
-      geometries.set(id, geometry)
-      bounds.set(id, { center: sphere.center.clone(), radius: sphere.radius })
-    }
-    return { geometries, bounds }
-  }, [quality, frame, testesPosition, ovaryScale, testesScale])
+  useFrame(() => {
+    bodyGroup.current?.scale.setScalar(bodyEffects.bodyScale)
+  })
 
-  useEffect(() => () => built.geometries.forEach((geometry) => geometry.dispose()), [built])
+  // Parts of a layer are loaded once it is on. The skin also loads while isolating, for the faint outline.
+  const activeLayers = useBodyStore(
+    useShallow((state) => {
+      const on = LAYERS.filter((layer) => state.layers[layer.id].visible).map((layer) => layer.id)
+      const selected = state.selectedId ? getPart(state.selectedId) : undefined
+      const extra: LayerId[] = state.isolate && selected ? [selected.layer, 'skin'] : []
+      return [...new Set([...on, ...extra])]
+    }),
+  )
 
-  const parts = useMemo(() => partsForProfile(profile), [structures])
+  const lod = quality === 'low' ? 'low' : 'high'
+  const files = useMemo(() => filesFor(body, lod, activeLayers), [body, lod, activeLayers])
+  const allowed = useMemo(() => new Map(partsForProfile(profile).map((part) => [part.id, part])), [profile])
 
   const firstPickable = (hits: Intersection[]): string | null => {
     for (const hit of hits) {
       const { partId, pickable } = hit.object.userData as { partId?: string; pickable?: boolean }
-      if (!partId || !pickable || isClippedAway(hit.point)) continue
+      if (!partId || !pickable || isClippedAway(hit.point, body)) continue
       return partId
     }
     return null
@@ -192,13 +269,20 @@ export function BodyModel() {
 
   return (
     <>
-      <group onClick={onClick} onPointerMove={onPointerMove} onPointerOut={onPointerOut}>
-        {parts.map((part) => (
-          <PartMesh key={part.id} part={part} geometry={built.geometries.get(part.id)!} flat={quality === 'low'} />
+      <group ref={bodyGroup} onClick={onClick} onPointerMove={onPointerMove} onPointerOut={onPointerOut}>
+        {files.map((file) => (
+          <Suspense key={file.file} fallback={null}>
+            <ModelFileParts file={file} allowed={allowed} body={body} profile={profile} />
+          </Suspense>
         ))}
       </group>
-      <SelectionLabel bounds={built.bounds} />
-      <CameraRig bounds={built.bounds} />
+      <SelectionLabel body={body} />
+      <CameraRig body={body} />
+      {SystemScene && (
+        <Suspense fallback={null}>
+          <SystemScene />
+        </Suspense>
+      )}
     </>
   )
 }
@@ -206,8 +290,8 @@ export function BodyModel() {
 const scratchPlane = new Plane()
 
 /** True when a point lies in the part of the body that the slice has cut away. */
-function isClippedAway(point: Vector3): boolean {
+function isClippedAway(point: Vector3, body: BodyId): boolean {
   const { clipAxis, clipPosition } = useBodyStore.getState()
   if (clipAxis === 'none') return false
-  return setClipPlane(scratchPlane, clipAxis, clipPosition).distanceToPoint(point) < 0
+  return setClipPlane(scratchPlane, clipAxis, clipPosition, modelManifest.bodies[body]).distanceToPoint(point) < 0
 }

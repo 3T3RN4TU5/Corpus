@@ -55,21 +55,17 @@ function CustomControls() {
           Undescended testes
         </label>
       )}
-      <label className="mt-2 block">
-        <span className="eyebrow">Shoulder and hip proportions</span>
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.05}
-          value={custom.frame}
-          onChange={(event) => setCustom({ frame: Number(event.target.value) })}
-        />
-      </label>
-      <div className="flex justify-between font-mono text-[0.64rem] text-dust" aria-hidden>
-        <span>wider hips</span>
-        <span>wider shoulders</span>
-      </div>
+      <fieldset className="mt-2">
+        <legend className="eyebrow">Body model</legend>
+        <div className="mt-1 flex gap-4">
+          {(['female', 'male'] as const).map((body) => (
+            <label key={body} className="flex cursor-pointer items-center gap-2 text-[0.95rem] capitalize">
+              <input type="radio" name="custom-body" checked={custom.body === body} onChange={() => setCustom({ body })} />
+              {body}
+            </label>
+          ))}
+        </div>
+      </fieldset>
     </div>
   )
 }

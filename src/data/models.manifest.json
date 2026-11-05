@@ -1,0 +1,2867 @@
+{
+ "bodies": {
+  "female": {
+   "height": 1.6663482189178467,
+   "width": 0.9674420654773712,
+   "files": [
+    {
+     "file": "female/bp3d-muscle-high.glb",
+     "lod": "high",
+     "layer": "muscle",
+     "source": "bp3d",
+     "bytes": 558712
+    },
+    {
+     "file": "female/bp3d-organs-high.glb",
+     "lod": "high",
+     "layer": "organs",
+     "source": "bp3d",
+     "bytes": 12076
+    },
+    {
+     "file": "female/bp3d-skeleton-high.glb",
+     "lod": "high",
+     "layer": "skeleton",
+     "source": "bp3d",
+     "bytes": 326216
+    },
+    {
+     "file": "female/bp3d-vessels-high.glb",
+     "lod": "high",
+     "layer": "vessels",
+     "source": "bp3d",
+     "bytes": 116528
+    },
+    {
+     "file": "female/hra-lymph-high.glb",
+     "lod": "high",
+     "layer": "lymph",
+     "source": "hra",
+     "bytes": 6824
+    },
+    {
+     "file": "female/hra-nerves-high.glb",
+     "lod": "high",
+     "layer": "nerves",
+     "source": "hra",
+     "bytes": 39028
+    },
+    {
+     "file": "female/hra-organs-high.glb",
+     "lod": "high",
+     "layer": "organs",
+     "source": "hra",
+     "bytes": 648260
+    },
+    {
+     "file": "female/hra-skeleton-high.glb",
+     "lod": "high",
+     "layer": "skeleton",
+     "source": "hra",
+     "bytes": 150096
+    },
+    {
+     "file": "female/hra-skin-high.glb",
+     "lod": "high",
+     "layer": "skin",
+     "source": "hra",
+     "bytes": 134808
+    },
+    {
+     "file": "female/hra-vessels-high.glb",
+     "lod": "high",
+     "layer": "vessels",
+     "source": "hra",
+     "bytes": 66128
+    },
+    {
+     "file": "female/illustrative-fat-high.glb",
+     "lod": "high",
+     "layer": "fat",
+     "source": "illustrative",
+     "bytes": 67296
+    },
+    {
+     "file": "female/illustrative-lymph-high.glb",
+     "lod": "high",
+     "layer": "lymph",
+     "source": "illustrative",
+     "bytes": 13300
+    },
+    {
+     "file": "female/illustrative-muscle-high.glb",
+     "lod": "high",
+     "layer": "muscle",
+     "source": "illustrative",
+     "bytes": 5808
+    },
+    {
+     "file": "female/illustrative-nerves-high.glb",
+     "lod": "high",
+     "layer": "nerves",
+     "source": "illustrative",
+     "bytes": 11892
+    },
+    {
+     "file": "female/bp3d-muscle-low.glb",
+     "lod": "low",
+     "layer": "muscle",
+     "source": "bp3d",
+     "bytes": 224532
+    },
+    {
+     "file": "female/bp3d-organs-low.glb",
+     "lod": "low",
+     "layer": "organs",
+     "source": "bp3d",
+     "bytes": 6168
+    },
+    {
+     "file": "female/bp3d-skeleton-low.glb",
+     "lod": "low",
+     "layer": "skeleton",
+     "source": "bp3d",
+     "bytes": 136656
+    },
+    {
+     "file": "female/bp3d-vessels-low.glb",
+     "lod": "low",
+     "layer": "vessels",
+     "source": "bp3d",
+     "bytes": 51768
+    },
+    {
+     "file": "female/hra-lymph-low.glb",
+     "lod": "low",
+     "layer": "lymph",
+     "source": "hra",
+     "bytes": 3728
+    },
+    {
+     "file": "female/hra-nerves-low.glb",
+     "lod": "low",
+     "layer": "nerves",
+     "source": "hra",
+     "bytes": 19040
+    },
+    {
+     "file": "female/hra-organs-low.glb",
+     "lod": "low",
+     "layer": "organs",
+     "source": "hra",
+     "bytes": 392952
+    },
+    {
+     "file": "female/hra-skeleton-low.glb",
+     "lod": "low",
+     "layer": "skeleton",
+     "source": "hra",
+     "bytes": 60840
+    },
+    {
+     "file": "female/hra-skin-low.glb",
+     "lod": "low",
+     "layer": "skin",
+     "source": "hra",
+     "bytes": 55724
+    },
+    {
+     "file": "female/hra-vessels-low.glb",
+     "lod": "low",
+     "layer": "vessels",
+     "source": "hra",
+     "bytes": 31956
+    },
+    {
+     "file": "female/illustrative-fat-low.glb",
+     "lod": "low",
+     "layer": "fat",
+     "source": "illustrative",
+     "bytes": 27452
+    },
+    {
+     "file": "female/illustrative-lymph-low.glb",
+     "lod": "low",
+     "layer": "lymph",
+     "source": "illustrative",
+     "bytes": 8028
+    },
+    {
+     "file": "female/illustrative-muscle-low.glb",
+     "lod": "low",
+     "layer": "muscle",
+     "source": "illustrative",
+     "bytes": 3340
+    },
+    {
+     "file": "female/illustrative-nerves-low.glb",
+     "lod": "low",
+     "layer": "nerves",
+     "source": "illustrative",
+     "bytes": 6540
+    }
+   ],
+   "parts": {
+    "abdominal-vessels": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 6712,
+     "illustrative": false,
+     "centre": [
+      0.0128,
+      1.0099,
+      -0.0284
+     ],
+     "radius": 0.2586
+    },
+    "aorta": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3181,
+     "illustrative": false,
+     "centre": [
+      0.0056,
+      1.1812,
+      -0.0249
+     ],
+     "radius": 0.2292
+    },
+    "arm-arteries": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d",
+      "hra"
+     ],
+     "triangles": 9439,
+     "illustrative": false,
+     "centre": [
+      0.001,
+      0.7011,
+      0.0464
+     ],
+     "radius": 0.8395
+    },
+    "arm-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 774,
+     "illustrative": true,
+     "centre": [
+      -0.0001,
+      1.1119,
+      -0.0061
+     ],
+     "radius": 0.5238
+    },
+    "arm-veins": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 8078,
+     "illustrative": false,
+     "centre": [
+      0.0004,
+      1.1029,
+      0.0064
+     ],
+     "radius": 0.5054
+    },
+    "axillary-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1048,
+     "illustrative": true,
+     "centre": [
+      0.0,
+      1.2725,
+      -0.0356
+     ],
+     "radius": 0.1646
+    },
+    "back-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 14676,
+     "illustrative": false,
+     "centre": [
+      -0.001,
+      1.1942,
+      -0.053
+     ],
+     "radius": 0.3624
+    },
+    "biceps-brachii": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2605,
+     "illustrative": false,
+     "centre": [
+      0.0007,
+      1.2023,
+      -0.0083
+     ],
+     "radius": 0.3281
+    },
+    "bladder": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 6780,
+     "illustrative": false,
+     "centre": [
+      -0.0087,
+      0.7989,
+      0.0295
+     ],
+     "radius": 0.046
+    },
+    "brain": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 59159,
+     "illustrative": false,
+     "centre": [
+      -0.0005,
+      1.5791,
+      -0.0065
+     ],
+     "radius": 0.13
+    },
+    "carotid-arteries": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d",
+      "hra"
+     ],
+     "triangles": 1450,
+     "illustrative": false,
+     "centre": [
+      -0.0002,
+      1.4527,
+      0.0075
+     ],
+     "radius": 0.1266
+    },
+    "cervical-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1048,
+     "illustrative": true,
+     "centre": [
+      -0.0008,
+      1.4769,
+      -0.0151
+     ],
+     "radius": 0.0674
+    },
+    "chest-wall-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 21480,
+     "illustrative": false,
+     "centre": [
+      0.0121,
+      1.2087,
+      0.0087
+     ],
+     "radius": 0.2872
+    },
+    "clavicle": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1938,
+     "illustrative": false,
+     "centre": [
+      -0.003,
+      1.3639,
+      0.0112
+     ],
+     "radius": 0.1357
+    },
+    "coronary-vessels": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 4626,
+     "illustrative": false,
+     "centre": [
+      0.0125,
+      1.0993,
+      0.0041
+     ],
+     "radius": 0.2054
+    },
+    "deep-calf-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4342,
+     "illustrative": false,
+     "centre": [
+      -0.0016,
+      0.2382,
+      0.0418
+     ],
+     "radius": 0.3341
+    },
+    "deltoid": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2567,
+     "illustrative": false,
+     "centre": [
+      0.0005,
+      1.3036,
+      -0.037
+     ],
+     "radius": 0.2492
+    },
+    "diaphragm": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 7883,
+     "illustrative": false,
+     "centre": [
+      0.0003,
+      1.1215,
+      0.0293
+     ],
+     "radius": 0.2256
+    },
+    "esophagus": {
+     "layer": "organs",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 522,
+     "illustrative": false,
+     "centre": [
+      0.0125,
+      1.2871,
+      0.0154
+     ],
+     "radius": 0.1523
+    },
+    "external-oblique": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 15993,
+     "illustrative": false,
+     "centre": [
+      0.0007,
+      1.0306,
+      0.0471
+     ],
+     "radius": 0.285
+    },
+    "femoral-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 574,
+     "illustrative": true,
+     "centre": [
+      -0.0083,
+      0.7646,
+      0.0188
+     ],
+     "radius": 0.2487
+    },
+    "femur": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 3532,
+     "illustrative": false,
+     "centre": [
+      -0.0027,
+      0.6338,
+      -0.0123
+     ],
+     "radius": 0.2695
+    },
+    "fibula": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1910,
+     "illustrative": false,
+     "centre": [
+      -0.0003,
+      0.2407,
+      -0.0295
+     ],
+     "radius": 0.263
+    },
+    "foot-bones": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 9059,
+     "illustrative": false,
+     "centre": [
+      -0.0008,
+      0.0484,
+      0.0379
+     ],
+     "radius": 0.2456
+    },
+    "foot-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4933,
+     "illustrative": false,
+     "centre": [
+      -0.0014,
+      0.0436,
+      0.038
+     ],
+     "radius": 0.2451
+    },
+    "forearm-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 10606,
+     "illustrative": false,
+     "centre": [
+      0.0007,
+      0.9626,
+      0.0218
+     ],
+     "radius": 0.5176
+    },
+    "gallbladder": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 1818,
+     "illustrative": false,
+     "centre": [
+      -0.0552,
+      1.0915,
+      0.0094
+     ],
+     "radius": 0.0431
+    },
+    "gastrocnemius": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5297,
+     "illustrative": false,
+     "centre": [
+      -0.0014,
+      0.2734,
+      -0.036
+     ],
+     "radius": 0.3118
+    },
+    "gluteus-maximus": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1573,
+     "illustrative": false,
+     "centre": [
+      -0.0014,
+      0.8235,
+      -0.0756
+     ],
+     "radius": 0.2083
+    },
+    "hamstrings": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4640,
+     "illustrative": false,
+     "centre": [
+      -0.0018,
+      0.5737,
+      -0.0201
+     ],
+     "radius": 0.2956
+    },
+    "hand-bones": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 7047,
+     "illustrative": false,
+     "centre": [
+      0.0006,
+      0.8044,
+      0.0431
+     ],
+     "radius": 0.4573
+    },
+    "hand-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2633,
+     "illustrative": false,
+     "centre": [
+      0.0007,
+      0.8413,
+      0.0317
+     ],
+     "radius": 0.4295
+    },
+    "heart": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 13017,
+     "illustrative": false,
+     "centre": [
+      0.0263,
+      1.1758,
+      -0.0106
+     ],
+     "radius": 0.245
+    },
+    "hip-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5964,
+     "illustrative": false,
+     "centre": [
+      0.0002,
+      0.9433,
+      -0.0203
+     ],
+     "radius": 0.272
+    },
+    "humerus": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 3958,
+     "illustrative": false,
+     "centre": [
+      0.0008,
+      1.2181,
+      -0.0213
+     ],
+     "radius": 0.3192
+    },
+    "inguinal-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1048,
+     "illustrative": true,
+     "centre": [
+      -0.0019,
+      0.8122,
+      0.0501
+     ],
+     "radius": 0.1374
+    },
+    "jugular-veins": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 594,
+     "illustrative": false,
+     "centre": [
+      -0.0028,
+      1.3724,
+      0.0305
+     ],
+     "radius": 0.0554
+    },
+    "kidneys": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 14480,
+     "illustrative": false,
+     "centre": [
+      0.0082,
+      1.033,
+      -0.0427
+     ],
+     "radius": 0.1332
+    },
+    "large-intestine": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 4423,
+     "illustrative": false,
+     "centre": [
+      0.0011,
+      0.929,
+      0.0081
+     ],
+     "radius": 0.2146
+    },
+    "latissimus-dorsi": {
+     "layer": "muscle",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 552,
+     "illustrative": true,
+     "centre": [
+      0.0,
+      1.1275,
+      -0.0894
+     ],
+     "radius": 0.2615
+    },
+    "leg-arteries": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 8999,
+     "illustrative": false,
+     "centre": [
+      -0.0017,
+      0.4843,
+      0.0194
+     ],
+     "radius": 0.5039
+    },
+    "leg-veins": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 11833,
+     "illustrative": false,
+     "centre": [
+      -0.0011,
+      0.4835,
+      0.0344
+     ],
+     "radius": 0.5357
+    },
+    "liver": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3359,
+     "illustrative": false,
+     "centre": [
+      -0.0261,
+      1.13,
+      -0.0123
+     ],
+     "radius": 0.0964
+    },
+    "lung-left": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3149,
+     "illustrative": false,
+     "centre": [
+      0.0711,
+      1.2733,
+      -0.0222
+     ],
+     "radius": 0.1461
+    },
+    "lung-right": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3984,
+     "illustrative": false,
+     "centre": [
+      -0.0591,
+      1.2795,
+      -0.0217
+     ],
+     "radius": 0.1433
+    },
+    "mandible": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 3280,
+     "illustrative": false,
+     "centre": [
+      -0.0001,
+      1.4916,
+      0.0554
+     ],
+     "radius": 0.0896
+    },
+    "neck-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 11754,
+     "illustrative": false,
+     "centre": [
+      -0.0026,
+      1.4342,
+      0.0188
+     ],
+     "radius": 0.1856
+    },
+    "ovaries": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 652,
+     "illustrative": false,
+     "centre": [
+      -0.0073,
+      0.8557,
+      0.0125
+     ],
+     "radius": 0.0649
+    },
+    "pancreas": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 2571,
+     "illustrative": false,
+     "centre": [
+      0.0384,
+      1.0776,
+      -0.0162
+     ],
+     "radius": 0.093
+    },
+    "patella": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 616,
+     "illustrative": false,
+     "centre": [
+      -0.0047,
+      0.4397,
+      0.0286
+     ],
+     "radius": 0.1657
+    },
+    "pectoralis-major": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5656,
+     "illustrative": false,
+     "centre": [
+      0.0003,
+      1.2525,
+      0.0538
+     ],
+     "radius": 0.2421
+    },
+    "pelvic-floor": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5840,
+     "illustrative": false,
+     "centre": [
+      -0.0014,
+      0.8188,
+      -0.0465
+     ],
+     "radius": 0.0854
+    },
+    "pelvis": {
+     "layer": "skeleton",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 12962,
+     "illustrative": false,
+     "centre": [
+      -0.0029,
+      0.8536,
+      -0.0331
+     ],
+     "radius": 0.2113
+    },
+    "prostate": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 17873,
+     "illustrative": false,
+     "centre": [
+      -0.0036,
+      0.8035,
+      -0.0202
+     ],
+     "radius": 0.0491
+    },
+    "pulmonary-vessels": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 2223,
+     "illustrative": false,
+     "centre": [
+      0.0058,
+      1.2768,
+      -0.0104
+     ],
+     "radius": 0.073
+    },
+    "quadriceps": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 6453,
+     "illustrative": false,
+     "centre": [
+      -0.0051,
+      0.624,
+      0.0134
+     ],
+     "radius": 0.3635
+    },
+    "radius": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1304,
+     "illustrative": false,
+     "centre": [
+      -0.0002,
+      0.9835,
+      0.0058
+     ],
+     "radius": 0.4214
+    },
+    "rectus-abdominis": {
+     "layer": "muscle",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 626,
+     "illustrative": true,
+     "centre": [
+      0.0005,
+      1.0233,
+      0.1088
+     ],
+     "radius": 0.2263
+    },
+    "rib-cage": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 26904,
+     "illustrative": false,
+     "centre": [
+      -0.0002,
+      1.216,
+      0.0145
+     ],
+     "radius": 0.275
+    },
+    "rotator-cuff": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2257,
+     "illustrative": false,
+     "centre": [
+      -0.0003,
+      1.297,
+      -0.0504
+     ],
+     "radius": 0.2057
+    },
+    "scapula": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 12852,
+     "illustrative": false,
+     "centre": [
+      -0.0017,
+      1.2958,
+      -0.0493
+     ],
+     "radius": 0.1853
+    },
+    "sciatic-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 774,
+     "illustrative": true,
+     "centre": [
+      -0.0011,
+      0.5115,
+      -0.0439
+     ],
+     "radius": 0.4377
+    },
+    "shoulder-girdle-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 11503,
+     "illustrative": false,
+     "centre": [
+      0.0012,
+      1.2988,
+      -0.0273
+     ],
+     "radius": 0.2802
+    },
+    "skin": {
+     "layer": "skin",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 70000,
+     "illustrative": false,
+     "centre": [
+      0.0,
+      0.8332,
+      -0.0
+     ],
+     "radius": 0.9774
+    },
+    "skull": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 24207,
+     "illustrative": false,
+     "centre": [
+      -0.0003,
+      1.557,
+      0.0076
+     ],
+     "radius": 0.1655
+    },
+    "small-intestine": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 7017,
+     "illustrative": false,
+     "centre": [
+      -0.0007,
+      0.9822,
+      0.0299
+     ],
+     "radius": 0.1442
+    },
+    "spinal-cord": {
+     "layer": "nerves",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 17279,
+     "illustrative": false,
+     "centre": [
+      -0.0014,
+      1.3011,
+      -0.0468
+     ],
+     "radius": 0.2087
+    },
+    "spleen": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3714,
+     "illustrative": false,
+     "centre": [
+      0.0528,
+      1.1004,
+      -0.0265
+     ],
+     "radius": 0.0856
+    },
+    "sternum": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4095,
+     "illustrative": false,
+     "centre": [
+      0.0006,
+      1.2782,
+      0.0793
+     ],
+     "radius": 0.0958
+    },
+    "stomach": {
+     "layer": "organs",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1038,
+     "illustrative": false,
+     "centre": [
+      0.0555,
+      1.129,
+      0.0687
+     ],
+     "radius": 0.1316
+    },
+    "testes": {
+     "layer": "organs",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1346,
+     "illustrative": false,
+     "centre": [
+      0.0071,
+      0.7996,
+      0.0117
+     ],
+     "radius": 0.1315
+    },
+    "thigh-adductors": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5094,
+     "illustrative": false,
+     "centre": [
+      -0.0073,
+      0.5889,
+      -0.0012
+     ],
+     "radius": 0.2835
+    },
+    "thoracic-duct": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 496,
+     "illustrative": true,
+     "centre": [
+      0.0141,
+      1.2852,
+      -0.0032
+     ],
+     "radius": 0.1797
+    },
+    "thymus": {
+     "layer": "lymph",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 1932,
+     "illustrative": false,
+     "centre": [
+      0.0282,
+      1.3007,
+      0.0344
+     ],
+     "radius": 0.08
+    },
+    "tibia": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2418,
+     "illustrative": false,
+     "centre": [
+      -0.0016,
+      0.2489,
+      -0.0108
+     ],
+     "radius": 0.2417
+    },
+    "tibialis-anterior": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4811,
+     "illustrative": false,
+     "centre": [
+      -0.0022,
+      0.2228,
+      0.0397
+     ],
+     "radius": 0.3148
+    },
+    "trachea": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 25141,
+     "illustrative": false,
+     "centre": [
+      0.0009,
+      1.3103,
+      -0.0219
+     ],
+     "radius": 0.209
+    },
+    "trapezius": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 6010,
+     "illustrative": false,
+     "centre": [
+      -0.0015,
+      1.3155,
+      -0.0617
+     ],
+     "radius": 0.275
+    },
+    "triceps-brachii": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2852,
+     "illustrative": false,
+     "centre": [
+      -0.001,
+      1.169,
+      -0.0369
+     ],
+     "radius": 0.3339
+    },
+    "ulna": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1584,
+     "illustrative": false,
+     "centre": [
+      -0.0003,
+      0.9856,
+      -0.0041
+     ],
+     "radius": 0.3928
+    },
+    "ureters": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 5358,
+     "illustrative": false,
+     "centre": [
+      0.0025,
+      0.9171,
+      -0.0122
+     ],
+     "radius": 0.1326
+    },
+    "uterus": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 12744,
+     "illustrative": false,
+     "centre": [
+      -0.012,
+      0.84,
+      -0.0173
+     ],
+     "radius": 0.1284
+    },
+    "vagina": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3318,
+     "illustrative": false,
+     "centre": [
+      -0.0064,
+      0.7816,
+      -0.0168
+     ],
+     "radius": 0.0475
+    },
+    "vagus-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 574,
+     "illustrative": true,
+     "centre": [
+      -0.0007,
+      1.3411,
+      -0.0322
+     ],
+     "radius": 0.1908
+    },
+    "vena-cava": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 2758,
+     "illustrative": false,
+     "centre": [
+      0.004,
+      1.0946,
+      -0.0169
+     ],
+     "radius": 0.2547
+    },
+    "vertebral-column": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d",
+      "hra"
+     ],
+     "triangles": 47513,
+     "illustrative": false,
+     "centre": [
+      -0.0016,
+      1.2159,
+      -0.0333
+     ],
+     "radius": 0.3129
+    },
+    "subcutaneous-fat": {
+     "layer": "fat",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 30000,
+     "illustrative": true,
+     "centre": [
+      -0.0002,
+      0.8331,
+      0.0
+     ],
+     "radius": 0.9692
+    }
+   },
+   "pelvisCentre": [
+    -0.002736695110797882,
+    0.8536729495972395,
+    -0.03310603782301769
+   ],
+   "triangles": 710682
+  },
+  "male": {
+   "height": 1.8295187950134277,
+   "width": 1.0465911030769348,
+   "files": [
+    {
+     "file": "male/bp3d-muscle-high.glb",
+     "lod": "high",
+     "layer": "muscle",
+     "source": "bp3d",
+     "bytes": 556560
+    },
+    {
+     "file": "male/bp3d-organs-high.glb",
+     "lod": "high",
+     "layer": "organs",
+     "source": "bp3d",
+     "bytes": 12396
+    },
+    {
+     "file": "male/bp3d-skeleton-high.glb",
+     "lod": "high",
+     "layer": "skeleton",
+     "source": "bp3d",
+     "bytes": 340988
+    },
+    {
+     "file": "male/bp3d-vessels-high.glb",
+     "lod": "high",
+     "layer": "vessels",
+     "source": "bp3d",
+     "bytes": 114612
+    },
+    {
+     "file": "male/hra-lymph-high.glb",
+     "lod": "high",
+     "layer": "lymph",
+     "source": "hra",
+     "bytes": 6644
+    },
+    {
+     "file": "male/hra-nerves-high.glb",
+     "lod": "high",
+     "layer": "nerves",
+     "source": "hra",
+     "bytes": 24176
+    },
+    {
+     "file": "male/hra-organs-high.glb",
+     "lod": "high",
+     "layer": "organs",
+     "source": "hra",
+     "bytes": 646576
+    },
+    {
+     "file": "male/hra-skeleton-high.glb",
+     "lod": "high",
+     "layer": "skeleton",
+     "source": "hra",
+     "bytes": 130640
+    },
+    {
+     "file": "male/hra-skin-high.glb",
+     "lod": "high",
+     "layer": "skin",
+     "source": "hra",
+     "bytes": 126104
+    },
+    {
+     "file": "male/hra-vessels-high.glb",
+     "lod": "high",
+     "layer": "vessels",
+     "source": "hra",
+     "bytes": 67236
+    },
+    {
+     "file": "male/illustrative-fat-high.glb",
+     "lod": "high",
+     "layer": "fat",
+     "source": "illustrative",
+     "bytes": 65472
+    },
+    {
+     "file": "male/illustrative-lymph-high.glb",
+     "lod": "high",
+     "layer": "lymph",
+     "source": "illustrative",
+     "bytes": 13804
+    },
+    {
+     "file": "male/illustrative-muscle-high.glb",
+     "lod": "high",
+     "layer": "muscle",
+     "source": "illustrative",
+     "bytes": 5820
+    },
+    {
+     "file": "male/illustrative-nerves-high.glb",
+     "lod": "high",
+     "layer": "nerves",
+     "source": "illustrative",
+     "bytes": 14204
+    },
+    {
+     "file": "male/bp3d-muscle-low.glb",
+     "lod": "low",
+     "layer": "muscle",
+     "source": "bp3d",
+     "bytes": 224072
+    },
+    {
+     "file": "male/bp3d-organs-low.glb",
+     "lod": "low",
+     "layer": "organs",
+     "source": "bp3d",
+     "bytes": 6324
+    },
+    {
+     "file": "male/bp3d-skeleton-low.glb",
+     "lod": "low",
+     "layer": "skeleton",
+     "source": "bp3d",
+     "bytes": 142700
+    },
+    {
+     "file": "male/bp3d-vessels-low.glb",
+     "lod": "low",
+     "layer": "vessels",
+     "source": "bp3d",
+     "bytes": 50708
+    },
+    {
+     "file": "male/hra-lymph-low.glb",
+     "lod": "low",
+     "layer": "lymph",
+     "source": "hra",
+     "bytes": 3676
+    },
+    {
+     "file": "male/hra-nerves-low.glb",
+     "lod": "low",
+     "layer": "nerves",
+     "source": "hra",
+     "bytes": 12972
+    },
+    {
+     "file": "male/hra-organs-low.glb",
+     "lod": "low",
+     "layer": "organs",
+     "source": "hra",
+     "bytes": 390960
+    },
+    {
+     "file": "male/hra-skeleton-low.glb",
+     "lod": "low",
+     "layer": "skeleton",
+     "source": "hra",
+     "bytes": 54620
+    },
+    {
+     "file": "male/hra-skin-low.glb",
+     "lod": "low",
+     "layer": "skin",
+     "source": "hra",
+     "bytes": 55076
+    },
+    {
+     "file": "male/hra-vessels-low.glb",
+     "lod": "low",
+     "layer": "vessels",
+     "source": "hra",
+     "bytes": 31892
+    },
+    {
+     "file": "male/illustrative-fat-low.glb",
+     "lod": "low",
+     "layer": "fat",
+     "source": "illustrative",
+     "bytes": 27184
+    },
+    {
+     "file": "male/illustrative-lymph-low.glb",
+     "lod": "low",
+     "layer": "lymph",
+     "source": "illustrative",
+     "bytes": 8252
+    },
+    {
+     "file": "male/illustrative-muscle-low.glb",
+     "lod": "low",
+     "layer": "muscle",
+     "source": "illustrative",
+     "bytes": 3336
+    },
+    {
+     "file": "male/illustrative-nerves-low.glb",
+     "lod": "low",
+     "layer": "nerves",
+     "source": "illustrative",
+     "bytes": 9352
+    }
+   ],
+   "parts": {
+    "abdominal-vessels": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 7146,
+     "illustrative": false,
+     "centre": [
+      0.0066,
+      1.199,
+      0.0029
+     ],
+     "radius": 0.3598
+    },
+    "aorta": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 2517,
+     "illustrative": false,
+     "centre": [
+      -0.0017,
+      1.3118,
+      0.0031
+     ],
+     "radius": 0.2151
+    },
+    "arm-arteries": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d",
+      "hra"
+     ],
+     "triangles": 9179,
+     "illustrative": false,
+     "centre": [
+      0.0014,
+      0.7721,
+      -0.0098
+     ],
+     "radius": 0.9188
+    },
+    "arm-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1632,
+     "illustrative": true,
+     "centre": [
+      0.0,
+      1.2455,
+      -0.0043
+     ],
+     "radius": 0.5434
+    },
+    "arm-veins": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 7875,
+     "illustrative": false,
+     "centre": [
+      -0.0006,
+      1.2288,
+      0.0128
+     ],
+     "radius": 0.5415
+    },
+    "axillary-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1120,
+     "illustrative": true,
+     "centre": [
+      -0.0004,
+      1.3965,
+      -0.0307
+     ],
+     "radius": 0.1754
+    },
+    "back-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 14672,
+     "illustrative": false,
+     "centre": [
+      -0.0016,
+      1.319,
+      -0.0526
+     ],
+     "radius": 0.391
+    },
+    "biceps-brachii": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2604,
+     "illustrative": false,
+     "centre": [
+      0.0001,
+      1.3274,
+      -0.0002
+     ],
+     "radius": 0.3428
+    },
+    "bladder": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3027,
+     "illustrative": false,
+     "centre": [
+      -0.0047,
+      0.945,
+      0.0212
+     ],
+     "radius": 0.0522
+    },
+    "brain": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 59167,
+     "illustrative": false,
+     "centre": [
+      0.0004,
+      1.7444,
+      0.0014
+     ],
+     "radius": 0.13
+    },
+    "carotid-arteries": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d",
+      "hra"
+     ],
+     "triangles": 1456,
+     "illustrative": false,
+     "centre": [
+      0.0007,
+      1.6026,
+      0.0175
+     ],
+     "radius": 0.1306
+    },
+    "cervical-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1120,
+     "illustrative": true,
+     "centre": [
+      0.0005,
+      1.628,
+      -0.0154
+     ],
+     "radius": 0.0686
+    },
+    "chest-wall-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 21483,
+     "illustrative": false,
+     "centre": [
+      0.0131,
+      1.3438,
+      0.0176
+     ],
+     "radius": 0.3139
+    },
+    "clavicle": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2038,
+     "illustrative": false,
+     "centre": [
+      -0.0004,
+      1.4969,
+      0.0107
+     ],
+     "radius": 0.1599
+    },
+    "coronary-vessels": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3968,
+     "illustrative": false,
+     "centre": [
+      0.0259,
+      1.2255,
+      0.0424
+     ],
+     "radius": 0.2167
+    },
+    "deep-calf-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4341,
+     "illustrative": false,
+     "centre": [
+      0.0013,
+      0.2674,
+      -0.0196
+     ],
+     "radius": 0.4164
+    },
+    "deltoid": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2572,
+     "illustrative": false,
+     "centre": [
+      0.0003,
+      1.4327,
+      -0.0326
+     ],
+     "radius": 0.2642
+    },
+    "diaphragm": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 7883,
+     "illustrative": false,
+     "centre": [
+      0.0002,
+      1.233,
+      0.04
+     ],
+     "radius": 0.2469
+    },
+    "esophagus": {
+     "layer": "organs",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 544,
+     "illustrative": false,
+     "centre": [
+      0.0141,
+      1.4123,
+      0.0295
+     ],
+     "radius": 0.1649
+    },
+    "external-oblique": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 15989,
+     "illustrative": false,
+     "centre": [
+      0.003,
+      1.1408,
+      0.0588
+     ],
+     "radius": 0.3081
+    },
+    "femoral-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 992,
+     "illustrative": true,
+     "centre": [
+      0.0053,
+      0.8523,
+      0.0487
+     ],
+     "radius": 0.2819
+    },
+    "femur": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 3712,
+     "illustrative": false,
+     "centre": [
+      0.0049,
+      0.7182,
+      -0.0068
+     ],
+     "radius": 0.3025
+    },
+    "fibula": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2008,
+     "illustrative": false,
+     "centre": [
+      0.0002,
+      0.2728,
+      -0.0656
+     ],
+     "radius": 0.331
+    },
+    "foot-bones": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 9521,
+     "illustrative": false,
+     "centre": [
+      0.0018,
+      0.0552,
+      -0.0314
+     ],
+     "radius": 0.318
+    },
+    "foot-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4932,
+     "illustrative": false,
+     "centre": [
+      0.0015,
+      0.0486,
+      -0.029
+     ],
+     "radius": 0.3283
+    },
+    "forearm-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 10623,
+     "illustrative": false,
+     "centre": [
+      0.0012,
+      1.0801,
+      0.0161
+     ],
+     "radius": 0.5524
+    },
+    "gallbladder": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 772,
+     "illustrative": false,
+     "centre": [
+      -0.0539,
+      1.2777,
+      0.0377
+     ],
+     "radius": 0.0231
+    },
+    "gastrocnemius": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5297,
+     "illustrative": false,
+     "centre": [
+      0.0035,
+      0.3026,
+      -0.0617
+     ],
+     "radius": 0.3627
+    },
+    "gluteus-maximus": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1574,
+     "illustrative": false,
+     "centre": [
+      0.0036,
+      0.9262,
+      -0.053
+     ],
+     "radius": 0.2208
+    },
+    "hamstrings": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4642,
+     "illustrative": false,
+     "centre": [
+      0.0065,
+      0.6459,
+      -0.0003
+     ],
+     "radius": 0.3379
+    },
+    "hand-bones": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 7407,
+     "illustrative": false,
+     "centre": [
+      0.0016,
+      0.9204,
+      0.0384
+     ],
+     "radius": 0.4884
+    },
+    "hand-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2646,
+     "illustrative": false,
+     "centre": [
+      0.0003,
+      0.9557,
+      0.0228
+     ],
+     "radius": 0.4667
+    },
+    "heart": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 14399,
+     "illustrative": false,
+     "centre": [
+      0.0145,
+      1.3407,
+      0.0268
+     ],
+     "radius": 0.2726
+    },
+    "hip-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5968,
+     "illustrative": false,
+     "centre": [
+      0.0034,
+      1.057,
+      -0.0166
+     ],
+     "radius": 0.2774
+    },
+    "humerus": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4160,
+     "illustrative": false,
+     "centre": [
+      0.0005,
+      1.3448,
+      -0.0144
+     ],
+     "radius": 0.341
+    },
+    "inguinal-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1120,
+     "illustrative": true,
+     "centre": [
+      -0.0065,
+      0.9156,
+      0.0659
+     ],
+     "radius": 0.1228
+    },
+    "jugular-veins": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 580,
+     "illustrative": false,
+     "centre": [
+      -0.0,
+      1.5053,
+      0.0297
+     ],
+     "radius": 0.059
+    },
+    "kidneys": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 16369,
+     "illustrative": false,
+     "centre": [
+      0.0065,
+      1.2073,
+      -0.0193
+     ],
+     "radius": 0.1301
+    },
+    "large-intestine": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 5510,
+     "illustrative": false,
+     "centre": [
+      0.0138,
+      1.1009,
+      0.0292
+     ],
+     "radius": 0.2834
+    },
+    "latissimus-dorsi": {
+     "layer": "muscle",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 552,
+     "illustrative": true,
+     "centre": [
+      -0.0007,
+      1.2569,
+      -0.089
+     ],
+     "radius": 0.2775
+    },
+    "leg-arteries": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 8781,
+     "illustrative": false,
+     "centre": [
+      0.0015,
+      0.5379,
+      -0.0003
+     ],
+     "radius": 0.5885
+    },
+    "leg-veins": {
+     "layer": "vessels",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 11546,
+     "illustrative": false,
+     "centre": [
+      0.0016,
+      0.5319,
+      -0.0099
+     ],
+     "radius": 0.619
+    },
+    "liver": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 4006,
+     "illustrative": false,
+     "centre": [
+      -0.0441,
+      1.2906,
+      0.0384
+     ],
+     "radius": 0.1013
+    },
+    "lung-left": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 2366,
+     "illustrative": false,
+     "centre": [
+      0.0698,
+      1.4191,
+      0.0057
+     ],
+     "radius": 0.159
+    },
+    "lung-right": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 2708,
+     "illustrative": false,
+     "centre": [
+      -0.063,
+      1.4141,
+      0.0051
+     ],
+     "radius": 0.1605
+    },
+    "mandible": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 3446,
+     "illustrative": false,
+     "centre": [
+      0.0,
+      1.6379,
+      0.0575
+     ],
+     "radius": 0.0857
+    },
+    "neck-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 11755,
+     "illustrative": false,
+     "centre": [
+      0.0002,
+      1.5741,
+      0.0137
+     ],
+     "radius": 0.2073
+    },
+    "ovaries": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 678,
+     "illustrative": false,
+     "centre": [
+      0.0016,
+      0.9913,
+      0.0133
+     ],
+     "radius": 0.0585
+    },
+    "pancreas": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3718,
+     "illustrative": false,
+     "centre": [
+      0.0221,
+      1.2542,
+      0.0116
+     ],
+     "radius": 0.0784
+    },
+    "patella": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 616,
+     "illustrative": false,
+     "centre": [
+      0.003,
+      0.5228,
+      0.0345
+     ],
+     "radius": 0.1814
+    },
+    "pectoralis-major": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5657,
+     "illustrative": false,
+     "centre": [
+      -0.0004,
+      1.3743,
+      0.0662
+     ],
+     "radius": 0.2535
+    },
+    "pelvic-floor": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5843,
+     "illustrative": false,
+     "centre": [
+      0.0029,
+      0.9266,
+      -0.0415
+     ],
+     "radius": 0.0802
+    },
+    "pelvis": {
+     "layer": "skeleton",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 12485,
+     "illustrative": false,
+     "centre": [
+      0.0056,
+      0.9893,
+      -0.0299
+     ],
+     "radius": 0.1988
+    },
+    "prostate": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 18047,
+     "illustrative": false,
+     "centre": [
+      -0.0021,
+      0.9354,
+      -0.0154
+     ],
+     "radius": 0.0425
+    },
+    "pulmonary-vessels": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 2618,
+     "illustrative": false,
+     "centre": [
+      0.0097,
+      1.4246,
+      0.013
+     ],
+     "radius": 0.07
+    },
+    "quadriceps": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 6455,
+     "illustrative": false,
+     "centre": [
+      0.006,
+      0.7154,
+      0.0497
+     ],
+     "radius": 0.3806
+    },
+    "radius": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1304,
+     "illustrative": false,
+     "centre": [
+      -0.001,
+      1.1087,
+      -0.007
+     ],
+     "radius": 0.4551
+    },
+    "rectus-abdominis": {
+     "layer": "muscle",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 626,
+     "illustrative": true,
+     "centre": [
+      0.0004,
+      1.1287,
+      0.119
+     ],
+     "radius": 0.2428
+    },
+    "rib-cage": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 28278,
+     "illustrative": false,
+     "centre": [
+      -0.0003,
+      1.3461,
+      0.0169
+     ],
+     "radius": 0.3001
+    },
+    "rotator-cuff": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2258,
+     "illustrative": false,
+     "centre": [
+      0.0007,
+      1.4252,
+      -0.0481
+     ],
+     "radius": 0.2225
+    },
+    "scapula": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 13508,
+     "illustrative": false,
+     "centre": [
+      -0.0001,
+      1.4255,
+      -0.0483
+     ],
+     "radius": 0.2054
+    },
+    "sciatic-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 1632,
+     "illustrative": true,
+     "centre": [
+      0.001,
+      0.5755,
+      -0.0488
+     ],
+     "radius": 0.5125
+    },
+    "shoulder-girdle-muscles": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 11503,
+     "illustrative": false,
+     "centre": [
+      0.0008,
+      1.4332,
+      -0.0185
+     ],
+     "radius": 0.3065
+    },
+    "skin": {
+     "layer": "skin",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 70000,
+     "illustrative": false,
+     "centre": [
+      0.0,
+      0.9148,
+      0.0
+     ],
+     "radius": 1.0657
+    },
+    "skull": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 25446,
+     "illustrative": false,
+     "centre": [
+      0.0,
+      1.7091,
+      0.0217
+     ],
+     "radius": 0.1762
+    },
+    "small-intestine": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 6222,
+     "illustrative": false,
+     "centre": [
+      0.0326,
+      1.1473,
+      0.0655
+     ],
+     "radius": 0.1739
+    },
+    "spinal-cord": {
+     "layer": "nerves",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 10666,
+     "illustrative": false,
+     "centre": [
+      -0.0029,
+      1.4317,
+      -0.0392
+     ],
+     "radius": 0.2362
+    },
+    "spleen": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 4011,
+     "illustrative": false,
+     "centre": [
+      0.0624,
+      1.2916,
+      -0.0055
+     ],
+     "radius": 0.0905
+    },
+    "sternum": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4305,
+     "illustrative": false,
+     "centre": [
+      0.0009,
+      1.4017,
+      0.0887
+     ],
+     "radius": 0.1042
+    },
+    "stomach": {
+     "layer": "organs",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1080,
+     "illustrative": false,
+     "centre": [
+      0.0637,
+      1.2381,
+      0.0785
+     ],
+     "radius": 0.1422
+    },
+    "testes": {
+     "layer": "organs",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1400,
+     "illustrative": false,
+     "centre": [
+      -0.0085,
+      0.8974,
+      0.036
+     ],
+     "radius": 0.136
+    },
+    "thigh-adductors": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 5094,
+     "illustrative": false,
+     "centre": [
+      0.0069,
+      0.6776,
+      0.0277
+     ],
+     "radius": 0.3097
+    },
+    "thoracic-duct": {
+     "layer": "lymph",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 496,
+     "illustrative": true,
+     "centre": [
+      0.0152,
+      1.4173,
+      0.0147
+     ],
+     "radius": 0.1967
+    },
+    "thymus": {
+     "layer": "lymph",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 1924,
+     "illustrative": false,
+     "centre": [
+      -0.0079,
+      1.4526,
+      0.0458
+     ],
+     "radius": 0.0456
+    },
+    "tibia": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2542,
+     "illustrative": false,
+     "centre": [
+      0.0022,
+      0.2865,
+      -0.0436
+     ],
+     "radius": 0.31
+    },
+    "tibialis-anterior": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 4817,
+     "illustrative": false,
+     "centre": [
+      0.0007,
+      0.2595,
+      -0.0225
+     ],
+     "radius": 0.3988
+    },
+    "trachea": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 21973,
+     "illustrative": false,
+     "centre": [
+      0.005,
+      1.4575,
+      0.0052
+     ],
+     "radius": 0.2248
+    },
+    "trapezius": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 6013,
+     "illustrative": false,
+     "centre": [
+      0.001,
+      1.4467,
+      -0.0611
+     ],
+     "radius": 0.3033
+    },
+    "triceps-brachii": {
+     "layer": "muscle",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 2852,
+     "illustrative": false,
+     "centre": [
+      -0.0013,
+      1.2942,
+      -0.0389
+     ],
+     "radius": 0.3564
+    },
+    "ulna": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d"
+     ],
+     "triangles": 1658,
+     "illustrative": false,
+     "centre": [
+      -0.0011,
+      1.1087,
+      -0.0161
+     ],
+     "radius": 0.4245
+    },
+    "ureters": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 5014,
+     "illustrative": false,
+     "centre": [
+      0.0055,
+      1.0799,
+      0.0064
+     ],
+     "radius": 0.1414
+    },
+    "uterus": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 13258,
+     "illustrative": false,
+     "centre": [
+      -0.0026,
+      0.9751,
+      -0.015
+     ],
+     "radius": 0.1221
+    },
+    "vagina": {
+     "layer": "organs",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3456,
+     "illustrative": false,
+     "centre": [
+      0.0024,
+      0.9147,
+      -0.0144
+     ],
+     "radius": 0.0472
+    },
+    "vagus-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 992,
+     "illustrative": true,
+     "centre": [
+      -0.0011,
+      1.48,
+      -0.0254
+     ],
+     "radius": 0.2033
+    },
+    "vena-cava": {
+     "layer": "vessels",
+     "sources": [
+      "hra"
+     ],
+     "triangles": 3393,
+     "illustrative": false,
+     "centre": [
+      0.0001,
+      1.2146,
+      -0.0168
+     ],
+     "radius": 0.2765
+    },
+    "vertebral-column": {
+     "layer": "skeleton",
+     "sources": [
+      "bp3d",
+      "hra"
+     ],
+     "triangles": 42983,
+     "illustrative": false,
+     "centre": [
+      0.0019,
+      1.3574,
+      -0.0216
+     ],
+     "radius": 0.3373
+    },
+    "subcutaneous-fat": {
+     "layer": "fat",
+     "sources": [
+      "illustrative"
+     ],
+     "triangles": 30000,
+     "illustrative": true,
+     "centre": [
+      -0.0001,
+      0.9147,
+      -0.0
+     ],
+     "radius": 1.0573
+    }
+   },
+   "pelvisCentre": [
+    0.005690038204193115,
+    0.9891841188073158,
+    -0.02984144538640976
+   ],
+   "triangles": 702546
+  }
+ },
+ "unusedBodyPartsNames": 908
+}

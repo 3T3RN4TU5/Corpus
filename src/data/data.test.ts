@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { factsForPart, PARTS, partsForProfile, searchParts, SYSTEM_SOURCES } from './anatomy'
 import { formatFact, getFact, physiology, validatePhysiology } from './physiology'
 import { DEFAULT_CUSTOM, resolveProfile, SEX_PROFILES } from './sexProfiles'
-import { BUILDERS, DETAIL, landmarks } from '../scene/bodyGeometry'
+import { modelManifest, modelProvenance, partIdFromNodeName } from './models'
 import { partAppearance, type AppearanceInput } from '../scene/appearance'
 
 const part = (id: string) => PARTS.find((candidate) => candidate.id === id)!
@@ -45,20 +45,36 @@ describe('anatomy catalog', () => {
     for (const candidate of PARTS) expect(SYSTEM_SOURCES[candidate.system].length).toBeGreaterThan(0)
   })
 
-  it('matches the geometry builders one to one', () => {
-    expect(Object.keys(BUILDERS).sort()).toEqual(PARTS.map((candidate) => candidate.id).sort())
+  it('matches the built 3D models one to one, for both bodies', () => {
+    const ids = PARTS.map((candidate) => candidate.id).sort()
+    for (const body of Object.values(modelManifest.bodies)) {
+      expect(Object.keys(body.parts).sort()).toEqual(ids)
+    }
   })
 
-  it('builds valid geometry for every part at every quality', () => {
-    const options = { frame: 0.5, testesPosition: 'internal' as const, ovaryScale: 1, testesScale: 1 }
-    for (const detail of Object.values(DETAIL)) {
-      for (const [id, build] of Object.entries(BUILDERS)) {
-        const geometry = build(landmarks(options.frame), detail, options)
-        const positions = geometry.getAttribute('position')
-        expect(positions.count, id).toBeGreaterThan(0)
-        expect(Array.from(positions.array).every(Number.isFinite), id).toBe(true)
-      }
+  it('puts each part in the model layer the catalog expects', () => {
+    for (const body of Object.values(modelManifest.bodies)) {
+      for (const candidate of PARTS) expect(body.parts[candidate.id].layer, candidate.id).toBe(candidate.layer)
     }
+  })
+
+  it('has both levels of detail for every model file', () => {
+    for (const body of Object.values(modelManifest.bodies)) {
+      const names = (lod: string) => body.files.filter((file) => file.lod === lod).map((file) => file.file.replace(`-${lod}.glb`, ''))
+      expect(names('low').sort()).toEqual(names('high').sort())
+    }
+  })
+
+  it('reads part ids from exported node names', () => {
+    expect(partIdFromNodeName('arm-arteries')).toBe('arm-arteries')
+    expect(partIdFromNodeName('arm-arteries.001')).toBe('arm-arteries')
+    expect(partIdFromNodeName('arm-arteries001')).toBe('arm-arteries')
+  })
+
+  it('states when a shape is hand-placed or not specific to the body', () => {
+    expect(modelProvenance('female', 'sciatic-nerve')).toContain('Illustrative')
+    expect(modelProvenance('female', 'femur')).toContain('not female-specific')
+    expect(modelProvenance('female', 'heart')).toContain('NIH')
   })
 })
 
