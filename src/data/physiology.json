@@ -2,236 +2,2475 @@
   {
     "id": "bones-adult-total",
     "label": "Bones in the adult skeleton",
-    "value": 206, "unit": "bones", "range": null,
-    "ageGroup": "adult", "sex": "all",
+    "value": 206,
+    "unit": "bones",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
     "note": "Younger people have more bones because some fuse with age.",
-    "source": { "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system" },
+    "source": {
+      "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system"
+    },
     "confidence": "high"
   },
   {
     "id": "bones-axial",
     "label": "Bones in the axial skeleton",
-    "value": 80, "unit": "bones", "range": null,
-    "ageGroup": "adult", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system" },
+    "value": 80,
+    "unit": "bones",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system"
+    },
     "confidence": "high"
   },
   {
     "id": "bones-appendicular",
     "label": "Bones in the appendicular skeleton",
-    "value": 126, "unit": "bones", "range": null,
-    "ageGroup": "adult", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system" },
+    "value": 126,
+    "unit": "bones",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 7.1 Divisions of the Skeletal System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system"
+    },
     "confidence": "high"
   },
   {
     "id": "organ-systems",
     "label": "Organ systems covered by the textbook",
-    "value": 11, "unit": "systems", "range": null,
-    "ageGroup": "all", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 1.2 Structural Organization of the Human Body", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-2-structural-organization-of-the-human-body" },
+    "value": 11,
+    "unit": "systems",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 1.2 Structural Organization of the Human Body",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-2-structural-organization-of-the-human-body"
+    },
     "confidence": "high"
   },
   {
     "id": "blood-share-body-weight",
     "label": "Blood as a share of body weight",
-    "value": 8, "unit": "%", "range": null,
-    "ageGroup": "adult", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "value": 8,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.1 An Overview of Blood",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood"
+    },
     "confidence": "approximate"
   },
   {
     "id": "blood-volume-male",
     "label": "Average blood volume",
-    "value": null, "unit": "L", "range": [5, 6],
-    "ageGroup": "adult", "sex": "male",
-    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "value": null,
+    "unit": "L",
+    "range": [
+      5,
+      6
+    ],
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.1 An Overview of Blood",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood"
+    },
     "confidence": "approximate"
   },
   {
     "id": "blood-volume-female",
     "label": "Average blood volume",
-    "value": null, "unit": "L", "range": [4, 5],
-    "ageGroup": "adult", "sex": "female",
-    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "value": null,
+    "unit": "L",
+    "range": [
+      4,
+      5
+    ],
+    "ageGroup": "adult",
+    "sex": "female",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.1 An Overview of Blood",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood"
+    },
     "confidence": "approximate"
   },
   {
     "id": "hematocrit-male",
     "label": "Hematocrit",
-    "value": 47, "unit": "%", "range": [42, 52],
-    "ageGroup": "adult", "sex": "male",
-    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "value": 47,
+    "unit": "%",
+    "range": [
+      42,
+      52
+    ],
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.1 An Overview of Blood",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood"
+    },
     "confidence": "high"
   },
   {
     "id": "hematocrit-female",
     "label": "Hematocrit",
-    "value": 41, "unit": "%", "range": [37, 47],
-    "ageGroup": "adult", "sex": "female",
-    "source": { "title": "OpenStax A&P 2e, 18.1 An Overview of Blood", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood" },
+    "value": 41,
+    "unit": "%",
+    "range": [
+      37,
+      47
+    ],
+    "ageGroup": "adult",
+    "sex": "female",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.1 An Overview of Blood",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-1-an-overview-of-blood"
+    },
     "confidence": "high"
   },
   {
     "id": "heart-rate-rest-adult",
     "label": "Resting heart rate",
-    "value": 75, "unit": "bpm", "range": [60, 100],
-    "ageGroup": "adult", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology" },
+    "value": 75,
+    "unit": "bpm",
+    "range": [
+      60,
+      100
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
     "confidence": "high"
   },
   {
     "id": "stroke-volume-rest",
     "label": "Resting stroke volume",
-    "value": 70, "unit": "mL", "range": [55, 100],
-    "ageGroup": "adult", "sex": "all",
+    "value": 70,
+    "unit": "mL",
+    "range": [
+      55,
+      100
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
     "note": "The mean is for a resting 70 kg person. The source lists sex as a factor but gives no sex-specific values.",
-    "source": { "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology" },
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
     "confidence": "approximate"
   },
   {
     "id": "cardiac-output-rest",
     "label": "Cardiac output",
-    "value": 5.25, "unit": "L/min", "range": [4, 8],
-    "ageGroup": "adult", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology" },
+    "value": 5.25,
+    "unit": "L/min",
+    "range": [
+      4,
+      8
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
     "confidence": "approximate"
   },
   {
     "id": "heart-chambers",
     "label": "Heart chambers",
-    "value": 4, "unit": "chambers", "range": null,
-    "ageGroup": "all", "sex": "all",
-    "source": { "title": "NHLBI, How the Heart Works: What the Heart Looks Like", "url": "https://www.nhlbi.nih.gov/health/heart/anatomy" },
+    "value": 4,
+    "unit": "chambers",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "NHLBI, How the Heart Works: What the Heart Looks Like",
+      "url": "https://www.nhlbi.nih.gov/health/heart/anatomy"
+    },
     "confidence": "high"
   },
   {
     "id": "heart-valves",
     "label": "Heart valves",
-    "value": 4, "unit": "valves", "range": null,
-    "ageGroup": "all", "sex": "all",
+    "value": 4,
+    "unit": "valves",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
     "note": "Tricuspid, pulmonary semilunar, mitral and aortic semilunar.",
-    "source": { "title": "OpenStax A&P 2e, 19.1 Heart Anatomy", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy" },
+    "source": {
+      "title": "OpenStax A&P 2e, 19.1 Heart Anatomy",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-newborn",
     "label": "Resting heart rate, 0 to 1 month",
-    "value": null, "unit": "bpm", "range": [70, 190],
-    "ageGroup": "newborn", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      70,
+      190
+    ],
+    "ageGroup": "newborn",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-infant",
     "label": "Resting heart rate, 1 to 11 months",
-    "value": null, "unit": "bpm", "range": [80, 160],
-    "ageGroup": "infant", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      80,
+      160
+    ],
+    "ageGroup": "infant",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-child-1-2",
     "label": "Resting heart rate, 1 to 2 years",
-    "value": null, "unit": "bpm", "range": [80, 130],
-    "ageGroup": "child", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      80,
+      130
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-child-3-4",
     "label": "Resting heart rate, 3 to 4 years",
-    "value": null, "unit": "bpm", "range": [80, 120],
-    "ageGroup": "child", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      80,
+      120
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-child-5-6",
     "label": "Resting heart rate, 5 to 6 years",
-    "value": null, "unit": "bpm", "range": [75, 115],
-    "ageGroup": "child", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      75,
+      115
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-child-7-9",
     "label": "Resting heart rate, 7 to 9 years",
-    "value": null, "unit": "bpm", "range": [70, 110],
-    "ageGroup": "child", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      70,
+      110
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-10-plus",
     "label": "Resting heart rate, 10 years and older",
-    "value": null, "unit": "bpm", "range": [60, 100],
-    "ageGroup": "10+", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      60,
+      100
+    ],
+    "ageGroup": "10+",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "pulse-athlete",
     "label": "Resting heart rate, well-trained athletes",
-    "value": null, "unit": "bpm", "range": [40, 60],
-    "ageGroup": "adult", "sex": "all",
-    "source": { "title": "MedlinePlus Medical Encyclopedia: Pulse", "url": "https://medlineplus.gov/ency/article/003399.htm" },
+    "value": null,
+    "unit": "bpm",
+    "range": [
+      40,
+      60
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Pulse",
+      "url": "https://medlineplus.gov/ency/article/003399.htm"
+    },
     "confidence": "high"
   },
   {
     "id": "breathing-rate-adolescent-adult",
     "label": "Resting breathing rate",
-    "value": null, "unit": "breaths/min", "range": [12, 18],
-    "ageGroup": "adolescent and adult", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 22.3 The Process of Breathing", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing" },
+    "value": null,
+    "unit": "breaths/min",
+    "range": [
+      12,
+      18
+    ],
+    "ageGroup": "adolescent and adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
     "confidence": "high"
   },
   {
     "id": "breathing-rate-under-1",
     "label": "Breathing rate, under 1 year",
-    "value": null, "unit": "breaths/min", "range": [30, 60],
-    "ageGroup": "infant", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 22.3 The Process of Breathing", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing" },
+    "value": null,
+    "unit": "breaths/min",
+    "range": [
+      30,
+      60
+    ],
+    "ageGroup": "infant",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
     "confidence": "high"
   },
   {
     "id": "breathing-rate-age-10",
     "label": "Breathing rate, about 10 years",
-    "value": null, "unit": "breaths/min", "range": [18, 30],
-    "ageGroup": "child", "sex": "all",
-    "source": { "title": "OpenStax A&P 2e, 22.3 The Process of Breathing", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing" },
+    "value": null,
+    "unit": "breaths/min",
+    "range": [
+      18,
+      30
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
     "confidence": "high"
   },
   {
     "id": "prevalence-turner",
     "label": "Turner syndrome",
-    "value": 1, "unit": "per 2,000 female newborns", "range": null,
-    "ageGroup": "newborn", "sex": "female",
-    "source": { "title": "MedlinePlus Genetics: Turner syndrome", "url": "https://medlineplus.gov/genetics/condition/turner-syndrome/" },
+    "value": 1,
+    "unit": "per 2,000 female newborns",
+    "range": null,
+    "ageGroup": "newborn",
+    "sex": "female",
+    "source": {
+      "title": "MedlinePlus Genetics: Turner syndrome",
+      "url": "https://medlineplus.gov/genetics/condition/turner-syndrome/"
+    },
     "confidence": "approximate"
   },
   {
     "id": "prevalence-klinefelter",
     "label": "Klinefelter syndrome",
-    "value": 1, "unit": "per 650 male newborns", "range": null,
-    "ageGroup": "newborn", "sex": "male",
-    "source": { "title": "MedlinePlus Genetics: Klinefelter syndrome", "url": "https://medlineplus.gov/genetics/condition/klinefelter-syndrome/" },
+    "value": 1,
+    "unit": "per 650 male newborns",
+    "range": null,
+    "ageGroup": "newborn",
+    "sex": "male",
+    "source": {
+      "title": "MedlinePlus Genetics: Klinefelter syndrome",
+      "url": "https://medlineplus.gov/genetics/condition/klinefelter-syndrome/"
+    },
     "confidence": "approximate"
   },
   {
     "id": "prevalence-cais",
     "label": "Complete androgen insensitivity",
-    "value": null, "unit": "per 100,000 newborn females", "range": [2, 5],
-    "ageGroup": "newborn", "sex": "female",
-    "source": { "title": "MedlinePlus Genetics: Androgen insensitivity syndrome", "url": "https://medlineplus.gov/genetics/condition/androgen-insensitivity-syndrome/" },
+    "value": null,
+    "unit": "per 100,000 newborn females",
+    "range": [
+      2,
+      5
+    ],
+    "ageGroup": "newborn",
+    "sex": "female",
+    "source": {
+      "title": "MedlinePlus Genetics: Androgen insensitivity syndrome",
+      "url": "https://medlineplus.gov/genetics/condition/androgen-insensitivity-syndrome/"
+    },
     "confidence": "approximate"
   },
   {
     "id": "prevalence-21-hydroxylase-classic",
     "label": "Classic 21-hydroxylase deficiency",
-    "value": 1, "unit": "per 15,000 newborns", "range": null,
-    "ageGroup": "newborn", "sex": "all",
-    "source": { "title": "MedlinePlus Genetics: 21-hydroxylase deficiency", "url": "https://medlineplus.gov/genetics/condition/21-hydroxylase-deficiency/" },
+    "value": 1,
+    "unit": "per 15,000 newborns",
+    "range": null,
+    "ageGroup": "newborn",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Genetics: 21-hydroxylase deficiency",
+      "url": "https://medlineplus.gov/genetics/condition/21-hydroxylase-deficiency/"
+    },
     "confidence": "approximate"
+  },
+  {
+    "id": "conduction-sa-to-av",
+    "label": "Impulse travel, SA node to AV node",
+    "value": 50,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.2 Cardiac Muscle and Electrical Activity",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-2-cardiac-muscle-and-electrical-activity"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "conduction-av-delay",
+    "label": "Impulse delay at the AV node",
+    "value": 100,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.2 Cardiac Muscle and Electrical Activity",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-2-cardiac-muscle-and-electrical-activity"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "conduction-bundle",
+    "label": "Impulse travel, AV bundle to branches",
+    "value": 25,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.2 Cardiac Muscle and Electrical Activity",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-2-cardiac-muscle-and-electrical-activity"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "conduction-purkinje",
+    "label": "Impulse spread through Purkinje fibers",
+    "value": 75,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.2 Cardiac Muscle and Electrical Activity",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-2-cardiac-muscle-and-electrical-activity"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "av-node-max-rate",
+    "label": "Maximum AV node transmission",
+    "value": 220,
+    "unit": "per min",
+    "range": null,
+    "ageGroup": "young adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.2 Cardiac Muscle and Electrical Activity",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-2-cardiac-muscle-and-electrical-activity"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "atrial-systole",
+    "label": "Atrial systole",
+    "value": 100,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.3 Cardiac Cycle",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-3-cardiac-cycle"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "ventricular-systole",
+    "label": "Ventricular systole",
+    "value": 270,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.3 Cardiac Cycle",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-3-cardiac-cycle"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "ventricular-diastole",
+    "label": "Ventricular diastole",
+    "value": 430,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.3 Cardiac Cycle",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-3-cardiac-cycle"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "end-diastolic-volume",
+    "label": "End-diastolic volume",
+    "value": 130,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.3 Cardiac Cycle",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-3-cardiac-cycle"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "end-systolic-volume",
+    "label": "End-systolic volume",
+    "value": null,
+    "unit": "mL",
+    "range": [
+      50,
+      60
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.3 Cardiac Cycle",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-3-cardiac-cycle"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "ejection-fraction",
+    "label": "Ejection fraction",
+    "value": 58,
+    "unit": "%",
+    "range": [
+      55,
+      70
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "max-hr-base",
+    "label": "Maximum heart rate estimate, base value before subtracting age",
+    "value": 220,
+    "unit": "bpm",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
+    "confidence": "approximate",
+    "note": "Estimate: 220 minus age in years."
+  },
+  {
+    "id": "exercise-hr",
+    "label": "Heart rate during exercise",
+    "value": 150,
+    "unit": "bpm",
+    "range": null,
+    "ageGroup": "young adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "exercise-sv",
+    "label": "Stroke volume during exercise",
+    "value": 130,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "young adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "exercise-co",
+    "label": "Cardiac output during exercise",
+    "value": 19.5,
+    "unit": "L/min",
+    "range": null,
+    "ageGroup": "young adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.4 Cardiac Physiology",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "bp-systolic",
+    "label": "Systolic blood pressure",
+    "value": 120,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 20.2 Blood Flow, Blood Pressure, and Resistance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "bp-diastolic",
+    "label": "Diastolic blood pressure",
+    "value": 80,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 20.2 Blood Flow, Blood Pressure, and Resistance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "map-normal",
+    "label": "Mean arterial pressure",
+    "value": null,
+    "unit": "mm Hg",
+    "range": [
+      70,
+      110
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 20.2 Blood Flow, Blood Pressure, and Resistance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
+    },
+    "confidence": "high",
+    "note": "Approximated as diastolic plus one third of pulse pressure."
+  },
+  {
+    "id": "venous-blood-share",
+    "label": "Blood volume held in systemic veins",
+    "value": 64,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 20.2 Blood Flow, Blood Pressure, and Resistance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "tidal-volume",
+    "label": "Tidal volume",
+    "value": 500,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "vital-capacity",
+    "label": "Vital capacity",
+    "value": null,
+    "unit": "mL",
+    "range": [
+      4000,
+      5000
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "tlc-male",
+    "label": "Total lung capacity",
+    "value": 6000,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "tlc-female",
+    "label": "Total lung capacity",
+    "value": 4200,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "female",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "erv-male",
+    "label": "Expiratory reserve volume, upper value",
+    "value": 1200,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "alveolar-po2",
+    "label": "Oxygen pressure in alveolar air",
+    "value": 104,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.4 Gas Exchange",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-4-gas-exchange"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "alveolar-pco2",
+    "label": "Carbon dioxide pressure in alveolar air",
+    "value": 40,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.4 Gas Exchange",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-4-gas-exchange"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "returning-po2",
+    "label": "Oxygen pressure in blood returning to the lungs",
+    "value": 40,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.4 Gas Exchange",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-4-gas-exchange"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "returning-pco2",
+    "label": "Carbon dioxide pressure in blood returning to the lungs",
+    "value": 45,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.4 Gas Exchange",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-4-gas-exchange"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "arterial-po2",
+    "label": "Oxygen pressure in blood reaching the tissues",
+    "value": 100,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.4 Gas Exchange",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-4-gas-exchange"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "atmospheric-po2",
+    "label": "Oxygen pressure in the atmosphere",
+    "value": 158.8,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.4 Gas Exchange",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-4-gas-exchange"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "alveolus-diameter",
+    "label": "Alveolus diameter",
+    "value": 200,
+    "unit": "µm",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.1 Organs and Structures of the Respiratory System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "respiratory-membrane",
+    "label": "Respiratory membrane thickness",
+    "value": 0.5,
+    "unit": "µm",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.1 Organs and Structures of the Respiratory System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "swallow-solid",
+    "label": "Swallow, mouth to stomach, solid food",
+    "value": null,
+    "unit": "s",
+    "range": [
+      4,
+      8
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.3 The Mouth, Pharynx, and Esophagus",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "swallow-liquid",
+    "label": "Swallow, mouth to stomach, soft food and liquid",
+    "value": 1,
+    "unit": "s",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.3 The Mouth, Pharynx, and Esophagus",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "esophagus-length",
+    "label": "Esophagus length",
+    "value": 25.4,
+    "unit": "cm",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.3 The Mouth, Pharynx, and Esophagus",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "saliva-daily",
+    "label": "Saliva secreted per day",
+    "value": null,
+    "unit": "L",
+    "range": [
+      1,
+      1.5
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.3 The Mouth, Pharynx, and Esophagus",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "stomach-emptying",
+    "label": "Stomach empties after a meal",
+    "value": null,
+    "unit": "h",
+    "range": [
+      2,
+      4
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.4 The Stomach",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "stomach-emptying-fatty",
+    "label": "Stomach time for fatty chyme, at least",
+    "value": 6,
+    "unit": "h",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.4 The Stomach",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "full-digestion",
+    "label": "Full digestion, start to finish",
+    "value": null,
+    "unit": "h",
+    "range": [
+      24,
+      72
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.4 The Stomach",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "stomach-ph",
+    "label": "Stomach contents acidity",
+    "value": null,
+    "unit": "pH",
+    "range": [
+      1.5,
+      3.5
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.4 The Stomach",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "stomach-mixing-wave",
+    "label": "Stomach mixing wave interval",
+    "value": 20,
+    "unit": "s",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.4 The Stomach",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "stomach-capacity",
+    "label": "Stomach capacity, full stretch",
+    "value": 4,
+    "unit": "L",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.4 The Stomach",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "small-intestine-length",
+    "label": "Small intestine length",
+    "value": 3.05,
+    "unit": "m",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.5 The Small and Large Intestines",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "small-intestine-transit",
+    "label": "Chyme leaves the small intestine",
+    "value": null,
+    "unit": "h",
+    "range": [
+      3,
+      5
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.5 The Small and Large Intestines",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "small-intestine-area",
+    "label": "Small intestine surface area",
+    "value": 200,
+    "unit": "m²",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.5 The Small and Large Intestines",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "villus-length",
+    "label": "Villus length",
+    "value": null,
+    "unit": "mm",
+    "range": [
+      0.5,
+      1
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.5 The Small and Large Intestines",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "large-intestine-transit",
+    "label": "Time in the large intestine",
+    "value": null,
+    "unit": "h",
+    "range": [
+      12,
+      24
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.5 The Small and Large Intestines",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "bile-daily",
+    "label": "Bile secreted per day",
+    "value": 1,
+    "unit": "L",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.6 Accessory Organs in Digestion",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "protein-absorbed",
+    "label": "Protein digested and absorbed in the small intestine",
+    "value": null,
+    "unit": "%",
+    "range": [
+      95,
+      98
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.7 Chemical Digestion and Absorption",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-7-chemical-digestion-and-absorption-a-closer-look"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "lipid-absorbed",
+    "label": "Lipid absorbed in the small intestine",
+    "value": 95,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.7 Chemical Digestion and Absorption",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-7-chemical-digestion-and-absorption-a-closer-look"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "water-absorbed-si",
+    "label": "Water absorbed in the small intestine",
+    "value": 90,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.7 Chemical Digestion and Absorption",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-7-chemical-digestion-and-absorption-a-closer-look"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "kcal-carbohydrate",
+    "label": "Energy in carbohydrate",
+    "value": 4,
+    "unit": "kcal/g",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "NCBI Bookshelf: Dietary Reference Intakes for Energy, Introduction",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK591029/"
+    },
+    "confidence": "high",
+    "note": "Atwater general factor."
+  },
+  {
+    "id": "kcal-protein",
+    "label": "Energy in protein",
+    "value": 4,
+    "unit": "kcal/g",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "NCBI Bookshelf: Dietary Reference Intakes for Energy, Introduction",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK591029/"
+    },
+    "confidence": "high",
+    "note": "Atwater general factor."
+  },
+  {
+    "id": "kcal-fat",
+    "label": "Energy in fat",
+    "value": 9,
+    "unit": "kcal/g",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "NCBI Bookshelf: Dietary Reference Intakes for Energy, Introduction",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK591029/"
+    },
+    "confidence": "high",
+    "note": "Atwater general factor."
+  },
+  {
+    "id": "kcal-per-pound",
+    "label": "Excess energy that adds one pound",
+    "value": 3500,
+    "unit": "kcal",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 24.7 Nutrition and Diet",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/24-7-nutrition-and-diet"
+    },
+    "confidence": "approximate",
+    "note": "A rule of thumb. Real weight change is more complex."
+  },
+  {
+    "id": "core-temp",
+    "label": "Core body temperature",
+    "value": null,
+    "unit": "°C",
+    "range": [
+      36.5,
+      37.5
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 24.6 Energy and Heat Balance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/24-6-energy-and-heat-balance"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "temp-average",
+    "label": "Average normal body temperature",
+    "value": 37,
+    "unit": "°C",
+    "range": [
+      36.1,
+      37.2
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Body temperature norms",
+      "url": "https://medlineplus.gov/ency/article/001982.htm"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "fever-threshold",
+    "label": "Fever, above",
+    "value": 38,
+    "unit": "°C",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Body temperature norms",
+      "url": "https://medlineplus.gov/ency/article/001982.htm"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "heat-loss-radiation",
+    "label": "Heat lost at rest by radiation",
+    "value": 60,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 24.6 Energy and Heat Balance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/24-6-energy-and-heat-balance"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "heat-loss-evaporation",
+    "label": "Heat lost at rest by evaporation",
+    "value": 20,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 24.6 Energy and Heat Balance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/24-6-energy-and-heat-balance"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "heat-loss-convection",
+    "label": "Heat lost at rest by convection",
+    "value": 15,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 24.6 Energy and Heat Balance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/24-6-energy-and-heat-balance"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "heat-loss-conduction",
+    "label": "Heat lost at rest by conduction",
+    "value": 3,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 24.6 Energy and Heat Balance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/24-6-energy-and-heat-balance"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "resting-membrane",
+    "label": "Resting membrane potential",
+    "value": -70,
+    "unit": "mV",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 12.4 The Action Potential",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    },
+    "confidence": "high",
+    "note": "Varies between cells."
+  },
+  {
+    "id": "ap-threshold",
+    "label": "Action potential threshold",
+    "value": -55,
+    "unit": "mV",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 12.4 The Action Potential",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "ap-peak",
+    "label": "Action potential peak",
+    "value": 30,
+    "unit": "mV",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 12.4 The Action Potential",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "ap-duration",
+    "label": "Action potential duration",
+    "value": 2,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 12.4 The Action Potential",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "cerebellum-mass",
+    "label": "Cerebellum share of brain mass",
+    "value": 10,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 13.2 The Central Nervous System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-2-the-central-nervous-system"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "spinal-nerves",
+    "label": "Spinal nerves",
+    "value": 31,
+    "unit": "nerves",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 13.4 The Peripheral Nervous System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-peripheral-nervous-system"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "cranial-nerves",
+    "label": "Cranial nerves",
+    "value": 12,
+    "unit": "nerves",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 13.4 The Peripheral Nervous System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/13-4-the-peripheral-nervous-system"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "skeleton-remodelled",
+    "label": "Skeleton remodeled each year",
+    "value": null,
+    "unit": "%",
+    "range": [
+      5,
+      10
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 6.4 Bone Formation and Development",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-4-bone-formation-and-development"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "growth-plate-closure",
+    "label": "Bones stop growing in length",
+    "value": null,
+    "unit": "years",
+    "range": [
+      18,
+      21
+    ],
+    "ageGroup": "adolescent to adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 6.3 Bone Structure",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-3-bone-structure"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "bone-density-peak",
+    "label": "Bone density peaks at about",
+    "value": 30,
+    "unit": "years",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 6.6 Exercise, Nutrition, Hormones, and Bone Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-6-exercise-nutrition-hormones-and-bone-tissue"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "bone-loss-female-onset",
+    "label": "Faster bone loss begins at about",
+    "value": 50,
+    "unit": "years",
+    "range": null,
+    "ageGroup": "older adult",
+    "sex": "female",
+    "source": {
+      "title": "OpenStax A&P 2e, 6.6 Exercise, Nutrition, Hormones, and Bone Tissue",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-6-exercise-nutrition-hormones-and-bone-tissue"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "fracture-hematoma",
+    "label": "Fracture hematoma forms after",
+    "value": null,
+    "unit": "h",
+    "range": [
+      6,
+      8
+    ],
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 6.5 Fractures: Bone Repair",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-5-fractures-bone-repair"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "fracture-callus",
+    "label": "Calli form within about",
+    "value": 48,
+    "unit": "h",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 6.5 Fractures: Bone Repair",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-5-fractures-bone-repair"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "sarcomere-length",
+    "label": "Sarcomere length",
+    "value": 2,
+    "unit": "µm",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 10.2 Skeletal Muscle",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-2-skeletal-muscle"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "power-stroke-distance",
+    "label": "Filament movement per power stroke",
+    "value": 10,
+    "unit": "nm",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 10.3 Muscle Fiber Contraction and Relaxation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-3-muscle-fiber-contraction-and-relaxation"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "energy-stored-atp",
+    "label": "Stored ATP powers contraction for",
+    "value": null,
+    "unit": "s",
+    "range": [
+      2,
+      5
+    ],
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 10.3 Muscle Fiber Contraction and Relaxation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-3-muscle-fiber-contraction-and-relaxation"
+    },
+    "confidence": "illustrative",
+    "note": "The source says only \"a few seconds\", so this range is illustrative."
+  },
+  {
+    "id": "energy-creatine",
+    "label": "Creatine phosphate energy",
+    "value": 15,
+    "unit": "s",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 10.3 Muscle Fiber Contraction and Relaxation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-3-muscle-fiber-contraction-and-relaxation"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "energy-glycolysis",
+    "label": "Glycolysis powers muscle for about",
+    "value": 60,
+    "unit": "s",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 10.3 Muscle Fiber Contraction and Relaxation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/10-3-muscle-fiber-contraction-and-relaxation"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "urine-daily",
+    "label": "Urine per day",
+    "value": null,
+    "unit": "L",
+    "range": [
+      1,
+      2
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.1 Physical Characteristics of Urine",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-1-physical-characteristics-of-urine"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "urine-minimum",
+    "label": "Minimum urine to clear wastes",
+    "value": 500,
+    "unit": "mL/day",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.1 Physical Characteristics of Urine",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-1-physical-characteristics-of-urine"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "urine-ph",
+    "label": "Urine acidity",
+    "value": null,
+    "unit": "pH",
+    "range": [
+      4.5,
+      8
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.1 Physical Characteristics of Urine",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-1-physical-characteristics-of-urine"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "bladder-capacity",
+    "label": "Bladder capacity",
+    "value": null,
+    "unit": "mL",
+    "range": [
+      500,
+      600
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.2 Gross Anatomy of Urine Transport",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "bladder-urge",
+    "label": "Urge to void begins at about",
+    "value": 150,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.2 Gross Anatomy of Urine Transport",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "gfr-male",
+    "label": "Glomerular filtration rate",
+    "value": 125,
+    "unit": "mL/min",
+    "range": [
+      90,
+      140
+    ],
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.5 Physiology of Urine Formation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-5-physiology-of-urine-formation"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "gfr-female",
+    "label": "Glomerular filtration rate",
+    "value": 105,
+    "unit": "mL/min",
+    "range": [
+      80,
+      125
+    ],
+    "ageGroup": "adult",
+    "sex": "female",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.5 Physiology of Urine Formation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-5-physiology-of-urine-formation"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "filtrate-male",
+    "label": "Filtrate per day",
+    "value": 180,
+    "unit": "L",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.5 Physiology of Urine Formation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-5-physiology-of-urine-formation"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "filtrate-female",
+    "label": "Filtrate per day",
+    "value": 150,
+    "unit": "L",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "female",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.5 Physiology of Urine Formation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-5-physiology-of-urine-formation"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "filtrate-reabsorbed",
+    "label": "Filtrate returned to circulation",
+    "value": 99,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.5 Physiology of Urine Formation",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-5-physiology-of-urine-formation"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "reabsorb-pct-water",
+    "label": "Water reabsorbed in the proximal tubule",
+    "value": 67,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.6 Tubular Reabsorption",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-6-tubular-reabsorption"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "reabsorb-loop-water",
+    "label": "Water reabsorbed in the descending loop of Henle",
+    "value": 15,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.6 Tubular Reabsorption",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-6-tubular-reabsorption"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "reabsorb-glucose",
+    "label": "Glucose reabsorbed in the proximal tubule",
+    "value": 100,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 25.6 Tubular Reabsorption",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-6-tubular-reabsorption"
+    },
+    "confidence": "high",
+    "note": "The source says almost 100 percent."
+  },
+  {
+    "id": "glucose-normal-textbook",
+    "label": "Blood glucose, maintained range",
+    "value": null,
+    "unit": "mg/dL",
+    "range": [
+      70,
+      100
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 17.9 The Endocrine Pancreas",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/17-9-the-endocrine-pancreas"
+    },
+    "confidence": "approximate",
+    "note": "The source figure description says up to 110 mg/dL, and its caption says 100."
+  },
+  {
+    "id": "glucose-fasting",
+    "label": "Fasting blood glucose, normal",
+    "value": null,
+    "unit": "mg/dL",
+    "range": [
+      70,
+      99
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Blood sugar test",
+      "url": "https://medlineplus.gov/ency/article/003482.htm"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "glucose-prediabetes",
+    "label": "Impaired fasting glucose",
+    "value": null,
+    "unit": "mg/dL",
+    "range": [
+      100,
+      125
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Blood sugar test",
+      "url": "https://medlineplus.gov/ency/article/003482.htm"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "wbc-count",
+    "label": "White blood cell count",
+    "value": null,
+    "unit": "per µL",
+    "range": [
+      5000,
+      10000
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.4 Leukocytes and Platelets",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-4-leukocytes-and-platelets"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "neutrophil-share",
+    "label": "Neutrophils",
+    "value": null,
+    "unit": "% of white cells",
+    "range": [
+      50,
+      70
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.4 Leukocytes and Platelets",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-4-leukocytes-and-platelets"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "lymphocyte-share",
+    "label": "Lymphocytes",
+    "value": null,
+    "unit": "% of white cells",
+    "range": [
+      20,
+      30
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.4 Leukocytes and Platelets",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-4-leukocytes-and-platelets"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "monocyte-share",
+    "label": "Monocytes",
+    "value": null,
+    "unit": "% of white cells",
+    "range": [
+      2,
+      8
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.4 Leukocytes and Platelets",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-4-leukocytes-and-platelets"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "eosinophil-share",
+    "label": "Eosinophils",
+    "value": null,
+    "unit": "% of white cells",
+    "range": [
+      2,
+      4
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.4 Leukocytes and Platelets",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-4-leukocytes-and-platelets"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "rbc-male",
+    "label": "Red blood cell count",
+    "value": 5.4,
+    "unit": "million per µL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.3 Erythrocytes",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "rbc-female",
+    "label": "Red blood cell count",
+    "value": 4.8,
+    "unit": "million per µL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "female",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.3 Erythrocytes",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "rbc-lifespan",
+    "label": "Red blood cell lifespan, up to",
+    "value": 120,
+    "unit": "days",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.3 Erythrocytes",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "oxygen-saturation",
+    "label": "Normal pulse oximeter reading",
+    "value": null,
+    "unit": "%",
+    "range": [
+      95,
+      100
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 18.3 Erythrocytes",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/18-3-erythrocytes"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sweat-rest",
+    "label": "Insensible sweat per day",
+    "value": 500,
+    "unit": "mL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 5.3 Functions of the Integumentary System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/5-3-functions-of-the-integumentary-system"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "sweat-active",
+    "label": "Sweat in an active person",
+    "value": null,
+    "unit": "L/h",
+    "range": [
+      0.7,
+      1.5
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 5.3 Functions of the Integumentary System",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/5-3-functions-of-the-integumentary-system"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "lymph-nodes",
+    "label": "Lymph nodes in the body",
+    "value": null,
+    "unit": "nodes",
+    "range": [
+      500,
+      600
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 21.1 Anatomy of the Lymphatic and Immune Systems",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "plasma-to-lymph",
+    "label": "Fluid drained by the lymphatic system",
+    "value": 3,
+    "unit": "L",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 21.1 Anatomy of the Lymphatic and Immune Systems",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems"
+    },
+    "confidence": "approximate",
+    "note": "From 20 L released and 17 L reabsorbed. The source gives no time period."
+  },
+  {
+    "id": "bmi-underweight-below",
+    "label": "BMI underweight, below",
+    "value": 18.5,
+    "unit": "kg/m²",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "CDC: Adult BMI Categories",
+      "url": "https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "bmi-overweight-from",
+    "label": "BMI overweight, from",
+    "value": 25,
+    "unit": "kg/m²",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "CDC: Adult BMI Categories",
+      "url": "https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "bmi-obesity-from",
+    "label": "BMI obesity, from",
+    "value": 30,
+    "unit": "kg/m²",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "CDC: Adult BMI Categories",
+      "url": "https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "handwash-scrub",
+    "label": "Handwashing scrub, at least",
+    "value": 20,
+    "unit": "s",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Handwashing",
+      "url": "https://www.cdc.gov/clean-hands/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "hand-sanitizer-alcohol",
+    "label": "Hand sanitizer alcohol, at least",
+    "value": 60,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Handwashing",
+      "url": "https://www.cdc.gov/clean-hands/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "hospital-hand-hygiene-effect",
+    "label": "Avoidable hospital infections preventable, up to",
+    "value": 50,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "WHO: Hand hygiene",
+      "url": "https://www.who.int/teams/integrated-health-services/infection-prevention-control/hand-hygiene"
+    },
+    "confidence": "approximate",
+    "note": "For hospital hand hygiene programmes."
+  },
+  {
+    "id": "brushing-daily",
+    "label": "Toothbrushing per day",
+    "value": 2,
+    "unit": "times",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Oral Health",
+      "url": "https://www.cdc.gov/oral-health/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "flossing-daily",
+    "label": "Flossing per day",
+    "value": 1,
+    "unit": "time",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Oral Health",
+      "url": "https://www.cdc.gov/oral-health/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "fluoride-water-effect",
+    "label": "Cavities reduced by fluoridated water, about",
+    "value": 25,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "all",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Oral Health",
+      "url": "https://www.cdc.gov/oral-health/about/index.html"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "sleep-newborn",
+    "label": "Recommended sleep, 0 to 3 months",
+    "value": null,
+    "unit": "h",
+    "range": [
+      14,
+      17
+    ],
+    "ageGroup": "newborn",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sleep-infant",
+    "label": "Recommended sleep, 4 to 12 months",
+    "value": null,
+    "unit": "h",
+    "range": [
+      12,
+      16
+    ],
+    "ageGroup": "infant",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sleep-school",
+    "label": "Recommended sleep, 6 to 12 years",
+    "value": null,
+    "unit": "h",
+    "range": [
+      9,
+      12
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sleep-teen",
+    "label": "Recommended sleep, 13 to 17 years",
+    "value": null,
+    "unit": "h",
+    "range": [
+      8,
+      10
+    ],
+    "ageGroup": "adolescent",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sleep-adult",
+    "label": "Recommended sleep, 18 to 60 years, at least",
+    "value": 7,
+    "unit": "h",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sleep-older",
+    "label": "Recommended sleep, 65 years and older",
+    "value": null,
+    "unit": "h",
+    "range": [
+      7,
+      8
+    ],
+    "ageGroup": "older adult",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "activity-weekly",
+    "label": "Moderate activity per week, at least",
+    "value": 150,
+    "unit": "min",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "CDC: Physical Activity Recommendations",
+      "url": "https://www.cdc.gov/physical-activity-basics/guidelines/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "reserve-loss-aging",
+    "label": "Organ reserve lost per year after age 30, average",
+    "value": 1,
+    "unit": "%",
+    "range": null,
+    "ageGroup": "older adult",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus: Aging changes in organs, tissue and cells",
+      "url": "https://medlineplus.gov/ency/article/004012.htm"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "ree-weight-coefficient",
+    "label": "Resting energy equation, per kg of weight",
+    "value": 10,
+    "unit": "kcal/day",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "Mifflin et al., Am J Clin Nutr 1990;51(2):241-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2305711/"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "ree-height-coefficient",
+    "label": "Resting energy equation, per cm of height",
+    "value": 6.25,
+    "unit": "kcal/day",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "Mifflin et al., Am J Clin Nutr 1990;51(2):241-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2305711/"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "ree-age-coefficient",
+    "label": "Resting energy equation, per year of age",
+    "value": -5,
+    "unit": "kcal/day",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "Mifflin et al., Am J Clin Nutr 1990;51(2):241-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2305711/"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "ree-male-constant",
+    "label": "Resting energy equation, constant",
+    "value": 5,
+    "unit": "kcal/day",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "male",
+    "source": {
+      "title": "Mifflin et al., Am J Clin Nutr 1990;51(2):241-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2305711/"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "ree-female-constant",
+    "label": "Resting energy equation, constant",
+    "value": -161,
+    "unit": "kcal/day",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "female",
+    "source": {
+      "title": "Mifflin et al., Am J Clin Nutr 1990;51(2):241-7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2305711/"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "chewing-time",
+    "label": "Time spent chewing before the first swallow",
+    "value": 30,
+    "unit": "s",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "Not sourced: an illustrative value chosen for this app",
+      "url": "https://github.com/3T3RN4TU5/Corpus"
+    },
+    "confidence": "illustrative"
+  },
+  {
+    "id": "thermoneutral-air",
+    "label": "Comfortable air temperature for a naked person",
+    "value": 84,
+    "unit": "°F",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 24.6 Energy and Heat Balance",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/24-6-energy-and-heat-balance"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "teeth-permanent",
+    "label": "Permanent teeth",
+    "value": 32,
+    "unit": "teeth",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 23.3 The Mouth, Pharynx, and Esophagus",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus"
+    },
+    "confidence": "high"
   }
 ]

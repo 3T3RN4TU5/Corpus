@@ -71,3 +71,18 @@ export function validatePhysiology(entries: PhysiologyEntry[]): string[] {
   }
   return errors
 }
+
+/** The stated value of an entry, or the middle of its range when the source gives only a range. */
+export function factNumber(id: string): number {
+  const { value, range } = getFact(id)
+  if (value !== null) return value
+  if (range) return (range[0] + range[1]) / 2
+  throw new Error(`Physiology entry has no number: ${id}`)
+}
+
+export function factRange(id: string): [number, number] {
+  const { value, range } = getFact(id)
+  if (range) return range
+  if (value !== null) return [value, value]
+  throw new Error(`Physiology entry has no number: ${id}`)
+}
