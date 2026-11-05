@@ -1,0 +1,181 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #12100e;
+  --color-plate: #1b1815;
+  --color-line: #3a342d;
+  --color-bone: #ece4d2;
+  --color-dust: #a69c88;
+  --color-rust: #ff6a3d;
+  --font-display: 'Newsreader Variable', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', Consolas, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-display);
+  overscroll-behavior: none;
+  scrollbar-color: var(--color-line) transparent;
+  scrollbar-width: thin;
+}
+
+.stage {
+  background:
+    radial-gradient(ellipse 55% 75% at 50% 45%, #2c251e 0%, #17140f 58%, #0d0b09 100%);
+}
+
+.stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(236 228 210 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(236 228 210 / 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 15%, transparent 75%);
+}
+
+.sheet {
+  background: rgb(22 19 16 / 0.86);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(10px);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-dust);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--color-dust);
+  border: 1px solid var(--color-line);
+  padding: 0.05rem 0.35rem;
+  white-space: nowrap;
+}
+
+.control {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-bone);
+  border: 1px solid var(--color-line);
+  padding: 0.4rem 0.6rem;
+  min-height: 2rem;
+  cursor: pointer;
+  transition: border-color 120ms, color 120ms, background 120ms;
+}
+
+.control:hover:not(:disabled) {
+  border-color: var(--color-dust);
+}
+
+.control[aria-pressed='true'],
+.control[aria-checked='true'] {
+  background: var(--color-rust);
+  border-color: var(--color-rust);
+  color: var(--color-ink);
+}
+
+.control:disabled {
+  color: #6f675a;
+  cursor: not-allowed;
+}
+
+a {
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration-color: var(--color-rust);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 2px;
+}
+
+input[type='range'] {
+  accent-color: var(--color-rust);
+  width: 100%;
+  height: 1.25rem;
+  cursor: pointer;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--color-rust);
+  width: 0.95rem;
+  height: 0.95rem;
+  cursor: pointer;
+  flex: none;
+}
+
+.callout {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.callout-dot {
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-rust);
+}
+
+.callout-line {
+  position: absolute;
+  left: 0;
+  top: -0.5px;
+  width: 54px;
+  height: 1px;
+  background: var(--color-rust);
+}
+
+.callout-text {
+  position: absolute;
+  left: 60px;
+  top: -0.7rem;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-bone);
+  text-shadow: 0 1px 6px #000;
+}
+
+.reveal {
+  animation: reveal 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}
