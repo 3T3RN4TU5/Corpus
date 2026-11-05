@@ -1,7 +1,9 @@
 import { useShallow } from 'zustand/react/shallow'
 import { factsForPart, getPart, LAYERS, SYSTEM_NAMES, SYSTEM_SOURCES } from '../data/anatomy'
+import { modelProvenance } from '../data/models'
 import { formatFact } from '../data/physiology'
 import { selectProfile, useBodyStore } from '../store/useBodyStore'
+import { pluginForAnatomy } from '../systems'
 
 export function InfoPanel() {
   const selectedId = useBodyStore((state) => state.selectedId)
@@ -11,8 +13,10 @@ export function InfoPanel() {
   const setIsolate = useBodyStore((state) => state.setIsolate)
   const profile = useBodyStore(useShallow(selectProfile))
 
+  const setOpenSystem = useBodyStore((state) => state.setOpenSystem)
   const part = selectedId ? getPart(selectedId) : undefined
   if (!part) return null
+  const simulation = pluginForAnatomy(part.system)
 
   const layerName = LAYERS.find((layer) => layer.id === part.layer)?.name
   const { facts, showsBothSexes } = factsForPart(part, profile)
@@ -44,10 +48,15 @@ export function InfoPanel() {
         <button type="button" className="control" aria-pressed={isolate} onClick={() => setIsolate(!isolate)}>
           Isolate
         </button>
-        <button type="button" className="control" disabled title="Not available yet. The circulatory simulation comes first.">
-          Simulate this
-        </button>
+        {simulation && (
+          <button type="button" className="control" onClick={() => setOpenSystem(simulation.id, simulation.layers)}>
+            Simulate this
+          </button>
+        )}
       </div>
+
+      <h3 className="eyebrow mt-4">3D model</h3>
+      <p className="mt-1 text-[0.88rem] leading-snug text-dust">{modelProvenance(profile.body, part.id)}</p>
 
       <h3 className="eyebrow mt-4">Connected systems</h3>
       <ul className="mt-1 flex flex-wrap gap-1.5">
