@@ -84,7 +84,66 @@ body {
 }
 
 .stage[data-xray='true'] .callout-text,
-.stage[data-xray='true'] .ruler-label {
+.stage[data-xray='true'] .part-labels {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.part-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  line-height: 1;
+  color: var(--color-bone);
+}
+
+.part-label::before {
+  content: '';
+  position: absolute;
+  left: -2.5px;
+  top: -2.5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-rust);
+  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 0.85);
+}
+
+.part-label::after {
+  content: attr(data-name);
+  position: absolute;
+  top: -9px;
+  height: 18px;
+  padding: 0 0.4rem;
+  line-height: 18px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.82);
+}
+
+.part-label-right::after {
+  left: 7px;
+}
+
+.part-label-left::after {
+  right: 7px;
+}
+
+.stage[data-xray='true'] .part-label {
+  color: #ffffff;
+}
+
+.stage[data-xray='true'] .part-label::after {
+  background: rgb(10 16 24 / 0.7);
+}
+
+.ruler-label {
   color: #ffffff;
   text-shadow: none;
 }

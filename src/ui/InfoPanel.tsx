@@ -11,6 +11,7 @@ export function InfoPanel() {
   const revealPart = useBodyStore((state) => state.revealPart)
   const isolate = useBodyStore((state) => state.isolate)
   const setIsolate = useBodyStore((state) => state.setIsolate)
+  const hidePart = useBodyStore((state) => state.hidePart)
   const profile = useBodyStore(useShallow(selectProfile))
 
   const setOpenSystem = useBodyStore((state) => state.setOpenSystem)
@@ -47,6 +48,9 @@ export function InfoPanel() {
         </button>
         <button type="button" className="control" aria-pressed={isolate} onClick={() => setIsolate(!isolate)}>
           Isolate
+        </button>
+        <button type="button" className="control" onClick={() => hidePart(part.id)}>
+          Hide
         </button>
         {simulation && (
           <button type="button" className="control" onClick={() => setOpenSystem(simulation.id, simulation.layers)}>

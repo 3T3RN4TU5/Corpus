@@ -28,7 +28,7 @@ Then open http://localhost:5173.
 
 ## What it includes
 
-**The body.** Real anatomy models for a female and a male body, with eight layers: skin, fat, muscle, skeleton, organs, vessels, nerves and lymph. You can change each layer's opacity, use X-ray mode, slice the body in three directions, isolate a part, click or search for any of about 120 parts, and read sourced facts about each one.
+**The body.** Real anatomy models for a female and a male body, with eight layers: skin, fat, muscle, skeleton, organs, vessels, nerves and lymph. You can change each layer's opacity, use X-ray mode, slice the body in three directions, isolate or hide a part, fade whatever is in front of it, show name labels, click or search for any of about 120 parts, and read sourced facts about each one.
 
 **Every sex.** Female and male profiles, four named intersex variations, and a custom builder for any combination of structures. Where sources report only female and male reference ranges, other profiles show both and say so, rather than implying a value.
 

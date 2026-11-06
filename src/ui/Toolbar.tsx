@@ -23,6 +23,10 @@ export function Toolbar() {
   const quality = useBodyStore((state) => state.quality)
   const setQuality = useBodyStore((state) => state.setQuality)
   const resetView = useBodyStore((state) => state.resetView)
+  const showLabels = useBodyStore((state) => state.showLabels)
+  const setShowLabels = useBodyStore((state) => state.setShowLabels)
+  const fadeInFront = useBodyStore((state) => state.fadeInFront)
+  const setFadeInFront = useBodyStore((state) => state.setFadeInFront)
   const dragMode = useBodyStore((state) => state.dragMode)
   const setDragMode = useBodyStore((state) => state.setDragMode)
 
@@ -30,7 +34,7 @@ export function Toolbar() {
     <div className="flex flex-wrap items-end gap-x-5 gap-y-3 p-3">
       <div>
         <p className="eyebrow mb-1">View</p>
-        <div className="flex gap-1">
+        <div className="flex flex-wrap gap-1">
           <button type="button" className="control" aria-pressed={xray} onClick={() => setXray(!xray)}>
             X-ray
           </button>
@@ -43,6 +47,12 @@ export function Toolbar() {
             onClick={() => setIsolate(!isolate)}
           >
             Isolate
+          </button>
+          <button type="button" className="control" aria-pressed={showLabels} title="Name the parts that fit on screen. Zoom in to see more." onClick={() => setShowLabels(!showLabels)}>
+            Labels
+          </button>
+          <button type="button" className="control" aria-pressed={fadeInFront} title="Fade whatever is in front of the selected part." onClick={() => setFadeInFront(!fadeInFront)}>
+            Fade
           </button>
           <button type="button" className="control" onClick={resetView}>
             Reset

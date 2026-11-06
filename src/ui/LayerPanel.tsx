@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { LAYERS } from '../data/anatomy'
+import { getPart, LAYERS } from '../data/anatomy'
 import { MIN_PICKABLE_OPACITY } from '../scene/appearance'
 import { useBodyStore } from '../store/useBodyStore'
 import { PartBrowser } from './PartBrowser'
@@ -10,6 +10,9 @@ export function LayerPanel() {
   const setLayerVisible = useBodyStore((state) => state.setLayerVisible)
   const setLayerOpacity = useBodyStore((state) => state.setLayerOpacity)
   const showAllLayers = useBodyStore((state) => state.showAllLayers)
+  const hiddenIds = useBodyStore((state) => state.hiddenIds)
+  const unhidePart = useBodyStore((state) => state.unhidePart)
+  const unhideAll = useBodyStore((state) => state.unhideAll)
 
   return (
     <section aria-labelledby="layers-heading" className="sheet p-4">
@@ -58,6 +61,25 @@ export function LayerPanel() {
           ? 'In X-ray mode, clicks pass through skin, fat and muscle.'
           : `Clicks pass through layers below ${MIN_PICKABLE_OPACITY * 100}% opacity.`}
       </p>
+      {hiddenIds.length > 0 && (
+        <div className="mt-2 border-t border-line pt-2">
+          <div className="flex items-baseline justify-between">
+            <h3 className="eyebrow">Hidden parts</h3>
+            <button type="button" className="font-mono text-[0.68rem] text-dust underline hover:text-bone" onClick={unhideAll}>
+              Show all
+            </button>
+          </div>
+          <ul className="mt-1 flex flex-wrap gap-1">
+            {hiddenIds.map((id) => (
+              <li key={id}>
+                <button type="button" className="tag" aria-label={`Show ${getPart(id)?.name ?? id}`} onClick={() => unhidePart(id)}>
+                  {getPart(id)?.name ?? id} ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <PartBrowser />
     </section>
   )

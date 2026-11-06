@@ -1,7 +1,7 @@
 import { Html, useGLTF } from '@react-three/drei'
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { memo, Suspense, useEffect, useMemo, useRef } from 'react'
-import { AdditiveBlending, DoubleSide, FrontSide, Mesh, Plane, Vector3, type BufferGeometry, type Group, type Intersection, type MeshStandardMaterial } from 'three'
+import { AdditiveBlending, Box3, DoubleSide, FrontSide, Matrix3, Matrix4, Mesh, Plane, Raycaster, Vector3, type BufferGeometry, type Group, type Intersection, type MeshStandardMaterial } from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import { useShallow } from 'zustand/react/shallow'
 import { getPart, LAYERS, partsForProfile, type LayerId, type Part } from '../data/anatomy'
@@ -12,6 +12,7 @@ import { selectProfile, useBodyStore } from '../store/useBodyStore'
 import { getPlugin } from '../systems'
 import { partAppearance } from './appearance'
 import { setClipPlane } from './clip'
+import { pickLabels, type LabelCandidate } from './labels'
 
 const ACCENT = '#ff6a3d'
 const XRAY_TINT = '#9fc4e8'
@@ -73,6 +74,8 @@ const PartMesh = memo(function PartMesh({ part, geometry, place, centre }: { par
         xray: state.xray,
         isolate: state.isolate,
         selectedId: state.selectedId,
+        hidden: state.hiddenIds.includes(part.id),
+        faded: state.fadedIds.includes(part.id),
       }),
     ),
   )
@@ -235,6 +238,213 @@ function SelectionLabel({ body }: { body: BodyId }) {
   )
 }
 
+function partMeshes(group: Group): Mesh[] {
+  const meshes: Mesh[] = []
+  group.traverse((object) => {
+    if (object instanceof Mesh && object.userData.partId) meshes.push(object)
+  })
+  return meshes
+}
+
+const FADE_SIGHT_LINES = 36
+const VISIBLE_MOVEMENT = 1e-4
+
+/** The camera eases to a stop and keeps making tiny movements for seconds, so an exact comparison would stop too late. */
+function viewHasMoved(last: Matrix4, current: Matrix4): boolean {
+  return current.elements.some((value, index) => Math.abs(value - last.elements[index]) > VISIBLE_MOVEMENT)
+}
+const FADE_SETTLE_SECONDS = 0.12
+
+/** Points spread over the side of a part that faces the camera. Too few would miss small parts in front of it. */
+function facingPoints(meshes: Mesh[], cameraPosition: Vector3): Vector3[] {
+  const points: Vector3[] = []
+  const normal = new Vector3()
+  const normalMatrix = new Matrix3()
+  for (const mesh of meshes) {
+    const positions = mesh.geometry.getAttribute('position')
+    const normals = mesh.geometry.getAttribute('normal')
+    if (!positions) continue
+    normalMatrix.getNormalMatrix(mesh.matrixWorld)
+    const step = Math.max(1, Math.floor((positions.count * meshes.length) / (FADE_SIGHT_LINES * 8)))
+    for (let index = 0; index < positions.count; index += step) {
+      const point = new Vector3().fromBufferAttribute(positions, index).applyMatrix4(mesh.matrixWorld)
+      if (normals) {
+        normal.fromBufferAttribute(normals, index).applyMatrix3(normalMatrix)
+        if (normal.dot(cameraPosition.clone().sub(point)) <= 0) continue
+      }
+      points.push(point)
+    }
+  }
+  const spacing = Math.max(1, Math.floor(points.length / FADE_SIGHT_LINES))
+  return points.filter((_, index) => index % spacing === 0).slice(0, FADE_SIGHT_LINES)
+}
+
+/**
+ * Fades whatever stands in front of the selected part, by looking along lines from the camera to that part. Testing real
+ * triangles is slow, so it waits until the camera has stopped.
+ */
+function FrontFader({ group, body }: { group: React.RefObject<Group | null>; body: BodyId }) {
+  const camera = useThree((state) => state.camera)
+  const selectedId = useBodyStore((state) => state.selectedId)
+  const active = useBodyStore((state) => state.fadeInFront && !state.xray && !state.isolate && state.selectedId !== null)
+  const layers = useBodyStore((state) => state.layers)
+  const hiddenIds = useBodyStore((state) => state.hiddenIds)
+  const clipAxis = useBodyStore((state) => state.clipAxis)
+  const clipPosition = useBodyStore((state) => state.clipPosition)
+  const setFadedIds = useBodyStore((state) => state.setFadedIds)
+  const pending = useRef(true)
+  const movedAt = useRef(0)
+  const lastView = useRef(new Matrix4())
+  const raycaster = useMemo(() => new Raycaster(), [])
+
+  useEffect(() => {
+    pending.current = true
+    if (!active) setFadedIds([])
+  }, [active, selectedId, layers, hiddenIds, clipAxis, clipPosition, body, setFadedIds])
+
+  useFrame(({ clock }) => {
+    if (!active) return
+    const time = clock.getElapsedTime()
+    if (viewHasMoved(lastView.current, camera.matrixWorld)) {
+      lastView.current.copy(camera.matrixWorld)
+      movedAt.current = time
+      pending.current = true
+      return
+    }
+    if (!pending.current || time - movedAt.current < FADE_SETTLE_SECONDS || !group.current) return
+
+    const meshes = partMeshes(group.current)
+    const selected = meshes.filter((mesh) => mesh.userData.partId === selectedId)
+    // The selected part's model may still be loading, so this tries again on the next frame.
+    if (selected.length === 0) return
+    pending.current = false
+
+    const { fadedIds } = useBodyStore.getState()
+    const others = meshes.filter((mesh) => mesh.userData.partId !== selectedId && (mesh.userData.pickable || fadedIds.includes(mesh.userData.partId)))
+    const inFront = new Set<string>()
+    const origin = camera.getWorldPosition(new Vector3())
+    for (const point of facingPoints(selected, origin)) {
+      const direction = point.clone().sub(origin)
+      const distance = direction.length()
+      raycaster.set(origin, direction.normalize())
+      raycaster.far = distance - 0.002
+      for (const mesh of others) {
+        if (inFront.has(mesh.userData.partId)) continue
+        if (raycaster.intersectObject(mesh, false).some((hit) => !isClippedAway(hit.point, body))) inFront.add(mesh.userData.partId)
+      }
+    }
+    setFadedIds([...inFront])
+  })
+
+  return null
+}
+
+/** A point on a part's own surface. The centre of a paired part, such as the femurs, is in the empty space between them. */
+const labelAnchors = new WeakMap<BufferGeometry, Vector3>()
+
+function labelAnchor(geometry: BufferGeometry): Vector3 {
+  const known = labelAnchors.get(geometry)
+  if (known) return known
+  const positions = geometry.getAttribute('position')
+  const centre = new Box3().setFromBufferAttribute(positions as never).getCenter(new Vector3())
+  const point = new Vector3()
+  const anchor = new Vector3()
+  let nearest = Infinity
+  const step = Math.max(1, Math.floor(positions.count / 500))
+  for (let index = 0; index < positions.count; index += step) {
+    point.fromBufferAttribute(positions, index)
+    const gap = point.distanceToSquared(centre)
+    if (gap < nearest) {
+      nearest = gap
+      anchor.copy(point)
+    }
+  }
+  labelAnchors.set(geometry, anchor)
+  return anchor
+}
+
+const LABEL_REFRESH_SECONDS = 0.1
+
+/**
+ * Names the parts that fit on screen. These are plain page elements that one loop updates, because a separate 3D-anchored
+ * element for each of 100 parts would slow the view down.
+ */
+function PartLabels({ group, body }: { group: React.RefObject<Group | null>; body: BodyId }) {
+  const show = useBodyStore((state) => state.showLabels)
+  const camera = useThree((state) => state.camera)
+  const canvas = useThree((state) => state.gl.domElement)
+  const overlay = useRef<HTMLDivElement | null>(null)
+  const elements = useRef(new Map<string, HTMLDivElement>())
+  const lastRefresh = useRef(0)
+
+  useEffect(() => {
+    if (!show || !canvas.parentElement) return
+    const layer = document.createElement('div')
+    layer.className = 'part-labels'
+    canvas.parentElement.appendChild(layer)
+    overlay.current = layer
+    const known = elements.current
+    return () => {
+      layer.remove()
+      overlay.current = null
+      known.clear()
+    }
+  }, [show, canvas])
+
+  useFrame(({ clock }) => {
+    const layer = overlay.current
+    if (!layer || !group.current) return
+    const time = clock.getElapsedTime()
+    if (time - lastRefresh.current < LABEL_REFRESH_SECONDS) return
+    lastRefresh.current = time
+
+    const { clientWidth: width, clientHeight: height } = canvas
+    const { selectedId } = useBodyStore.getState()
+    const candidates = new Map<string, LabelCandidate>()
+    const world = new Vector3()
+    for (const mesh of partMeshes(group.current)) {
+      const id = mesh.userData.partId as string
+      // The selected part already has its own label.
+      if (!mesh.userData.pickable || id === selectedId || candidates.has(id)) continue
+      const part = getPart(id)
+      if (!part) continue
+      world.copy(labelAnchor(mesh.geometry)).applyMatrix4(mesh.matrixWorld)
+      if (isClippedAway(world, body)) continue
+      world.project(camera)
+      if (world.z > 1) continue
+      candidates.set(id, {
+        id,
+        name: part.name,
+        x: ((world.x + 1) / 2) * width,
+        y: ((1 - world.y) / 2) * height,
+        radius: partModel(body, id)?.radius ?? 0,
+      })
+    }
+
+    const placed = pickLabels([...candidates.values()], width, height)
+    const showing = new Set(placed.map((label) => label.id))
+    for (const [id, element] of elements.current) {
+      if (!showing.has(id)) {
+        element.remove()
+        elements.current.delete(id)
+      }
+    }
+    for (const label of placed) {
+      let element = elements.current.get(label.id)
+      if (!element) {
+        element = document.createElement('div')
+        element.dataset.name = label.name
+        layer.appendChild(element)
+        elements.current.set(label.id, element)
+      }
+      element.className = `part-label part-label-${label.side}`
+      element.style.transform = `translate(${label.x.toFixed(1)}px, ${label.y.toFixed(1)}px)`
+    }
+  })
+
+  return null
+}
+
 export function BodyModel() {
   const quality = useBodyStore((state) => state.quality)
   const profile = useBodyStore(useShallow(selectProfile))
@@ -300,6 +510,8 @@ export function BodyModel() {
         ))}
       </group>
       <SelectionLabel body={body} />
+      <FrontFader group={bodyGroup} body={body} />
+      <PartLabels group={bodyGroup} body={body} />
       <CameraRig body={body} />
       {SystemScene && (
         <Suspense fallback={null}>

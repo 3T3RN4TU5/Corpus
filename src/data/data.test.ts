@@ -4,6 +4,7 @@ import { formatFact, getFact, physiology, validatePhysiology } from './physiolog
 import { DEFAULT_CUSTOM, resolveProfile, SEX_PROFILES } from './sexProfiles'
 import { modelManifest, modelProvenance, partIdFromNodeName } from './models'
 import { partAppearance, type AppearanceInput } from '../scene/appearance'
+import { pickLabels } from '../scene/labels'
 
 const part = (id: string) => PARTS.find((candidate) => candidate.id === id)!
 const profile = (id: string) => resolveProfile(id, DEFAULT_CUSTOM)
@@ -271,9 +272,48 @@ describe('part appearance', () => {
     expect(partAppearance(part('skin'), input)).toMatchObject({ visible: true, pickable: false })
   })
 
+  it('removes a hidden part, even when its layer is on', () => {
+    expect(partAppearance(part('heart'), { ...base, hidden: true }).visible).toBe(false)
+  })
+
+  it('fades a part in front of the selection and lets clicks through it', () => {
+    const faded = partAppearance(part('heart'), { ...base, selectedId: 'liver', faded: true })
+    expect(faded.visible).toBe(true)
+    expect(faded.opacity).toBeLessThan(0.2)
+    expect(faded.pickable).toBe(false)
+  })
+
+  it('never brightens a layer that is already fainter than the fade', () => {
+    const input = { ...base, layers: { ...base.layers, organs: { visible: true, opacity: 0.05 } }, faded: true }
+    expect(partAppearance(part('heart'), input).opacity).toBeCloseTo(0.05)
+  })
+
   it('makes soft tissue click-through in x-ray mode', () => {
     const input = { ...base, xray: true }
     expect(partAppearance(part('deltoid'), input).pickable).toBe(false)
     expect(partAppearance(part('femur'), input).pickable).toBe(true)
+  })
+})
+
+describe('choosing which part labels to show', () => {
+  const label = (id: string, x: number, y: number, radius: number) => ({ id, name: 'Label', x, y, radius })
+
+  it('keeps the larger part when two labels would overlap', () => {
+    const placed = pickLabels([label('small', 100, 100, 0.01), label('large', 100, 102, 0.3)], 800, 600)
+    expect(placed.map((item) => item.id)).toContain('large')
+    expect(placed.filter((item) => item.side === 'right').map((item) => item.id)).toEqual(['large'])
+  })
+
+  it('uses the other side when one side is taken', () => {
+    const placed = pickLabels([label('first', 100, 100, 0.3), label('second', 100, 100, 0.1)], 800, 600)
+    expect(placed.map((item) => item.side)).toEqual(['right', 'left'])
+  })
+
+  it('moves a label to the left at the right edge of the screen', () => {
+    expect(pickLabels([label('edge', 795, 100, 0.1)], 800, 600)[0].side).toBe('left')
+  })
+
+  it('skips parts that are off screen', () => {
+    expect(pickLabels([label('gone', -5, 100, 0.1), label('below', 100, 700, 0.1)], 800, 600)).toEqual([])
   })
 })

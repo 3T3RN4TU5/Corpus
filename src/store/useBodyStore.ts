@@ -53,6 +53,14 @@ interface BodyStore {
   dragMode: DragMode
   selectedId: string | null
   hoveredId: string | null
+  /** Parts the person has hidden. */
+  hiddenIds: string[]
+  /** Parts standing between the camera and the selected part. The 3D view keeps this up to date. */
+  fadedIds: string[]
+  /** Whether parts in front of the selected part fade. */
+  fadeInFront: boolean
+  /** Whether every part that fits on screen has a name label. */
+  showLabels: boolean
   /** Changes whenever the camera should fly. The target is `cameraTargetId`, or the home view when null. */
   cameraNonce: number
   cameraTargetId: string | null
@@ -80,6 +88,12 @@ interface BodyStore {
   /** Selects a part chosen from outside the scene, reveals its layer and flies the camera to it. */
   revealPart: (id: string) => void
   setHovered: (id: string | null) => void
+  hidePart: (id: string) => void
+  unhidePart: (id: string) => void
+  unhideAll: () => void
+  setFadedIds: (ids: string[]) => void
+  setFadeInFront: (on: boolean) => void
+  setShowLabels: (on: boolean) => void
   resetView: () => void
 }
 
@@ -105,6 +119,10 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
   dragMode: 'rotate',
   selectedId: null,
   hoveredId: null,
+  hiddenIds: [],
+  fadedIds: [],
+  fadeInFront: true,
+  showLabels: false,
   cameraNonce: 0,
   cameraTargetId: null,
   openSystem: null,
@@ -119,6 +137,8 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
     set((state) => ({
       openSystem,
       selectedId: openSystem ? null : state.selectedId,
+      // A simulation animates particular parts, so it needs them all present.
+      hiddenIds: openSystem ? [] : state.hiddenIds,
       isolate: openSystem ? false : state.isolate,
       layersBeforeLab: openSystem ? (state.layersBeforeLab ?? state.layers) : null,
       layers: !openSystem && state.layersBeforeLab
@@ -169,6 +189,7 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
       const layer = state.layers[part.layer]
       return {
         selectedId: id,
+        hiddenIds: state.hiddenIds.filter((hidden) => hidden !== id),
         layers: {
           ...state.layers,
           [part.layer]: {
@@ -185,6 +206,20 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
   setHovered: (hoveredId) => {
     if (get().hoveredId !== hoveredId) set({ hoveredId })
   },
+  hidePart: (id) =>
+    set((state) => ({
+      hiddenIds: state.hiddenIds.includes(id) ? state.hiddenIds : [...state.hiddenIds, id],
+      selectedId: state.selectedId === id ? null : state.selectedId,
+      isolate: state.selectedId === id ? false : state.isolate,
+    })),
+  unhidePart: (id) => set((state) => ({ hiddenIds: state.hiddenIds.filter((hidden) => hidden !== id) })),
+  unhideAll: () => set({ hiddenIds: [] }),
+  setFadedIds: (fadedIds) => {
+    const current = get().fadedIds
+    if (current.length !== fadedIds.length || fadedIds.some((id) => !current.includes(id))) set({ fadedIds })
+  },
+  setFadeInFront: (fadeInFront) => set({ fadeInFront }),
+  setShowLabels: (showLabels) => set({ showLabels }),
   resetView: () => set((state) => ({ cameraNonce: state.cameraNonce + 1, cameraTargetId: null, isolate: false })),
 }))
 
