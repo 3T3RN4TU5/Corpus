@@ -1,6 +1,6 @@
 # Corpus
 
-An interactive, educational 3D simulator of the human body, with female, male and intersex anatomy. It runs in the browser.
+An interactive, educational 3D simulator of the human body, with female, male and intersex anatomy. It runs in the browser: **[corpus-blond.vercel.app](https://corpus-blond.vercel.app/)**.
 
 > Educational simplification. Not for diagnosis or medical decisions.
 
