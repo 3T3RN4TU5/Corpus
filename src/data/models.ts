@@ -3,7 +3,7 @@ import type { LayerId } from './anatomy'
 
 export type BodyId = 'female' | 'male'
 export type Lod = 'high' | 'low'
-export type ModelSource = 'hra' | 'bp3d' | 'illustrative'
+export type ModelSource = 'hra' | 'bp3d' | 'zanatomy' | 'illustrative'
 
 export interface ModelFile {
   file: string
@@ -59,6 +59,10 @@ export function modelProvenance(body: BodyId, id: string): string {
   if (!model) return 'No 3D model is available for this part.'
   if (id === 'subcutaneous-fat') return 'Illustrative: the skin surface moved inward by a fixed distance. It does not show real fat distribution.'
   if (model.illustrative) return 'Illustrative shape, placed by hand. Neither anatomy dataset includes this structure.'
+  if (model.sources.includes('zanatomy')) {
+    const parts = model.layer === 'lymph' ? 'Each node is drawn as a small sphere at its position in that atlas, not one person\'s actual node.' : 'Drawn a little thicker than the source, so that fine branches can be seen.'
+    return `From Z-Anatomy, an open atlas modelled on one male body, moved to follow this body's fitted bones. ${parts}`
+  }
   const atlas = model.sources.includes('hra')
   const fitted = model.sources.includes('bp3d')
   const sex = body === 'female' ? 'female' : 'male'

@@ -28,7 +28,7 @@ Then open http://localhost:5173.
 
 ## What it includes
 
-**The body.** Real anatomy models for a female and a male body, with eight layers: skin, fat, muscle, skeleton, organs, vessels, nerves and lymph. You can change each layer's opacity, use X-ray mode, slice the body in three directions, isolate or hide a part, fade whatever is in front of it, show name labels, click or search for any of about 120 parts, and read sourced facts about each one.
+**The body.** Real anatomy models for a female and a male body, with eight layers: skin, fat, muscle, skeleton, organs, vessels, nerves and lymph. You can change each layer's opacity, use X-ray mode, slice the body in three directions, isolate or hide a part, fade whatever is in front of it, show name labels, click or search for any of about 130 parts, and read sourced facts about each one.
 
 **Every sex.** Female and male profiles, four named intersex variations, and a custom builder for any combination of structures. Where sources report only female and male reference ranges, other profiles show both and say so, rather than implying a value.
 
@@ -86,7 +86,7 @@ Add a folder under `src/systems/` and register it in `src/systems/index.ts`. Eac
 - BodyParts3D has 23 intervertebral discs and no disc for the atlas female body's sixth lumbar vertebra. Foot and hand proportions are stretched by computer, not measured from these bodies.
 - BodyParts3D has the intercostal muscles and some small back muscles on the left side only, so the right side is a mirror image of the left.
 - Rectus abdominis and latissimus dorsi are simple illustrative shapes, and masseter, temporalis and internal oblique are missing, because BodyParts3D does not include them.
-- Peripheral nerves, lymph nodes and the thoracic duct are hand-placed. The fat layer is the skin moved inward, and it does not show real fat distribution.
+- Peripheral nerves and lymph nodes come from Z-Anatomy, modelled on one male body, and follow each body's fitted bones. Nerves are drawn 1.4 times thicker than the source so that fine branches can be seen. Each lymph node is a small sphere at its position in that atlas, not one person's actual node, and some are enlarged to stay visible. No open data for lymph vessels was found, so the thoracic duct is the only lymph vessel shown, and it is hand-placed. The fat layer is the skin moved inward, and it does not show real fat distribution.
 - Skin has no realistic texture.
 - The body does not move, because it has no rig. Movements are shown with a stick figure, and working muscles glow on the 3D body.
 - Neither dataset includes breast tissue, the thyroid, parathyroid or parotid glands, eyelids in a usable form, hair or the female urethra. The thyroid is a simple illustrative shape, and the others are left out, along with most ligaments.

@@ -1,5 +1,5 @@
 // Keeps the app and body models available offline after a first visit.
-const CACHE = 'corpus-v2'
+const CACHE = 'corpus-v3'
 
 self.addEventListener('install', () => self.skipWaiting())
 

@@ -37,7 +37,7 @@
      "lod": "high",
      "layer": "lymph",
      "source": "hra",
-     "bytes": 6824
+     "bytes": 8500
     },
     {
      "file": "female/hra-muscle-high.glb",
@@ -51,7 +51,7 @@
      "lod": "high",
      "layer": "nerves",
      "source": "hra",
-     "bytes": 68852
+     "bytes": 137548
     },
     {
      "file": "female/hra-organs-high.glb",
@@ -93,7 +93,7 @@
      "lod": "high",
      "layer": "lymph",
      "source": "illustrative",
-     "bytes": 13376
+     "bytes": 2352
     },
     {
      "file": "female/illustrative-muscle-high.glb",
@@ -103,18 +103,25 @@
      "bytes": 5536
     },
     {
-     "file": "female/illustrative-nerves-high.glb",
-     "lod": "high",
-     "layer": "nerves",
-     "source": "illustrative",
-     "bytes": 11792
-    },
-    {
      "file": "female/illustrative-organs-high.glb",
      "lod": "high",
      "layer": "organs",
      "source": "illustrative",
      "bytes": 2260
+    },
+    {
+     "file": "female/zanatomy-lymph-high.glb",
+     "lod": "high",
+     "layer": "lymph",
+     "source": "zanatomy",
+     "bytes": 84044
+    },
+    {
+     "file": "female/zanatomy-nerves-high.glb",
+     "lod": "high",
+     "layer": "nerves",
+     "source": "zanatomy",
+     "bytes": 270660
     },
     {
      "file": "female/bp3d-muscle-low.glb",
@@ -149,7 +156,7 @@
      "lod": "low",
      "layer": "lymph",
      "source": "hra",
-     "bytes": 3728
+     "bytes": 4932
     },
     {
      "file": "female/hra-muscle-low.glb",
@@ -163,7 +170,7 @@
      "lod": "low",
      "layer": "nerves",
      "source": "hra",
-     "bytes": 49016
+     "bytes": 75820
     },
     {
      "file": "female/hra-organs-low.glb",
@@ -205,7 +212,7 @@
      "lod": "low",
      "layer": "lymph",
      "source": "illustrative",
-     "bytes": 8004
+     "bytes": 1652
     },
     {
      "file": "female/illustrative-muscle-low.glb",
@@ -215,21 +222,42 @@
      "bytes": 3212
     },
     {
-     "file": "female/illustrative-nerves-low.glb",
-     "lod": "low",
-     "layer": "nerves",
-     "source": "illustrative",
-     "bytes": 6492
-    },
-    {
      "file": "female/illustrative-organs-low.glb",
      "lod": "low",
      "layer": "organs",
      "source": "illustrative",
      "bytes": 1496
+    },
+    {
+     "file": "female/zanatomy-lymph-low.glb",
+     "lod": "low",
+     "layer": "lymph",
+     "source": "zanatomy",
+     "bytes": 53968
+    },
+    {
+     "file": "female/zanatomy-nerves-low.glb",
+     "lod": "low",
+     "layer": "nerves",
+     "source": "zanatomy",
+     "bytes": 137580
     }
    ],
    "parts": {
+    "abdominal-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 8896,
+     "illustrative": false,
+     "centre": [
+      0.0074,
+      1.0419,
+      0.0321
+     ],
+     "radius": 0.2219
+    },
     "abdominal-vessels": {
      "layer": "vessels",
      "sources": [
@@ -287,20 +315,6 @@
      ],
      "radius": 0.5788
     },
-    "arm-nerves": {
-     "layer": "nerves",
-     "sources": [
-      "illustrative"
-     ],
-     "triangles": 764,
-     "illustrative": true,
-     "centre": [
-      -0.0001,
-      1.1174,
-      -0.0046
-     ],
-     "radius": 0.5105
-    },
     "arm-veins": {
      "layer": "vessels",
      "sources": [
@@ -315,19 +329,33 @@
      ],
      "radius": 0.4933
     },
+    "axillary-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 848,
+     "illustrative": false,
+     "centre": [
+      -0.0015,
+      1.3286,
+      -0.0515
+     ],
+     "radius": 0.2224
+    },
     "axillary-nodes": {
      "layer": "lymph",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 1048,
-     "illustrative": true,
+     "triangles": 5632,
+     "illustrative": false,
      "centre": [
-      -0.0,
-      1.2725,
-      -0.0353
+      -0.0003,
+      1.2162,
+      -0.0009
      ],
-     "radius": 0.1648
+     "radius": 0.3263
     },
     "back-muscles": {
      "layer": "muscle",
@@ -384,6 +412,20 @@
       0.0295
      ],
      "radius": 0.046
+    },
+    "brachial-plexus": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 7410,
+     "illustrative": false,
+     "centre": [
+      -0.0006,
+      1.2068,
+      -0.0036
+     ],
+     "radius": 0.4433
     },
     "brain-basal-ganglia": {
      "layer": "organs",
@@ -571,16 +613,16 @@
     "cervical-nodes": {
      "layer": "lymph",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 1048,
-     "illustrative": true,
+     "triangles": 9088,
+     "illustrative": false,
      "centre": [
-      0.0007,
-      1.4769,
-      -0.0151
+      -0.0027,
+      1.4704,
+      0.0179
      ],
-     "radius": 0.0647
+     "radius": 0.1464
     },
     "chest-wall-muscles": {
      "layer": "muscle",
@@ -623,6 +665,20 @@
       0.0041
      ],
      "radius": 0.2054
+    },
+    "cranial-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 15279,
+     "illustrative": false,
+     "centre": [
+      0.0006,
+      1.4432,
+      -0.01
+     ],
+     "radius": 0.2297
     },
     "deep-calf-muscles": {
      "layer": "muscle",
@@ -767,16 +823,16 @@
     "femoral-nerve": {
      "layer": "nerves",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 568,
-     "illustrative": true,
+     "triangles": 2648,
+     "illustrative": false,
      "centre": [
-      -0.0074,
-      0.7632,
-      0.0181
+      -0.0049,
+      0.5952,
+      -0.0092
      ],
-     "radius": 0.2478
+     "radius": 0.5271
     },
     "femur": {
      "layer": "skeleton",
@@ -805,6 +861,20 @@
       -0.0266
      ],
      "radius": 0.2455
+    },
+    "fibular-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 5278,
+     "illustrative": false,
+     "centre": [
+      -0.0045,
+      0.2663,
+      0.0394
+     ],
+     "radius": 0.3152
     },
     "foot-bones": {
      "layer": "skeleton",
@@ -1047,16 +1117,30 @@
     "inguinal-nodes": {
      "layer": "lymph",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 1048,
-     "illustrative": true,
+     "triangles": 2816,
+     "illustrative": false,
      "centre": [
-      -0.0018,
-      0.8122,
-      0.0496
+      -0.005,
+      0.5536,
+      0.0167
      ],
-     "radius": 0.1377
+     "radius": 0.3088
+    },
+    "intercostal-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 9477,
+     "illustrative": false,
+     "centre": [
+      -0.0001,
+      1.1774,
+      -0.0003
+     ],
+     "radius": 0.2903
     },
     "jugular-veins": {
      "layer": "vessels",
@@ -1156,6 +1240,20 @@
      ],
      "radius": 0.1716
     },
+    "lumbar-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 2632,
+     "illustrative": false,
+     "centre": [
+      -0.0036,
+      0.8321,
+      -0.011
+     ],
+     "radius": 0.3767
+    },
     "lung-left": {
      "layer": "organs",
      "sources": [
@@ -1198,6 +1296,34 @@
      ],
      "radius": 0.0773
     },
+    "median-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 4376,
+     "illustrative": false,
+     "centre": [
+      0.0,
+      1.0545,
+      0.0186
+     ],
+     "radius": 0.5745
+    },
+    "musculocutaneous-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 672,
+     "illustrative": false,
+     "centre": [
+      -0.0009,
+      1.1233,
+      -0.0037
+     ],
+     "radius": 0.4023
+    },
     "neck-muscles": {
      "layer": "muscle",
      "sources": [
@@ -1212,19 +1338,33 @@
      ],
      "radius": 0.1854
     },
+    "obturator-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 1408,
+     "illustrative": false,
+     "centre": [
+      -0.0038,
+      0.794,
+      -0.0017
+     ],
+     "radius": 0.2947
+    },
     "optic-nerves": {
      "layer": "nerves",
      "sources": [
       "hra"
      ],
-     "triangles": 7863,
+     "triangles": 11259,
      "illustrative": false,
      "centre": [
       0.0013,
-      1.5586,
+      1.5588,
       0.0468
      ],
-     "radius": 0.0441
+     "radius": 0.044
     },
     "ovaries": {
      "layer": "organs",
@@ -1295,6 +1435,20 @@
       -0.0458
      ],
      "radius": 0.085
+    },
+    "pelvic-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 7488,
+     "illustrative": false,
+     "centre": [
+      -0.0026,
+      0.8687,
+      -0.0009
+     ],
+     "radius": 0.161
     },
     "pelvis": {
      "layer": "skeleton",
@@ -1393,6 +1547,20 @@
       0.0113
      ],
      "radius": 0.3316
+    },
+    "radial-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 5312,
+     "illustrative": false,
+     "centre": [
+      0.0,
+      1.0496,
+      0.0096
+     ],
+     "radius": 0.5724
     },
     "radius": {
      "layer": "skeleton",
@@ -1495,16 +1663,16 @@
     "sciatic-nerve": {
      "layer": "nerves",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 764,
-     "illustrative": true,
+     "triangles": 4932,
+     "illustrative": false,
      "centre": [
-      0.0003,
-      0.5091,
-      -0.0459
+      -0.002,
+      0.7441,
+      -0.0239
      ],
-     "radius": 0.4398
+     "radius": 0.2805
     },
     "shoulder-girdle-muscles": {
      "layer": "muscle",
@@ -1567,7 +1735,7 @@
      "sources": [
       "hra"
      ],
-     "triangles": 17080,
+     "triangles": 60697,
      "illustrative": false,
      "centre": [
       -0.0014,
@@ -1575,6 +1743,20 @@
       -0.0468
      ],
      "radius": 0.2087
+    },
+    "spinal-nerve-roots": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 6890,
+     "illustrative": false,
+     "centre": [
+      0.0008,
+      1.1578,
+      -0.0345
+     ],
+     "radius": 0.3573
     },
     "spleen": {
      "layer": "organs",
@@ -1617,6 +1799,20 @@
       0.0382
      ],
      "radius": 0.1274
+    },
+    "sympathetic-trunk": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 21462,
+     "illustrative": false,
+     "centre": [
+      0.002,
+      1.3054,
+      -0.0384
+     ],
+     "radius": 0.186
     },
     "teeth": {
      "layer": "skeleton",
@@ -1674,19 +1870,33 @@
      ],
      "radius": 0.1771
     },
+    "thoracic-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 8128,
+     "illustrative": false,
+     "centre": [
+      0.0127,
+      1.2635,
+      0.0144
+     ],
+     "radius": 0.1894
+    },
     "thymus": {
      "layer": "lymph",
      "sources": [
       "hra"
      ],
-     "triangles": 1932,
+     "triangles": 3162,
      "illustrative": false,
      "centre": [
       0.0282,
       1.3007,
       0.0344
      ],
-     "radius": 0.08
+     "radius": 0.0799
     },
     "thyroid": {
      "layer": "organs",
@@ -1716,6 +1926,20 @@
      ],
      "radius": 0.2396
     },
+    "tibial-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 4767,
+     "illustrative": false,
+     "centre": [
+      -0.0033,
+      0.2655,
+      0.0396
+     ],
+     "radius": 0.3193
+    },
     "tibialis-anterior": {
      "layer": "muscle",
      "sources": [
@@ -1743,6 +1967,20 @@
       0.0633
      ],
      "radius": 0.0432
+    },
+    "tonsils": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 336,
+     "illustrative": false,
+     "centre": [
+      -0.0001,
+      1.5271,
+      0.0516
+     ],
+     "radius": 0.0319
     },
     "trachea": {
      "layer": "organs",
@@ -1800,6 +2038,20 @@
      ],
      "radius": 0.3818
     },
+    "ulnar-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 3804,
+     "illustrative": false,
+     "centre": [
+      -0.0008,
+      1.0604,
+      0.0054
+     ],
+     "radius": 0.5529
+    },
     "ureters": {
      "layer": "organs",
      "sources": [
@@ -1845,16 +2097,16 @@
     "vagus-nerve": {
      "layer": "nerves",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 568,
-     "illustrative": true,
+     "triangles": 6904,
+     "illustrative": false,
      "centre": [
-      -0.0007,
-      1.3419,
-      -0.0387
+      0.0217,
+      1.3233,
+      0.0011
      ],
-     "radius": 0.191
+     "radius": 0.2393
     },
     "vena-cava": {
      "layer": "vessels",
@@ -1905,7 +2157,7 @@
     0.8536729495972395,
     -0.03310603782301769
    ],
-   "triangles": 793630
+   "triangles": 982548
   },
   "male": {
    "height": 1.8295187950134277,
@@ -1944,7 +2196,7 @@
      "lod": "high",
      "layer": "lymph",
      "source": "hra",
-     "bytes": 6644
+     "bytes": 7912
     },
     {
      "file": "male/hra-muscle-high.glb",
@@ -1958,7 +2210,7 @@
      "lod": "high",
      "layer": "nerves",
      "source": "hra",
-     "bytes": 48996
+     "bytes": 69704
     },
     {
      "file": "male/hra-organs-high.glb",
@@ -2000,7 +2252,7 @@
      "lod": "high",
      "layer": "lymph",
      "source": "illustrative",
-     "bytes": 13780
+     "bytes": 2312
     },
     {
      "file": "male/illustrative-muscle-high.glb",
@@ -2010,18 +2262,25 @@
      "bytes": 5488
     },
     {
-     "file": "male/illustrative-nerves-high.glb",
-     "lod": "high",
-     "layer": "nerves",
-     "source": "illustrative",
-     "bytes": 14424
-    },
-    {
      "file": "male/illustrative-organs-high.glb",
      "lod": "high",
      "layer": "organs",
      "source": "illustrative",
      "bytes": 2152
+    },
+    {
+     "file": "male/zanatomy-lymph-high.glb",
+     "lod": "high",
+     "layer": "lymph",
+     "source": "zanatomy",
+     "bytes": 83728
+    },
+    {
+     "file": "male/zanatomy-nerves-high.glb",
+     "lod": "high",
+     "layer": "nerves",
+     "source": "zanatomy",
+     "bytes": 293056
     },
     {
      "file": "male/bp3d-muscle-low.glb",
@@ -2056,7 +2315,7 @@
      "lod": "low",
      "layer": "lymph",
      "source": "hra",
-     "bytes": 3676
+     "bytes": 4584
     },
     {
      "file": "male/hra-muscle-low.glb",
@@ -2070,7 +2329,7 @@
      "lod": "low",
      "layer": "nerves",
      "source": "hra",
-     "bytes": 39416
+     "bytes": 45100
     },
     {
      "file": "male/hra-organs-low.glb",
@@ -2112,7 +2371,7 @@
      "lod": "low",
      "layer": "lymph",
      "source": "illustrative",
-     "bytes": 8272
+     "bytes": 1664
     },
     {
      "file": "male/illustrative-muscle-low.glb",
@@ -2122,21 +2381,42 @@
      "bytes": 3200
     },
     {
-     "file": "male/illustrative-nerves-low.glb",
-     "lod": "low",
-     "layer": "nerves",
-     "source": "illustrative",
-     "bytes": 9348
-    },
-    {
      "file": "male/illustrative-organs-low.glb",
      "lod": "low",
      "layer": "organs",
      "source": "illustrative",
      "bytes": 1492
+    },
+    {
+     "file": "male/zanatomy-lymph-low.glb",
+     "lod": "low",
+     "layer": "lymph",
+     "source": "zanatomy",
+     "bytes": 53776
+    },
+    {
+     "file": "male/zanatomy-nerves-low.glb",
+     "lod": "low",
+     "layer": "nerves",
+     "source": "zanatomy",
+     "bytes": 152320
     }
    ],
    "parts": {
+    "abdominal-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 8896,
+     "illustrative": false,
+     "centre": [
+      0.0101,
+      1.1709,
+      0.0481
+     ],
+     "radius": 0.2178
+    },
     "abdominal-vessels": {
      "layer": "vessels",
      "sources": [
@@ -2194,20 +2474,6 @@
      ],
      "radius": 0.6162
     },
-    "arm-nerves": {
-     "layer": "nerves",
-     "sources": [
-      "illustrative"
-     ],
-     "triangles": 1632,
-     "illustrative": true,
-     "centre": [
-      0.0001,
-      1.2545,
-      -0.0044
-     ],
-     "radius": 0.5397
-    },
     "arm-veins": {
      "layer": "vessels",
      "sources": [
@@ -2222,19 +2488,33 @@
      ],
      "radius": 0.5265
     },
+    "axillary-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 848,
+     "illustrative": false,
+     "centre": [
+      -0.0012,
+      1.4592,
+      -0.0529
+     ],
+     "radius": 0.2464
+    },
     "axillary-nodes": {
      "layer": "lymph",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 1120,
-     "illustrative": true,
+     "triangles": 5632,
+     "illustrative": false,
      "centre": [
-      -0.0005,
-      1.3964,
-      -0.0301
+      0.0002,
+      1.3448,
+      0.0065
      ],
-     "radius": 0.1756
+     "radius": 0.356
     },
     "back-muscles": {
      "layer": "muscle",
@@ -2291,6 +2571,20 @@
       0.0212
      ],
      "radius": 0.0521
+    },
+    "brachial-plexus": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 8664,
+     "illustrative": false,
+     "centre": [
+      -0.0007,
+      1.3504,
+      0.004
+     ],
+     "radius": 0.4859
     },
     "brain-basal-ganglia": {
      "layer": "organs",
@@ -2478,16 +2772,16 @@
     "cervical-nodes": {
      "layer": "lymph",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 1120,
-     "illustrative": true,
+     "triangles": 9088,
+     "illustrative": false,
      "centre": [
-      -0.0001,
-      1.628,
-      -0.0154
+      -0.002,
+      1.6228,
+      0.0254
      ],
-     "radius": 0.0676
+     "radius": 0.154
     },
     "chest-wall-muscles": {
      "layer": "muscle",
@@ -2530,6 +2824,20 @@
       0.0424
      ],
      "radius": 0.2167
+    },
+    "cranial-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 20723,
+     "illustrative": false,
+     "centre": [
+      0.0003,
+      1.589,
+      -0.0076
+     ],
+     "radius": 0.2456
     },
     "deep-calf-muscles": {
      "layer": "muscle",
@@ -2674,16 +2982,16 @@
     "femoral-nerve": {
      "layer": "nerves",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 992,
-     "illustrative": true,
+     "triangles": 2648,
+     "illustrative": false,
      "centre": [
-      0.0052,
-      0.8485,
-      0.0508
+      0.0012,
+      0.671,
+      -0.0311
      ],
-     "radius": 0.2862
+     "radius": 0.5958
     },
     "femur": {
      "layer": "skeleton",
@@ -2712,6 +3020,20 @@
       -0.0702
      ],
      "radius": 0.3244
+    },
+    "fibular-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 5278,
+     "illustrative": false,
+     "centre": [
+      0.0009,
+      0.3106,
+      -0.0144
+     ],
+     "radius": 0.3866
     },
     "foot-bones": {
      "layer": "skeleton",
@@ -2954,16 +3276,30 @@
     "inguinal-nodes": {
      "layer": "lymph",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 1120,
-     "illustrative": true,
+     "triangles": 2816,
+     "illustrative": false,
      "centre": [
-      -0.0065,
-      0.9156,
-      0.0667
+      0.0055,
+      0.6519,
+      0.0088
      ],
-     "radius": 0.1233
+     "radius": 0.3662
+    },
+    "intercostal-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 12856,
+     "illustrative": false,
+     "centre": [
+      -0.0008,
+      1.3063,
+      0.0057
+     ],
+     "radius": 0.3222
     },
     "jugular-veins": {
      "layer": "vessels",
@@ -3063,6 +3399,20 @@
      ],
      "radius": 0.1618
     },
+    "lumbar-nerves": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 2632,
+     "illustrative": false,
+     "centre": [
+      0.0013,
+      0.938,
+      -0.0008
+     ],
+     "radius": 0.4005
+    },
     "lung-left": {
      "layer": "organs",
      "sources": [
@@ -3105,6 +3455,34 @@
      ],
      "radius": 0.0815
     },
+    "median-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 4376,
+     "illustrative": false,
+     "centre": [
+      -0.0001,
+      1.1838,
+      0.0036
+     ],
+     "radius": 0.6096
+    },
+    "musculocutaneous-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 672,
+     "illustrative": false,
+     "centre": [
+      -0.0006,
+      1.249,
+      -0.0085
+     ],
+     "radius": 0.4313
+    },
     "neck-muscles": {
      "layer": "muscle",
      "sources": [
@@ -3119,19 +3497,33 @@
      ],
      "radius": 0.2066
     },
+    "obturator-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 1408,
+     "illustrative": false,
+     "centre": [
+      0.0048,
+      0.9005,
+      0.0125
+     ],
+     "radius": 0.3078
+    },
     "optic-nerves": {
      "layer": "nerves",
      "sources": [
       "hra"
      ],
-     "triangles": 7620,
+     "triangles": 15232,
      "illustrative": false,
      "centre": [
       0.0022,
-      1.7241,
-      0.0546
+      1.7242,
+      0.0547
      ],
-     "radius": 0.0441
+     "radius": 0.044
     },
     "ovaries": {
      "layer": "organs",
@@ -3202,6 +3594,20 @@
       -0.0399
      ],
      "radius": 0.079
+    },
+    "pelvic-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 7488,
+     "illustrative": false,
+     "centre": [
+      0.0038,
+      0.9901,
+      0.0085
+     ],
+     "radius": 0.1505
     },
     "pelvis": {
      "layer": "skeleton",
@@ -3300,6 +3706,20 @@
       0.0439
      ],
      "radius": 0.3513
+    },
+    "radial-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 5312,
+     "illustrative": false,
+     "centre": [
+      -0.0,
+      1.1787,
+      -0.0057
+     ],
+     "radius": 0.6074
     },
     "radius": {
      "layer": "skeleton",
@@ -3402,16 +3822,16 @@
     "sciatic-nerve": {
      "layer": "nerves",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 1632,
-     "illustrative": true,
+     "triangles": 4932,
+     "illustrative": false,
      "centre": [
-      0.001,
-      0.5726,
-      -0.0524
+      0.0056,
+      0.851,
+      -0.0223
      ],
-     "radius": 0.5148
+     "radius": 0.2938
     },
     "shoulder-girdle-muscles": {
      "layer": "muscle",
@@ -3474,7 +3894,7 @@
      "sources": [
       "hra"
      ],
-     "triangles": 7357,
+     "triangles": 14706,
      "illustrative": false,
      "centre": [
       -0.0029,
@@ -3482,6 +3902,20 @@
       -0.0392
      ],
      "radius": 0.2362
+    },
+    "spinal-nerve-roots": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 7680,
+     "illustrative": false,
+     "centre": [
+      0.0112,
+      1.3082,
+      -0.0297
+     ],
+     "radius": 0.3721
     },
     "spleen": {
      "layer": "organs",
@@ -3524,6 +3958,20 @@
       0.0482
      ],
      "radius": 0.1377
+    },
+    "sympathetic-trunk": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 29721,
+     "illustrative": false,
+     "centre": [
+      0.0016,
+      1.4468,
+      -0.0338
+     ],
+     "radius": 0.2021
     },
     "teeth": {
      "layer": "skeleton",
@@ -3581,12 +4029,26 @@
      ],
      "radius": 0.1904
     },
+    "thoracic-nodes": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 8128,
+     "illustrative": false,
+     "centre": [
+      0.008,
+      1.4033,
+      0.0237
+     ],
+     "radius": 0.2092
+    },
     "thymus": {
      "layer": "lymph",
      "sources": [
       "hra"
      ],
-     "triangles": 1924,
+     "triangles": 2730,
      "illustrative": false,
      "centre": [
       -0.0079,
@@ -3623,6 +4085,20 @@
      ],
      "radius": 0.3188
     },
+    "tibial-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 4771,
+     "illustrative": false,
+     "centre": [
+      -0.0001,
+      0.3101,
+      -0.0199
+     ],
+     "radius": 0.3925
+    },
     "tibialis-anterior": {
      "layer": "muscle",
      "sources": [
@@ -3650,6 +4126,20 @@
       0.061
      ],
      "radius": 0.0465
+    },
+    "tonsils": {
+     "layer": "lymph",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 336,
+     "illustrative": false,
+     "centre": [
+      0.0008,
+      1.6805,
+      0.0597
+     ],
+     "radius": 0.0337
     },
     "trachea": {
      "layer": "organs",
@@ -3707,6 +4197,20 @@
      ],
      "radius": 0.4175
     },
+    "ulnar-nerve": {
+     "layer": "nerves",
+     "sources": [
+      "zanatomy"
+     ],
+     "triangles": 3804,
+     "illustrative": false,
+     "centre": [
+      0.0015,
+      1.1903,
+      -0.0039
+     ],
+     "radius": 0.5862
+    },
     "ureters": {
      "layer": "organs",
      "sources": [
@@ -3752,16 +4256,16 @@
     "vagus-nerve": {
      "layer": "nerves",
      "sources": [
-      "illustrative"
+      "zanatomy"
      ],
-     "triangles": 992,
-     "illustrative": true,
+     "triangles": 7708,
+     "illustrative": false,
      "centre": [
-      -0.0011,
-      1.4811,
-      -0.0322
+      0.0245,
+      1.4614,
+      0.0068
      ],
-     "radius": 0.2029
+     "radius": 0.2593
     },
     "vena-cava": {
      "layer": "vessels",
@@ -3812,7 +4316,7 @@
     0.9891841188073158,
     -0.02984144538640976
    ],
-   "triangles": 782220
+   "triangles": 955796
   }
  },
  "unusedBodyPartsNames": 858

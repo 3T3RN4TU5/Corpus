@@ -15,6 +15,10 @@ export default function ImmuneScene() {
     bodyEffects.glow.set('axillary-nodes', 0.4)
     bodyEffects.glow.set('inguinal-nodes', 0.4)
     bodyEffects.glow.set('cervical-nodes', 0.4)
+    bodyEffects.glow.set('thoracic-nodes', 0.4)
+    bodyEffects.glow.set('abdominal-nodes', 0.4)
+    bodyEffects.glow.set('pelvic-nodes', 0.4)
+    bodyEffects.glow.set('tonsils', 0.3)
   })
   // Lymph is shown moving slowly toward the neck, where it returns to the blood. The speed is illustrative.
   return <PathParticles paths={paths} count={900} lapsPerSecond={0.05} size={13} />

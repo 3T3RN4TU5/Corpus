@@ -112,6 +112,12 @@ export default function SourcesPage() {
             , licensed under CC BY 4.0. Female and male skin, eyes, brain, organs and trunk blood vessels, pelvis, vertebrae and spinal cord. Reduced in detail and compressed for this app.
           </li>
           <li className="border-t border-line py-2">
+            <a href="https://github.com/Z-Anatomy/Models-of-human-anatomy" target="_blank" rel="noreferrer">
+              Z-Anatomy, the libre 3D atlas of anatomy
+            </a>
+            , licensed under CC BY-SA 4.0. Peripheral and cranial nerves, spinal roots, sympathetic trunks, lymph node groups and tonsils. Reduced in detail, compressed and moved to follow each body's bones for this app.
+          </li>
+          <li className="border-t border-line py-2">
             <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/desc.html" target="_blank" rel="noreferrer">
               BodyParts3D, © The Database Center for Life Science
             </a>
@@ -121,7 +127,7 @@ export default function SourcesPage() {
 
         <h3 className="eyebrow mt-10">What is illustrative</h3>
         <p className="mt-2 leading-snug">
-          BodyParts3D comes from one male body. Its skeleton and muscles were fitted to the female body by computer, so their shape is not female-specific, and hands are posed by computer to fit each body's open hand. Its intercostal muscles and some small back muscles exist on the left side only, so the right side is a mirror image. Peripheral nerves, lymph nodes, the thoracic duct, the thyroid, rectus abdominis, latissimus dorsi and the fat layer are hand-placed or simple shapes. Sex profiles use the female or male body model with typical organs, and reduced organ sizes in some profiles are illustrative. The function descriptions are short summaries written for this app, with the textbook chapter listed above as the reference.
+          BodyParts3D comes from one male body. Its skeleton and muscles were fitted to the female body by computer, so their shape is not female-specific, and hands are posed by computer to fit each body's open hand. Its intercostal muscles and some small back muscles exist on the left side only, so the right side is a mirror image. Nerves are drawn a little thicker than the source, and each lymph node is a small sphere at its position in that atlas. The thoracic duct, the thyroid, rectus abdominis, latissimus dorsi and the fat layer are hand-placed or simple shapes. Sex profiles use the female or male body model with typical organs, and reduced organ sizes in some profiles are illustrative. The function descriptions are short summaries written for this app, with the textbook chapter listed above as the reference.
         </p>
       </div>
     </div>

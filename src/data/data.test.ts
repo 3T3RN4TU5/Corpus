@@ -77,7 +77,8 @@ describe('anatomy catalog', () => {
   })
 
   it('states when a shape is hand-placed or not specific to the body', () => {
-    expect(modelProvenance('female', 'sciatic-nerve')).toContain('Illustrative')
+    expect(modelProvenance('female', 'thoracic-duct')).toContain('Illustrative')
+    expect(modelProvenance('female', 'sciatic-nerve')).toContain('Z-Anatomy')
     expect(modelProvenance('female', 'femur')).toContain('not female-specific')
     expect(modelProvenance('female', 'heart')).toContain('NIH')
   })
