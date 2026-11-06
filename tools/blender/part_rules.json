@@ -1,106 +1,551 @@
 {
-  "bp3d_exclude": "tendinous arch|ligament|fascia|retinaculum|membrane|raphe|sheath|^skin$|hair of head|eyebrow|external ear|\\blip\\b|gingiva|tongue|glossus|palat|pharyng|arytenoid|cricothyroid|cricoid|thyroid cartilage|epiglott|vocal|corniculate|cuneiform cartilage|conus elasticus|nasal cartilage|eyeball|retina|lens|cornea|sclera|iris|ciliary|ciliaris|optic|ophthalmic|orbit|rectus$|oblique of eye|lacrimal|ethmoidal nerve|trochlea|levator palpebrae|tarsal plate|eyelid|gyrus|sulcus|cerebr|cerebell|thalam|hippocamp|amygdala|caudate nucleus|putamen|globus|fornix|corpus callosum|commissure|colliculus|midbrain|pons|medulla|peduncle|ventricle of brain|aqueduct|choroid|mammillary|geniculate|lamina terminalis|interventricular foramen|septum of telencephalon|stria |tentorium|pituitary|internal capsule|white matter|grey matter|central canal|interpeduncular|penis|glans|sublingual|parotid|submandibular|salivary|hepatovenous|biliary|hepatic|portal|cystic|heart|cardiac|atrium|ventric|valve|leaflet|papillary|chordae|aorta|pulmonary|bronch|lung|lobe|segment|liver|gallbladder|pancrea|spleen|kidney|renal|ureter|bladder|urethra|prostate|duodenum|jejunum|ileum|caecum|cecum|colon|rectum|appendix|mesentery|thymus|trachea|tooth pulp|nerve|ganglion|spinal cord|cauda equina|sphincter|^.*intermediate tendon",
+  "bp3d_exclude": "tendinous arch|ligament|fascia(?! latae)|retinaculum|membrane|raphe|sheath|^skin$|hair of head|eyebrow|\\blip\\b|palat(?!ine bone|opharyngeus)|arytenoid|cricothyroid|cricoid|thyroid cartilage|epiglott|vocal|corniculate|cuneiform cartilage|conus elasticus|eyeball|retina|lens|cornea|sclera|iris|ciliary|ciliaris|optic|ophthalmic|orbit|rectus$|oblique of eye|lacrimal (gland|sac|lake|canaliculus|nerve)|nasolacrimal|ethmoidal nerve|trochlea|levator palpebrae|tarsal plate|eyelid|gyrus|sulcus|cerebr|cerebell|thalam|hippocamp|amygdala|caudate nucleus|putamen|globus|fornix|corpus callosum|commissure|colliculus|midbrain|pons|medulla|peduncle|ventricle of brain|aqueduct|choroid|mammillary|geniculate|lamina terminalis|interventricular foramen|septum of telencephalon|stria |tentorium|internal capsule|white matter|grey matter|central canal|interpeduncular|dorsal vein|hepatovenous|biliary|hepatic|portal|cystic|heart|cardiac|atrium|ventric|valve|leaflet|papillary|chordae|aorta|pulmonary|bronch|lung|lobe|segment|liver|gallbladder|pancrea|spleen|kidney|\\brenal|ureter|bladder|urethra|prostate|duodenum|jejunum|ileum|caecum|cecum|colon|rectum|appendix|mesentery|thymus|trachea|tooth pulp|nerve|ganglion|spinal cord|cauda equina|sphincter|^.*intermediate tendon",
   "bp3d": [
-    ["testis|epididymis|deferent duct", "testes"],
-    ["stomach", "stomach"],
-    ["esophag(us|eal)$|^esophagus", "esophagus"],
-    ["secondary .*tooth|maxilla|frontal bone|parietal bone|occipital bone|temporal bone|sphenoid|ethmoid|zygomatic|nasal bone|lacrimal bone|palatine bone|vomer|inferior nasal concha|hyoid bone|^hyoid", "skull"],
-    ["mandible", "mandible"],
-    ["(^|\\s)rib$|costal cartilage|\\brib\\b", "rib-cage"],
-    ["manubrium|body of sternum|xiphoid|sternum", "sternum"],
-    ["clavicle", "clavicle"],
-    ["\\bscapula$", "scapula"],
-    ["humerus", "humerus"],
-    ["radius$", "radius"],
-    ["\\bulna$", "ulna"],
-    ["trapezoid|trapezium|capitate|hamate|lunate|scaphoid|pisiform|triquetr|metacarpal|phalanx.*(thumb|finger)|sesamoid bone of hand", "hand-bones"],
-    ["femur", "femur"],
-    ["patella", "patella"],
-    ["\\btibia$", "tibia"],
-    ["fibula$", "fibula"],
-    ["calcaneus|talus|navicular|cuboid|cuneiform( bone)?$|cuneiform$|metatarsal bone|phalanx.*toe|sesamoid bone of foot", "foot-bones"],
-    ["intervertebral dis[ck]", "vertebral-column"],
-    ["deltoid(?! branch)", "deltoid"],
-    ["pectoralis major|pectoralis minor", "pectoralis-major"],
-    ["rectus abdominis|pyramidalis", "rectus-abdominis"],
-    ["external oblique|internal oblique|transversus abdominis|quadratus lumborum", "external-oblique"],
-    ["trapezius", "trapezius"],
-    ["teres major|rhomboid|levator scapulae|serratus anterior", "shoulder-girdle-muscles"],
-    ["supraspinatus|infraspinatus|teres minor|subscapularis", "rotator-cuff"],
-    ["biceps brachii|brachialis|coracobrachialis", "biceps-brachii"],
-    ["triceps brachii|anconeus", "triceps-brachii"],
-    ["brachioradialis|pronator|supinator|flexor carpi|extensor carpi|palmaris longus|flexor digitorum superficialis|flexor digitorum profundus|flexor pollicis longus|extensor digitorum$|extensor digiti minimi|extensor indicis|extensor pollicis|abductor pollicis longus", "forearm-muscles"],
-    ["digiti minimi( brevis)? of (left |right )?hand|pollicis brevis|opponens pollicis|adductor pollicis|interossei of hand|lumbricals of hand|palmaris brevis", "hand-muscles"],
-    ["gluteus maximus", "gluteus-maximus"],
-    ["gluteus medius|gluteus minimus|tensor fasciae latae|piriformis|gemellus|obturator|quadratus femoris|iliacus|psoas", "hip-muscles"],
-    ["adductor (brevis|longus|magnus|minimus)|gracilis|pectineus", "thigh-adductors"],
-    ["rectus femoris|vastus|sartorius", "quadriceps"],
-    ["biceps femoris|semitendinosus|semimembranosus", "hamstrings"],
-    ["gastrocnemius|soleus|plantaris|calcaneal tendon", "gastrocnemius"],
-    ["tibialis anterior|extensor hallucis longus|extensor digitorum longus|fibularis", "tibialis-anterior"],
-    ["tibialis posterior|flexor digitorum longus|flexor hallucis longus|popliteus", "deep-calf-muscles"],
-    ["hallucis|digiti minimi( brevis)? of (left |right )?foot|flexor digitorum brevis|extensor digitorum brevis|flexor accessorius|of (left |right )?foot$|quadratus plantae", "foot-muscles"],
-    ["intercostal|levatores costarum|serratus posterior|subcostal|transversus thoracis|subclavius", "chest-wall-muscles"],
-    ["diaphragm", "diaphragm"],
-    ["iliocostalis|longissimus|spinalis|semispinalis|splenius|rotator$|multifidus|intertransvers|interspinal", "back-muscles"],
-    ["sternocleidomastoid|scalenus|longus colli|longus capitis|platysma|digastric|mylohyoid|geniohyoid|stylohyoid|omohyoid|sternohyoid|sternothyroid|thyrohyoid|rectus capitis|obliquus capitis", "neck-muscles"],
-    ["levator ani|coccygeus|iliococcygeus|pubococcygeus|puborectalis|perine|ischiocavernosus|bulbospongiosus", "pelvic-floor"],
-    ["(internal|external) carotid|vertebral artery|basilar artery", "carotid-arteries"],
-    ["(axillary|brachial|radial|ulnar|interosseous|palmar|digital|circumflex humeral|recurrent).*arter|arter.*(hand|finger|forearm)", "arm-arteries"],
-    ["(external iliac|femoral|popliteal|tibial|fibular|peroneal|dorsalis pedis|plantar|genicular|tarsal|metatarsal|sural).*arter", "leg-arteries"],
-    ["jugular|brachiocephalic vein", "jugular-veins"],
-    ["(cephalic|basilic|axillary|brachial|subclavian|median cubital|median antebrachial|radial|ulnar|interosseous).*vein|palmar venous|venous network of hand", "arm-veins"],
-    ["(external iliac|femoral|saphenous|popliteal|tibial|fibular|peroneal|plantar|dorsal venous arch of foot).*(vein|arch)|venous arch of foot", "leg-veins"]
+    [
+      "^tongue$|genioglossus|hyoglossus",
+      "tongue"
+    ],
+    [
+      "secondary .*tooth|gingiva",
+      "teeth"
+    ],
+    [
+      "external ear|nasal cartilage|major alar cartilage",
+      "ear-nose-cartilage"
+    ],
+    [
+      "submandibular gland|sublingual gland",
+      "salivary-glands"
+    ],
+    [
+      "pharyngeal constrictor|palatopharyngeus|salpingopharyngeus|stylopharyngeus",
+      "pharynx"
+    ],
+    [
+      "adrenal gland",
+      "adrenal-glands"
+    ],
+    [
+      "pituitary gland|pineal body",
+      "pituitary-pineal"
+    ],
+    [
+      "corpus cavernosum of penis|corpus spongiosum of penis|glans penis",
+      "penis"
+    ],
+    [
+      "testis|epididymis|deferent duct",
+      "testes"
+    ],
+    [
+      "stomach",
+      "stomach"
+    ],
+    [
+      "esophag(us|eal)$|^esophagus",
+      "esophagus"
+    ],
+    [
+      "maxilla|frontal bone|parietal bone|occipital bone|temporal bone|sphenoid|ethmoid|zygomatic|nasal bone|lacrimal bone|palatine bone|vomer|inferior nasal concha|hyoid bone|^hyoid",
+      "skull"
+    ],
+    [
+      "mandible",
+      "mandible"
+    ],
+    [
+      "(^|\\s)rib$|costal cartilage|\\brib\\b",
+      "rib-cage"
+    ],
+    [
+      "manubrium|body of sternum|xiphoid|sternum",
+      "sternum"
+    ],
+    [
+      "clavicle",
+      "clavicle"
+    ],
+    [
+      "\\bscapula$",
+      "scapula"
+    ],
+    [
+      "humerus",
+      "humerus"
+    ],
+    [
+      "radius$",
+      "radius"
+    ],
+    [
+      "\\bulna$",
+      "ulna"
+    ],
+    [
+      "trapezoid|trapezium|capitate|hamate|lunate|scaphoid|pisiform|triquetr|metacarpal|phalanx.*(thumb|finger)|sesamoid bone of hand",
+      "hand-bones"
+    ],
+    [
+      "femur",
+      "femur"
+    ],
+    [
+      "patella",
+      "patella"
+    ],
+    [
+      "\\btibia$",
+      "tibia"
+    ],
+    [
+      "fibula$",
+      "fibula"
+    ],
+    [
+      "calcaneus|talus|navicular|cuboid|cuneiform( bone)?$|cuneiform$|metatarsal bone|phalanx.*toe|sesamoid bone of foot",
+      "foot-bones"
+    ],
+    [
+      "intervertebral dis[ck]",
+      "vertebral-column"
+    ],
+    [
+      "deltoid(?! branch)",
+      "deltoid"
+    ],
+    [
+      "pectoralis major|pectoralis minor",
+      "pectoralis-major"
+    ],
+    [
+      "rectus abdominis|pyramidalis",
+      "rectus-abdominis"
+    ],
+    [
+      "external oblique|internal oblique|transversus abdominis|quadratus lumborum",
+      "external-oblique"
+    ],
+    [
+      "trapezius",
+      "trapezius"
+    ],
+    [
+      "teres major|rhomboid|levator scapulae|serratus anterior",
+      "shoulder-girdle-muscles"
+    ],
+    [
+      "supraspinatus|infraspinatus|teres minor|subscapularis",
+      "rotator-cuff"
+    ],
+    [
+      "biceps brachii|brachialis|coracobrachialis",
+      "biceps-brachii"
+    ],
+    [
+      "triceps brachii|anconeus",
+      "triceps-brachii"
+    ],
+    [
+      "brachioradialis|pronator|supinator|flexor carpi|extensor carpi|palmaris longus|flexor digitorum superficialis|flexor digitorum profundus|flexor pollicis longus|extensor digitorum$|extensor digiti minimi|extensor indicis|extensor pollicis|abductor pollicis longus",
+      "forearm-muscles"
+    ],
+    [
+      "digiti minimi( brevis)? of (left |right )?hand|pollicis brevis|opponens pollicis|adductor pollicis|interossei of (left |right )?hand|lumbricals of (left |right )?hand|palmaris brevis",
+      "hand-muscles"
+    ],
+    [
+      "gluteus maximus",
+      "gluteus-maximus"
+    ],
+    [
+      "gluteus medius|gluteus minimus|tensor fasciae latae|piriformis|gemellus|obturator|quadratus femoris|iliacus|psoas",
+      "hip-muscles"
+    ],
+    [
+      "adductor (brevis|longus|magnus|minimus)|gracilis|pectineus",
+      "thigh-adductors"
+    ],
+    [
+      "rectus femoris|vastus",
+      "quadriceps"
+    ],
+    [
+      "sartorius",
+      "sartorius"
+    ],
+    [
+      "biceps femoris|semitendinosus|semimembranosus",
+      "hamstrings"
+    ],
+    [
+      "gastrocnemius|soleus|plantaris|calcaneal tendon",
+      "gastrocnemius"
+    ],
+    [
+      "tibialis anterior|extensor hallucis longus|extensor digitorum longus|fibularis",
+      "tibialis-anterior"
+    ],
+    [
+      "tibialis posterior|flexor digitorum longus|flexor hallucis longus|popliteus",
+      "deep-calf-muscles"
+    ],
+    [
+      "hallucis|digiti minimi( brevis)? of (left |right )?foot|flexor digitorum brevis|extensor digitorum brevis|flexor accessorius|of (left |right )?foot$|quadratus plantae",
+      "foot-muscles"
+    ],
+    [
+      "intercostal|levatores costarum|serratus posterior|subcostal|transversus thoracis|subclavius",
+      "chest-wall-muscles"
+    ],
+    [
+      "diaphragm",
+      "diaphragm"
+    ],
+    [
+      "iliocostalis|longissimus|spinalis|semispinalis|splenius|rotator$|multifidus|intertransvers|interspinal",
+      "back-muscles"
+    ],
+    [
+      "sternocleidomastoid|scalenus|longus colli|longus capitis|platysma|digastric|mylohyoid|geniohyoid|stylohyoid|omohyoid|sternohyoid|sternothyroid|thyrohyoid|rectus capitis|obliquus capitis",
+      "neck-muscles"
+    ],
+    [
+      "levator ani|coccygeus|iliococcygeus|pubococcygeus|puborectalis|perine|ischiocavernosus|bulbospongiosus",
+      "pelvic-floor"
+    ],
+    [
+      "(internal|external) carotid|vertebral artery|basilar artery",
+      "carotid-arteries"
+    ],
+    [
+      "(axillary|brachial|radial|ulnar|interosseous|palmar|digital|circumflex humeral|recurrent).*arter|arter.*(hand|finger|forearm)",
+      "arm-arteries"
+    ],
+    [
+      "(common iliac|internal iliac|external iliac|femoral|popliteal|tibial|fibular|peroneal|dorsalis pedis|plantar|genicular|tarsal|metatarsal|sural).*arter",
+      "leg-arteries"
+    ],
+    [
+      "jugular|brachiocephalic vein",
+      "jugular-veins"
+    ],
+    [
+      "(cephalic|basilic|axillary|brachial|subclavian|median cubital|median antebrachial|radial|ulnar|interosseous).*vein|palmar venous|venous network of hand",
+      "arm-veins"
+    ],
+    [
+      "(external iliac|femoral|saphenous|popliteal|tibial|fibular|peroneal|plantar|dorsal venous arch of foot).*(vein|arch)|venous arch of foot",
+      "leg-veins"
+    ]
   ],
   "hra": [
-    ["Skin", "skin", "skin"],
-    ["Pelvis", ".*", "pelvis"],
-    ["Vertebrae", ".*", "vertebral-column"],
-    ["Spinal_Cord", ".*", "spinal-cord"],
-    ["Brain", "^(?!.*(retina|optic)).*", "brain"],
-    ["Heart", ".*", "heart"],
-    ["Lung", "(segm|hilum).*", "LUNG"],
-    ["Lung", "carina|cartilage|bronch|trachea", "trachea"],
-    ["Liver", "^(?!.*ligament).*", "liver"],
-    ["Gallbladder", ".*", "gallbladder"],
-    ["Pancreas", ".*", "pancreas"],
-    ["Spleen", ".*", "spleen"],
-    ["Small_Intestine", ".*", "small-intestine"],
-    ["Intestine_Large", ".*", "large-intestine"],
-    ["Kidney_L", ".*", "kidneys"],
-    ["Kidney_R", ".*", "kidneys"],
-    ["Ureter_L", "ureter", "ureters"],
-    ["Ureter_R", "ureter", "ureters"],
-    ["Urinary_Bladder", ".*", "bladder"],
-    ["Thymus", ".*", "thymus"],
-    ["Uterus", ".*", "uterus"],
-    ["Fallopian_Tube_L", ".*", "uterus"],
-    ["Fallopian_Tube_R", ".*", "uterus"],
-    ["Ligaments_Uterus_Ovaries", ".*", "uterus"],
-    ["Vagina", ".*", "vagina"],
-    ["Ovary_L", ".*", "ovaries"],
-    ["Ovary_R", ".*", "ovaries"],
-    ["Prostate", ".*", "prostate"]
+    [
+      "Skin",
+      "skin",
+      "skin"
+    ],
+    [
+      "Pelvis",
+      ".*",
+      "pelvis"
+    ],
+    [
+      "Vertebrae",
+      ".*",
+      "vertebral-column"
+    ],
+    [
+      "Spinal_Cord",
+      ".*",
+      "spinal-cord"
+    ],
+    [
+      "Lung",
+      "(segm|hilum).*",
+      "LUNG"
+    ],
+    [
+      "Lung",
+      "carina|cartilage|bronch|trachea",
+      "trachea"
+    ],
+    [
+      "Liver",
+      "^(?!.*ligament).*",
+      "liver"
+    ],
+    [
+      "Gallbladder",
+      ".*",
+      "gallbladder"
+    ],
+    [
+      "Pancreas",
+      ".*",
+      "pancreas"
+    ],
+    [
+      "Spleen",
+      ".*",
+      "spleen"
+    ],
+    [
+      "Small_Intestine",
+      ".*",
+      "small-intestine"
+    ],
+    [
+      "Intestine_Large",
+      ".*",
+      "large-intestine"
+    ],
+    [
+      "Kidney_L",
+      ".*",
+      "kidneys"
+    ],
+    [
+      "Kidney_R",
+      ".*",
+      "kidneys"
+    ],
+    [
+      "Ureter_L",
+      "ureter",
+      "ureters"
+    ],
+    [
+      "Ureter_R",
+      "ureter",
+      "ureters"
+    ],
+    [
+      "Urinary_Bladder",
+      ".*",
+      "bladder"
+    ],
+    [
+      "Thymus",
+      ".*",
+      "thymus"
+    ],
+    [
+      "Uterus",
+      ".*",
+      "uterus"
+    ],
+    [
+      "Fallopian_Tube_L",
+      ".*",
+      "uterus"
+    ],
+    [
+      "Fallopian_Tube_R",
+      ".*",
+      "uterus"
+    ],
+    [
+      "Ligaments_Uterus_Ovaries",
+      ".*",
+      "uterus"
+    ],
+    [
+      "Vagina",
+      ".*",
+      "vagina"
+    ],
+    [
+      "Ovary_L",
+      ".*",
+      "ovaries"
+    ],
+    [
+      "Ovary_R",
+      ".*",
+      "ovaries"
+    ],
+    [
+      "Prostate",
+      ".*",
+      "prostate"
+    ],
+    [
+      "Muscles_Eye_L",
+      ".*",
+      "eye-muscles"
+    ],
+    [
+      "Muscles_Eye_R",
+      ".*",
+      "eye-muscles"
+    ],
+    [
+      "Nerves_Eye_L",
+      ".*",
+      "optic-nerves"
+    ],
+    [
+      "Nerves_Eye_R",
+      ".*",
+      "optic-nerves"
+    ],
+    [
+      "Nerves_of_Eye_L",
+      ".*",
+      "optic-nerves"
+    ],
+    [
+      "Nerves_of_Eye_R",
+      ".*",
+      "optic-nerves"
+    ],
+    [
+      "Biliary_Tree",
+      ".*",
+      "bile-ducts"
+    ]
   ],
   "hra_vessels": [
-    ["aortic_arch|ascending_aorta|descending_aorta|brachiocephalic_artery|common_iliac_artery", "aorta"],
-    ["common_carotid", "carotid-arteries"],
-    ["subclavian_artery", "arm-arteries"],
-    ["vena_cava|common_iliac_vein|internal_iliac_vein", "vena-cava"],
-    ["pulmonary", "pulmonary-vessels"],
-    ["coronary|cardiac|circumflex|descending_artery|anterior_descending|diagonal|marginal|ventricular|coronary_sinus|oblique_vein", "coronary-vessels"],
-    ["ophthalmic|opthalmic|retinal|uterine", "SKIP"],
-    [".*", "abdominal-vessels"]
+    [
+      "aortic_arch|ascending_aorta|descending_aorta|brachiocephalic_artery|common_iliac_artery",
+      "aorta"
+    ],
+    [
+      "common_carotid",
+      "carotid-arteries"
+    ],
+    [
+      "subclavian_artery",
+      "arm-arteries"
+    ],
+    [
+      "vena_cava|common_iliac_vein|internal_iliac_vein",
+      "vena-cava"
+    ],
+    [
+      "pulmonary",
+      "pulmonary-vessels"
+    ],
+    [
+      "coronary|cardiac|circumflex|descending_artery|anterior_descending|diagonal|marginal|ventricular|coronary_sinus|oblique_vein",
+      "coronary-vessels"
+    ],
+    [
+      "ophthalmic|opthalmic|retinal|uterine",
+      "SKIP"
+    ],
+    [
+      ".*",
+      "abdominal-vessels"
+    ]
   ],
   "budgets": {
     "skin": 70000,
     "fat": 30000,
     "muscle": 170000,
     "skeleton": 170000,
-    "organs": 170000,
+    "organs": 260000,
     "vessels": 60000,
-    "nerves": 20000,
+    "nerves": 24000,
     "lymph": 6000
   },
-  "low_lod_ratio": 0.35
+  "low_lod_ratio": 0.35,
+  "hra_heart": [
+    [
+      "left_ventricle|heart_left_ventricle",
+      "heart-left-ventricle"
+    ],
+    [
+      "right_ventricle|heart_right_ventricle",
+      "heart-right-ventricle"
+    ],
+    [
+      "left_cardiac_atrium",
+      "heart-left-atrium"
+    ],
+    [
+      "right_cardiac_atrium",
+      "heart-right-atrium"
+    ],
+    [
+      "valve",
+      "heart-valves"
+    ],
+    [
+      ".*",
+      "heart"
+    ]
+  ],
+  "hra_brain": [
+    [
+      "retina",
+      "SKIP"
+    ],
+    [
+      "hippocamp(?!al)|amygd|basolateral|basomedial|central_nuclear|anterior_cortical|posterior_cortical|medial_nucleus|lateral_nucleus",
+      "brain-hippocampus"
+    ],
+    [
+      "HTH|hypothalamus",
+      "brain-hypothalamus"
+    ],
+    [
+      "cerebell(?!ar_peduncle)|paravermis",
+      "brain-cerebellum"
+    ],
+    [
+      "pons|pontine|medulla|midbrain|olive|substantia|colliculus|cerebellar_peduncle|cerebral_peduncle|red_nucleus|pretectal|cerebral_aqueduct|fourth_ventricle",
+      "brain-brainstem"
+    ],
+    [
+      "thalamus|geniculate|ventral_posterior|habenular|midline_nuclear|zona_incerta",
+      "brain-thalamus"
+    ],
+    [
+      "caudate|putamen|pallidus|accumbens|claustrum|subthalamic|basal_forebrain|septal",
+      "brain-basal-ganglia"
+    ],
+    [
+      "insul|cingul|subcallosal",
+      "brain-insula-cingulate"
+    ],
+    [
+      "postcentral|supraparietal|supramarginal|angular|precuneus|paracentral_lobule_caudal|parietal_operculum",
+      "brain-parietal"
+    ],
+    [
+      "occipital_pole|cuneus|lingual|occipital_gyrus|occipital_part",
+      "brain-occipital"
+    ],
+    [
+      "temporal|heschl|planum|parahippocampal|perirhinal|ambiens|piriform",
+      "brain-temporal"
+    ],
+    [
+      "frontal|precentral|orbital_gyrus|gyrus_rectus|paracentral_lobule_rostral|rostral_gyrus",
+      "brain-frontal"
+    ],
+    [
+      ".*",
+      "brain-inner"
+    ]
+  ],
+  "hra_eye": [
+    [
+      "iris",
+      "eye-iris"
+    ],
+    [
+      "pupil",
+      "eye-pupil"
+    ],
+    [
+      "cornea|corneo|conjunctiva|aqueous|lens|trabecular|schlemm|suspensory|ciliary|ora_serrata",
+      "SKIP"
+    ],
+    [
+      ".*",
+      "eyes"
+    ]
+  ]
 }

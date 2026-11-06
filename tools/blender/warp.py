@@ -51,11 +51,19 @@ def _section_points(points):
     """A centre and four extreme points describing one cross-section. Returns five points."""
     centre = (points.min(axis=0) + points.max(axis=0)) / 2
     result = [centre]
-    for axis in (0, 1):
-        for value in (points[:, axis].min(), points[:, axis].max()):
-            point = centre.copy()
-            point[axis] = value
-            result.append(point)
+    for value in (points[:, 0].min(), points[:, 0].max()):
+        point = centre.copy()
+        point[0] = value
+        result.append(point)
+    # Front and back are read near the midline. The widest points can be breasts or a shoulder blade,
+    # and matching those to a flat chest pushes the sternum out through the skin.
+    near_middle = points[np.abs(points[:, 0] - centre[0]) < max(0.015, np.ptp(points[:, 0]) * 0.12)]
+    if len(near_middle) < 2:
+        near_middle = points
+    for value in (near_middle[:, 1].min(), near_middle[:, 1].max()):
+        point = centre.copy()
+        point[1] = value
+        result.append(point)
     return result
 
 
@@ -108,12 +116,13 @@ def measure(vertices, triangles):
         for fraction in np.linspace(0.04, 0.9, 9):
             z = crotch + (floor - crotch) * fraction
             pieces = _components(vertices, triangles, np.abs(vertices[:, 2] - z) < half_band)
-            # Centres only: thigh widths differ too much between bodies to use as matching points.
-            points.append(_section_points(_leg_section(pieces, centre_x, side, height))[0])
+            section = _section_points(_leg_section(pieces, centre_x, side, height))
+            # High on the thigh, the legs touch and hands sit beside them, so only the centre is reliable there.
+            points.extend(section[:1] if fraction < 0.25 else section)
 
         on_side = vertices[(vertices[:, 0] - centre_x) * side > 0]
         foot = on_side[on_side[:, 2] < floor + height * 0.03]
-        points += [foot[np.argmin(foot[:, 1])], foot[np.argmax(foot[:, 1])]]
+        points += [foot[np.argmin(foot[:, 1])], foot[np.argmax(foot[:, 1])], foot[np.argmin(foot[:, 0])], foot[np.argmax(foot[:, 0])]]
 
         # The arm is measured along the line from the shoulder to the fingertips.
         upper = on_side[on_side[:, 2] > crotch]

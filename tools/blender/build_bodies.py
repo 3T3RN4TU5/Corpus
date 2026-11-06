@@ -13,7 +13,11 @@ HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE))
 import bpy
 import numpy as np
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
 
+import hand_rig
+import joints
 import illustrative
 from meshio import merge, read_bp3d, read_glb, to_object
 from warp import ThinPlateSpline, bone_landmarks, measure, weld
@@ -38,22 +42,47 @@ LAYER = {}
 for layer, ids in {
     "skin": ["skin"],
     "fat": ["subcutaneous-fat"],
-    "muscle": "deltoid pectoralis-major rectus-abdominis external-oblique trapezius latissimus-dorsi shoulder-girdle-muscles rotator-cuff biceps-brachii triceps-brachii forearm-muscles hand-muscles gluteus-maximus hip-muscles thigh-adductors quadriceps hamstrings gastrocnemius tibialis-anterior deep-calf-muscles foot-muscles chest-wall-muscles diaphragm back-muscles neck-muscles pelvic-floor".split(),
-    "skeleton": "skull mandible vertebral-column rib-cage sternum clavicle scapula humerus radius ulna hand-bones pelvis femur patella tibia fibula foot-bones".split(),
-    "organs": "brain heart lung-left lung-right trachea esophagus stomach liver gallbladder pancreas spleen small-intestine large-intestine kidneys ureters bladder uterus vagina ovaries testes prostate".split(),
+    "muscle": "deltoid pectoralis-major rectus-abdominis external-oblique trapezius latissimus-dorsi shoulder-girdle-muscles rotator-cuff biceps-brachii triceps-brachii forearm-muscles hand-muscles gluteus-maximus hip-muscles thigh-adductors quadriceps sartorius hamstrings gastrocnemius tibialis-anterior deep-calf-muscles foot-muscles chest-wall-muscles diaphragm back-muscles neck-muscles pelvic-floor eye-muscles".split(),
+    "skeleton": "skull mandible teeth ear-nose-cartilage vertebral-column rib-cage sternum clavicle scapula humerus radius ulna hand-bones pelvis femur patella tibia fibula foot-bones".split(),
+    "organs": "brain-frontal brain-parietal brain-temporal brain-occipital brain-insula-cingulate brain-hippocampus brain-thalamus brain-hypothalamus brain-basal-ganglia brain-cerebellum brain-brainstem brain-inner eyes eye-iris eye-pupil tongue salivary-glands pharynx heart heart-left-ventricle heart-right-ventricle heart-left-atrium heart-right-atrium heart-valves lung-left lung-right trachea esophagus stomach liver gallbladder bile-ducts pancreas spleen thyroid adrenal-glands pituitary-pineal small-intestine large-intestine kidneys ureters bladder uterus vagina ovaries testes prostate penis".split(),
     "vessels": "aorta carotid-arteries arm-arteries leg-arteries vena-cava jugular-veins arm-veins leg-veins pulmonary-vessels coronary-vessels abdominal-vessels".split(),
-    "nerves": "spinal-cord vagus-nerve arm-nerves sciatic-nerve femoral-nerve".split(),
+    "nerves": "spinal-cord optic-nerves vagus-nerve arm-nerves sciatic-nerve femoral-nerve".split(),
     "lymph": "thoracic-duct thymus cervical-nodes axillary-nodes inguinal-nodes".split(),
 }.items():
     for part_id in ids:
         LAYER[part_id] = layer
 
-ILLUSTRATIVE = {"sciatic-nerve", "femoral-nerve", "arm-nerves", "vagus-nerve", "thoracic-duct", "cervical-nodes", "axillary-nodes", "inguinal-nodes", "rectus-abdominis", "latissimus-dorsi"}
-RIGID_GROUP = {"hand-bones", "foot-bones"}
+ILLUSTRATIVE = {"thyroid", "sciatic-nerve", "femoral-nerve", "arm-nerves", "vagus-nerve", "thoracic-duct", "cervical-nodes", "axillary-nodes", "inguinal-nodes", "rectus-abdominis", "latissimus-dorsi"}
+CLOSED_BONES = ("rib-cage", "sternum", "clavicle", "scapula", "humerus", "radius", "ulna", "femur", "patella", "tibia", "fibula", "vertebral-column")
+ANKLE_FOLLOWERS = ("leg-arteries", "leg-veins", "deep-calf-muscles", "tibialis-anterior", "gastrocnemius")
+HEAD_UNIT = ("skull", "mandible", "teeth")
+HAND_VESSEL = re.compile(r"digital|palmar|metacarpal", re.I)
 # These muscles wrap the trunk and spine, so they bend with the body. Limb muscles keep straighter shapes.
 BENDING_MUSCLES = {"back-muscles", "neck-muscles", "chest-wall-muscles", "diaphragm", "pelvic-floor"}
 # The brain has hundreds of regions, so a size-based share would leave it too coarse.
-MINIMUM_TRIANGLES = {"brain": 60000}
+MINIMUM_TRIANGLES = {
+    "brain-frontal": 12000,
+    "brain-parietal": 8000,
+    "brain-temporal": 10000,
+    "brain-occipital": 6000,
+    "brain-insula-cingulate": 4000,
+    "brain-hippocampus": 3000,
+    "brain-thalamus": 3000,
+    "brain-hypothalamus": 1500,
+    "brain-basal-ganglia": 3000,
+    "brain-cerebellum": 7000,
+    "brain-brainstem": 4000,
+    "brain-inner": 5000,
+    "heart-left-ventricle": 5000,
+    "heart-right-ventricle": 5000,
+    "heart-left-atrium": 4000,
+    "heart-right-atrium": 4000,
+    "heart-valves": 2500,
+    "liver": 9000,
+    "eyes": 4000,
+    "eye-iris": 1200,
+    "eye-pupil": 300,
+}
 
 
 def classify(name):
@@ -64,6 +93,22 @@ def classify(name):
         if (part in VESSEL_PARTS) == vascular and pattern.search(name):
             return part
     return None
+
+
+def keep_inside_skin(obj, tree, margin=0.0025):
+    """Moves any vertex outside the skin to just inside it, because a fitted shape can stick out slightly."""
+    moved = 0
+    furthest = 0.0
+    for vertex in obj.data.vertices:
+        location, normal, _, _ = tree.find_nearest(vertex.co)
+        if location is not None and (vertex.co - location).dot(normal) > -0.0005:
+            furthest = max(furthest, (vertex.co - location).length)
+            vertex.co = location - normal * margin
+            moved += 1
+    obj.data.update()
+    if furthest > 0.03:
+        log(f"  LARGE MOVE: {obj.name} had a vertex {furthest * 100:.1f} cm outside the skin")
+    return moved
 
 
 def rigid_fit(source, target):
@@ -78,6 +123,36 @@ def rigid_fit(source, target):
     return lambda points: (points - source_mean) @ rotation.T * scale + target_mean
 
 
+def stiff_fit(vertices, warp, limit=0.08):
+    """Fits a muscle with a straight-line fit, because the warp itself kinks the upper thigh.
+
+    A long thin tendon gives that fit almost nothing to measure across, so if it strays far the bone-style fit is used.
+    """
+    sample = vertices[:: max(1, len(vertices) // 1500)]
+    warped_sample = warp.apply(sample)
+    straight = affine_fit(sample, warped_sample)
+    if np.linalg.norm(straight(sample) - warped_sample, axis=1).max() < limit:
+        return straight(vertices)
+    return rigid_fit(sample, warped_sample)(vertices)
+
+
+def box_centre(points):
+    return (points.min(axis=0) + points.max(axis=0)) / 2
+
+
+def fit_head(place, skull, skin, scalp=0.005):
+    """Sizes a placed skull to sit inside the skin's scalp, leaving a layer of soft tissue all around the cranium."""
+    placed = place(skull)
+    level = box_centre(placed)[2] + 0.02
+    cranium, scalp_skin = placed[placed[:, 2] > level], skin[skin[:, 2] > level]
+    scale = (np.ptp(scalp_skin, axis=0) - 2 * scalp) / np.ptp(cranium, axis=0)
+    scale[2] = (scale[0] + scale[1]) / 2
+    shift = box_centre(scalp_skin) - box_centre(cranium) * scale
+    shift[2] = scalp_skin[:, 2].max() - scalp - cranium[:, 2].max() * scale[2]
+    log("  head scale", np.round(scale, 3))
+    return lambda points: place(points) * scale + shift
+
+
 def affine_fit(source, target):
     """Best straight-line fit from source onto target points. It can stretch a shape, but cannot kink it."""
     homogeneous = np.hstack([source, np.ones((len(source), 1))])
@@ -85,25 +160,60 @@ def affine_fit(source, target):
     return lambda points: np.hstack([points, np.ones((len(points), 1))]) @ matrix
 
 
+LEFT_ONLY_MUSCLES = (
+    "External intercostal muscle",
+    "Internal intercostal muscle",
+    "Innermost intercostal muscle",
+    "Lateral lumbar intertransversarius",
+    "Medial lumbar intertransversarius",
+    "Set of anterior cervical intertransversarii",
+    "Set of posterior cervical intertransversarii",
+)
+
 log("reading BodyParts3D")
 _, isa_pieces = read_bp3d(raw / "bp3d" / "isa_BP3D_4.0_obj_99")
 joined, part_of_pieces = read_bp3d(raw / "bp3d" / "partof_BP3D_4.0_obj_99")
 pieces_by_name = {**part_of_pieces, **isa_pieces}
+
+# BodyParts3D models these muscles on the left side only, so the right side is a mirror image.
+midline = merge(pieces_by_name["Sixth thoracic vertebra"])[0][:, 0]
+midline = (midline.min() + midline.max()) / 2
+for name in LEFT_ONLY_MUSCLES:
+    mirrored = []
+    for vertices, triangles in pieces_by_name[name]:
+        flipped = vertices.copy()
+        flipped[:, 0] = 2 * midline - flipped[:, 0]
+        mirrored.append((flipped, triangles[:, ::-1]))
+    pieces_by_name[name] = pieces_by_name[name] + mirrored
+
 bp3d = {name: merge(pieces) for name, pieces in pieces_by_name.items()}
 log("names", len(bp3d))
 bp3d_parts = {}
 unmapped = []
+source_height = bp3d["Skin"][0][:, 2]
+hand_floor = source_height.min() + 0.36 * np.ptp(source_height)
+
+
+def in_leg(vertices):
+    """True for anything below the fingertips, which can only be part of a leg."""
+    return vertices[:, 2].mean() < hand_floor
+
+
+
 for name, pieces in pieces_by_name.items():
     part = classify(name)
     if part:
-        bp3d_parts.setdefault(part, []).extend((name, piece) for piece in pieces)
+        for piece in pieces:
+            # Arm and leg vessels share names such as "dorsal digital" and "recurrent", so the height decides which limb it is.
+            target = "leg-arteries" if part == "arm-arteries" and in_leg(piece[0]) else part
+            bp3d_parts.setdefault(target, []).append((name, piece))
     else:
         unmapped.append(name)
 log("mapped parts", len(bp3d_parts), "unused names", len(unmapped))
 (Path(log_path).parent / "unused_bp3d_names.txt").write_text("\n".join(sorted(unmapped)))
 source_skin_v, source_skin_t = bp3d["Skin"]
 source_measure = measure(source_skin_v, source_skin_t)
-hand_placed = illustrative.build(source_skin_v)
+hand_placed = illustrative.build(source_skin_v, bp3d["Thyroid cartilage"][0] if "Thyroid cartilage" in bp3d else None)
 
 BODIES = {"female": ("VH_Female", "VH_F_", "Allen_F_Brain"), "male": ("VH_Male", "VH_M_", "Allen_M_Brain")}
 hra_files = {}
@@ -112,7 +222,12 @@ hra_files = {}
 def load_hra(body, key):
     folder, prefix, brain = BODIES[body]
     base = raw / "hra" / folder / "v1.2"
-    matches = [p for p in base.glob("*.glb") if p.stem == f"{prefix}{key}" or p.stem.endswith(f"_{key}") or (key == "Brain" and p.stem == brain)]
+    # An exact name comes first. A loose suffix match would take "Blood_Vasculature_Liver" for "Liver", so it
+    # applies only to files from other contributors, such as "SBU_F_Intestine_Large".
+    files = sorted(base.glob("*.glb"))
+    matches = [p for p in files if p.stem == f"{prefix}{key}"]
+    if not matches:
+        matches = [p for p in files if (key == "Brain" and p.stem == brain) or (not p.stem.startswith("VH_") and p.stem.endswith(f"_{key}"))]
     if not matches:
         return {}
     cache_key = (body, key)
@@ -135,6 +250,14 @@ def hra_parts(body, foreign_only=False):
             if part == "LUNG":
                 target = "lung-left" if re.search(r"left|_L(_|$)|lingula", short, re.I) else "lung-right"
             parts.setdefault(target, []).append(piece)
+    for key, rule_name in (("Heart", "hra_heart"), ("Brain", "hra_brain"), ("Eye_L", "hra_eye"), ("Eye_R", "hra_eye")):
+        for node, piece in load_hra(body, key).items():
+            short = node.replace(prefix, "")
+            for pattern, part in RULES[rule_name]:
+                if re.search(pattern, short, re.I):
+                    if part != "SKIP":
+                        parts.setdefault(part, []).append(piece)
+                    break
     for node, piece in load_hra(body, "Blood_Vasculature").items():
         short = node.replace(prefix, "")
         for pattern, part in RULES["hra_vessels"]:
@@ -186,6 +309,98 @@ for body, (folder, prefix, _) in BODIES.items():
     spline = ThinPlateSpline(np.vstack([source_measure, bone_s]), np.vstack([target_measure, bone_t]), smoothing=3e-3)
     log("spline points", len(spline.source))
 
+    welded_skin, welded_skin_t = weld(skin_v, skin_t)
+    fit_tree = BVHTree.FromPolygons([Vector(p) for p in welded_skin.tolist()], welded_skin_t.tolist())
+
+    def skin_depth(points):
+        """How far each point lies inside the skin, negative when outside."""
+        depths = np.empty(len(points))
+        for index, point in enumerate(points.tolist()):
+            location, normal, _, _ = fit_tree.find_nearest(Vector(point))
+            depths[index] = -(Vector(point) - location).dot(normal)
+        return depths
+
+    # Bones are fitted one by one, and then seated on each other down each chain, so that the joints meet.
+    merged_bones = {}
+    for part in CLOSED_BONES:
+        grouped = {}
+        for name, (vertices, _) in bp3d_parts[part]:
+            grouped.setdefault(name, []).append(vertices)
+        merged_bones.update({name: np.vstack(pieces) for name, pieces in grouped.items()})
+    fitted_bones = {}
+    for name, vertices in merged_bones.items():
+        sample = vertices[:: max(1, len(vertices) // 1500)]
+        fitted_bones[name] = rigid_fit(sample, spline.apply(sample))
+    # The two bones of the forearm and of the lower leg lie side by side and are joined along their length, so each pair
+    # is placed as one unit.
+    for side_name in ("Left", "Right"):
+        for first, second in (("tibia", "fibula"), ("radius", "ulna")):
+            pair = np.vstack([merged_bones[f"{side_name} {first}"], merged_bones[f"{side_name} {second}"]])
+            sample = pair[:: max(1, len(pair) // 2000)]
+            fitted_bones[f"{side_name} {first}"] = fitted_bones[f"{side_name} {second}"] = rigid_fit(sample, spline.apply(sample))
+    hip_targets = {
+        side_name: np.vstack([v for n, (v, _) in pelvis.items() if re.search(rf"(ilium|ischium|pubis)_compact_bone_{suffix}", n)])
+        for side_name, suffix in (("Left", "L"), ("Right", "R"))
+    }
+    bone_place, largest_moves = joints.close_skeleton(bp3d, merged_bones, fitted_bones, vertebrae, hip_targets)
+    log("  largest joint moves (mm)", {k: round(v * 1000) for k, v in sorted(largest_moves.items(), key=lambda item: -item[1])[:8]})
+
+    # Each foot is sized and turned to fit the skin's foot, staying joined to the tibia at the ankle.
+    foot_place, ankle_heights = {}, {}
+    for side_key, side_name in (("left", "Left"), ("right", "Right")):
+        foot_vertices = np.vstack([v for _, (v, _) in bp3d_parts["foot-bones"] if (v[:, 0].mean() > 0) == (side_key == "left")])
+        sample = foot_vertices[:: max(1, len(foot_vertices) // 1500)]
+        base = rigid_fit(sample, spline.apply(sample))
+        talus, tibia = bp3d[f"{side_name} talus"][0], merged_bones[f"{side_name} tibia"]
+        touching = joints.contact(talus, tibia)
+        ankle = (touching[0], bone_place[f"{side_name} tibia"](touching[1]))
+        foot_place[side_key], report = joints.fit_foot(base, foot_vertices[:: max(1, len(foot_vertices) // 4000)], welded_skin, skin_depth, ankle)
+        ankle_heights[side_key] = touching[0][:, 2].mean()
+        log(f"  {side_key} foot", report)
+
+    def follow_foot(vertices, placed, blend=0.03):
+        """Moves the part of a tendon or vessel below the ankle with the foot."""
+        side_key = "left" if vertices[:, 0].mean() > 0 else "right"
+        weight = np.clip((ankle_heights[side_key] - vertices[:, 2]) / blend + 0.5, 0, 1)[:, None]
+        if weight.max() == 0:
+            return placed
+        return placed * (1 - weight) + foot_place[side_key](vertices) * weight
+
+    # Each hand is fitted at the end of that arm's own forearm bones, so that the wrist joint stays joined.
+    hand_rigs, wrist_heights = {}, {}
+    for side_key, side_name in (("left", "Left"), ("right", "Right")):
+        ends, placed_ends, placed_tops = [], [], []
+        for bone in ("radius", "ulna"):
+            vertices = bp3d[f"{side_name} {bone}"][0]
+            place = bone_place[f"{side_name} {bone}"]
+            end = vertices[vertices[:, 2] < vertices[:, 2].min() + 0.03].mean(axis=0)
+            top = vertices[vertices[:, 2] > vertices[:, 2].max() - 0.03].mean(axis=0)
+            ends.append(end)
+            placed_ends.append(place(end[None])[0])
+            placed_tops.append(place(top[None])[0])
+        wrist_source, wrist_target = np.mean(ends, axis=0), np.mean(placed_ends, axis=0)
+        forearm_axis = wrist_target - np.mean(placed_tops, axis=0)
+        forearm_axis /= np.linalg.norm(forearm_axis)
+        hand_bones = {}
+        for name, (vertices, _) in bp3d_parts["hand-bones"]:
+            if (vertices[:, 0].mean() > 0) == (side_key == "left"):
+                hand_bones[name] = np.vstack([hand_bones[name], vertices]) if name in hand_bones else vertices
+        hand_rigs[side_key], report = hand_rig.build(hand_bones, side_key, wrist_source, wrist_target, forearm_axis, welded_skin, skin_depth)
+        wrist_heights[side_key] = wrist_source[2]
+        log(f"  {side_key} hand", report)
+
+    def follow_hand(vertices, placed, blend=0.04):
+        """Moves the part of a tendon or vessel past the wrist with the hand.
+
+        The hand sits about 3 cm from the thigh in BodyParts3D and about 17 cm in the atlas, so the warp stretches that
+        gap, and a point just inside the hand would otherwise be flung across it.
+        """
+        side_key = "left" if vertices[:, 0].mean() > 0 else "right"
+        weight = np.clip((wrist_heights[side_key] - vertices[:, 2]) / blend + 0.5, 0, 1)[:, None]
+        if weight.max() == 0:
+            return placed
+        return placed * (1 - weight) + hand_rigs[side_key](vertices) * weight
+
     # The atlas keeps sex-specific organs in one body only. Move the other body's set across, using the pelvis.
     foreign = hra_parts(other)
     own_pelvis = np.vstack([v for v, _ in pelvis.values()])
@@ -199,29 +414,71 @@ for body, (folder, prefix, _) in BODIES.items():
         if part not in own and part in foreign:
             sources[(part, "hra")] = [(move(v), t) for v, t in foreign[part]]
 
+    # The skull's bones, jaw and teeth move as one unit, so that they stay joined and the eye sockets keep their shape.
+    head_vertices = np.vstack([vertices for part in HEAD_UNIT for _, (vertices, _) in bp3d_parts[part]])
+    head_sample = head_vertices[:: max(1, len(head_vertices) // 3000)]
+    head_place = fit_head(
+        rigid_fit(head_sample, spline.apply(head_sample)),
+        np.vstack([vertices for _, (vertices, _) in bp3d_parts["skull"]]),
+        skin_v,
+    )
+
+    # The atlas eyes come from a different body, so each is moved into the skull's socket at its own size, along with
+    # the muscles and nerve attached to it. The vitreous body marks the socket, because BodyParts3D's "Right sclera"
+    # file also holds a piece of the left eye.
+    for key, suffix, side_name in (("Eye_L", "L", "Left"), ("Eye_R", "R", "Right")):
+        eye_nodes = load_hra(body, key)
+        sclera = next(v for n, (v, _) in eye_nodes.items() if re.search(rf"sclera_{suffix}$", n))
+        socket = head_place(bp3d[f"{side_name} vitreous body"][0])
+        shift = box_centre(socket) - box_centre(sclera)
+        log(f"  {side_name} eye moved by {np.round(shift * 1000, 1)} mm")
+        moved = {id(t) for _, t in eye_nodes.values()}
+        for source_key, pieces in sources.items():
+            sources[source_key] = [(v + shift, t) if id(t) in moved else (v, t) for v, t in pieces]
+
     for part, named in bp3d_parts.items():
         layer = LAYER.get(part)
         if not layer:
             log("no layer for", part)
             continue
         fitted = []
-        if layer == "skeleton":
-            groups = {}
-            for name, piece in named:
-                if part in RIGID_GROUP:
-                    side = "left" if piece[0][:, 0].mean() > 0 else "right"
-                    groups.setdefault(side, []).append(piece)
-                else:
-                    groups[id(piece)] = [piece]
-            for group in groups.values():
-                vertices, triangles = merge(group)
+        if part == "hand-bones":
+            for name, (vertices, triangles) in named:
+                side_key = "left" if vertices[:, 0].mean() > 0 else "right"
+                fitted.append((hand_rigs[side_key].bone(name, vertices), triangles))
+        elif part == "foot-bones":
+            for name, (vertices, triangles) in named:
+                side_key = "left" if vertices[:, 0].mean() > 0 else "right"
+                fitted.append((foot_place[side_key](vertices), triangles))
+        elif part in CLOSED_BONES:
+            for name, (vertices, triangles) in named:
+                fitted.append((bone_place[name](vertices), triangles))
+        elif layer == "skeleton":
+            for name, (vertices, triangles) in named:
                 sample = vertices[:: max(1, len(vertices) // 1500)]
-                fitted.append((rigid_fit(sample, spline.apply(sample))(vertices), triangles))
+                place = head_place if part in HEAD_UNIT else rigid_fit(sample, spline.apply(sample))
+                fitted.append((place(vertices), triangles))
         else:
-            for _, (vertices, triangles) in named:
-                if layer == "muscle" and part not in BENDING_MUSCLES:
-                    sample = vertices[:: max(1, len(vertices) // 1500)]
-                    fitted.append((affine_fit(sample, spline.apply(sample))(vertices), triangles))
+            for piece_name, (vertices, triangles) in named:
+                if re.search(r"nasal cartilage|major alar", piece_name, re.I):
+                    fitted.append((head_place(vertices), triangles))
+                elif part == "foot-muscles":
+                    side_key = "left" if vertices[:, 0].mean() > 0 else "right"
+                    fitted.append((foot_place[side_key](vertices), triangles))
+                elif part == "hand-muscles" or (HAND_VESSEL.search(piece_name) and not in_leg(vertices)):
+                    side_key = "left" if vertices[:, 0].mean() > 0 else "right"
+                    fitted.append((hand_rigs[side_key](vertices), triangles))
+                elif layer == "muscle" and part not in BENDING_MUSCLES:
+                    placed = stiff_fit(vertices, spline)
+                    if part == "forearm-muscles":
+                        placed = follow_hand(vertices, placed)
+                    if part in ANKLE_FOLLOWERS:
+                        placed = follow_foot(vertices, placed)
+                    fitted.append((placed, triangles))
+                elif part in ("arm-arteries", "arm-veins"):
+                    fitted.append((follow_hand(vertices, spline.apply(vertices)), triangles))
+                elif part in ANKLE_FOLLOWERS:
+                    fitted.append((follow_foot(vertices, spline.apply(vertices)), triangles))
                 else:
                     fitted.append((spline.apply(vertices), triangles))
         sources[(part, "bp3d")] = fitted
@@ -241,6 +498,9 @@ for body, (folder, prefix, _) in BODIES.items():
     centre = (own_pelvis.min(axis=0) + own_pelvis.max(axis=0)) / 2 + offset
     body_info["pelvisCentre"] = [float(centre[0]), float(centre[2]), float(-centre[1])]
 
+    skin_for_tree, skin_tree_t = weld(skin_v + offset, skin_t)
+    skin_tree = BVHTree.FromPolygons([Vector(p) for p in skin_for_tree.tolist()], skin_tree_t.tolist())
+
     objects = []
     for (part, source), pieces in sorted(sources.items()):
         vertices, triangles = weld(*merge(pieces))
@@ -250,6 +510,10 @@ for body, (folder, prefix, _) in BODIES.items():
         obj = to_object(part, vertices, triangles)
         share = count / sum(len(t) for _, t in all_pieces[part])
         decimated_copy(obj, min(1.0, part_budget[part] * share / max(1, count)))
+        if source != "hra" and part != "skin":
+            moved = keep_inside_skin(obj, skin_tree)
+            if moved:
+                log(f"  moved inside skin: {part}/{source}: {moved} of {len(obj.data.vertices)} vertices")
         obj.data.shade_smooth()
         objects.append((obj, part, source))
         log(f"  {part}/{source}: {count} -> {len(obj.data.polygons)}")

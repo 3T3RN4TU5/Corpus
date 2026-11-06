@@ -4,7 +4,7 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist', 'public', 'tools/blender', '.assets-raw', '.playwright-mcp'] },
+  { ignores: ['dist', 'public', 'tools/blender', '.assets-raw', '.playwright-mcp', '.vercel'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

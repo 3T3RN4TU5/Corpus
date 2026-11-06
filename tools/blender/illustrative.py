@@ -104,7 +104,7 @@ def _surface_muscle(skin, stations_mm, front, half_width_mm, thickness_mm):
     return _sweep(_catmull(centres, steps=4), np.interp(np.linspace(0, 1, (len(centres) - 1) * 4 + 1), np.linspace(0, 1, len(rx)), rx), np.full((len(centres) - 1) * 4 + 1, rz[0]), 12)
 
 
-def build(skin):
+def build(skin, thyroid_cartilage=None):
     """Returns {part id: [(vertices, triangles), ...]} in BodyParts3D coordinates."""
     parts = {
         "sciatic-nerve": _both(_tube([(40, -50, 900), (90, -30, 800), (92, -38, 600), (88, -48, 400), (85, -40, 200), (82, -50, 30)], 3.2)),
@@ -118,4 +118,12 @@ def build(skin):
         "rectus-abdominis": _both(_surface_muscle(skin, [(38, 800, 0.6), (40, 880, 0.85), (42, 960, 1.0), (42, 1040, 1.0), (42, 1120, 1.0), (42, 1190, 0.8)], True, 34, 7)),
         "latissimus-dorsi": _both(_surface_muscle(skin, [(60, 960, 0.5), (90, 1040, 0.85), (115, 1120, 1.0), (135, 1200, 0.9), (150, 1260, 0.5)], False, 55, 6)),
     }
+    # The thyroid is not in either dataset. Two small lobes are placed just below the thyroid cartilage.
+    if thyroid_cartilage is not None:
+        centre = (thyroid_cartilage.min(axis=0) + thyroid_cartilage.max(axis=0)) / 2
+        low = thyroid_cartilage[:, 2].min()
+        front = thyroid_cartilage[:, 1].min()
+        lobe = _sphere((0, 0, 0), 1.0, rings=8, segments=12)
+        vertices = lobe[0] * np.array([0.011, 0.009, 0.022]) + np.array([centre[0] + 0.016, front + 0.008, low - 0.016])
+        parts["thyroid"] = _both((vertices, lobe[1]))
     return parts

@@ -8,3 +8,5 @@ coverage/
 .claude/
 .assets-raw/
 .playwright-mcp/
+
+.vercel
