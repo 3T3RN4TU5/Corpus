@@ -2,8 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { getPart } from '../../data/anatomy'
 import { factNumber } from '../../data/physiology'
 import { useClock } from '../../sim/clock'
+import { useBodyStore } from '../../store/useBodyStore'
 import { Caption, Choice, Facts, Group, Limits, SERIES_COLORS, Slider, useAnimationFrame } from '../labKit'
-import { activation, energySources, FILAMENT_STEPS, healingStages, JOINTS, MOVEMENTS, sarcomereLength, type MovementId } from './model'
+import { activation, ATTACHMENTS, energySources, FILAMENT_STEPS, healingStages, JOINTS, MOVEMENTS, sarcomereLength, type MovementId } from './model'
 import { musculoLive } from './Scene'
 
 const FACT_IDS = ['bones-adult-total', 'bones-axial', 'bones-appendicular', 'skeleton-remodelled', 'sarcomere-length', 'power-stroke-distance', 'energy-stored-atp', 'energy-creatine', 'energy-glycolysis', 'fracture-hematoma', 'fracture-callus', 'growth-plate-closure', 'bone-density-peak']
@@ -51,8 +52,8 @@ function Figure({ movement }: { movement: MovementId }) {
 
   return (
     <svg ref={svg} viewBox="0 0 160 170" className="mx-auto mt-1 w-40" role="img" aria-label={`Stick figure performing a ${MOVEMENTS[movement].name.toLowerCase()}`}>
-      <line x1="10" y1="165" x2="150" y2="165" stroke="#3a342d" />
-      <g stroke="#ece4d2" strokeWidth="4" strokeLinecap="round">
+      <line x1="10" y1="165" x2="150" y2="165" stroke="#59616a" />
+      <g stroke="#59616a" strokeWidth="4" strokeLinecap="round">
         <line data-l="trunk" />
         <line data-l="thighL" stroke={SERIES_COLORS.orange} />
         <line data-l="shinL" stroke={SERIES_COLORS.orange} />
@@ -61,7 +62,7 @@ function Figure({ movement }: { movement: MovementId }) {
         <line data-l="arm" />
         <line data-l="fore" />
       </g>
-      <circle data-head r="10" fill="#ece4d2" />
+      <circle data-head r="10" fill="#59616a" />
     </svg>
   )
 }
@@ -98,8 +99,8 @@ function SarcomereDiagram({ contraction }: { contraction: number }) {
   const thin = 62
   return (
     <svg viewBox="0 0 240 90" className="mt-1 w-full" role="img" aria-label={`Sarcomere at ${length.toFixed(2)} micrometres. Thin filaments slide over thick filaments toward the centre.`}>
-      <rect x={left - 3} y="8" width="6" height="74" fill="#ece4d2" />
-      <rect x={right - 3} y="8" width="6" height="74" fill="#ece4d2" />
+      <rect x={left - 3} y="8" width="6" height="74" fill="#59616a" />
+      <rect x={right - 3} y="8" width="6" height="74" fill="#59616a" />
       {[24, 45, 66].map((y) => (
         <g key={y}>
           <rect x="72" y={y - 3} width="96" height="6" fill={SERIES_COLORS.pink} opacity="0.85" />
@@ -111,8 +112,8 @@ function SarcomereDiagram({ contraction }: { contraction: number }) {
           ))}
         </g>
       ))}
-      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#a69c88" textAnchor="middle">
-        <text x="120" y="88">Z-lines (white), myosin (pink), actin (blue)</text>
+      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#59616a" textAnchor="middle">
+        <text x="120" y="88">Z-lines (grey), myosin (pink), actin (blue)</text>
       </g>
     </svg>
   )
@@ -124,16 +125,16 @@ function BoneDiagram({ bridge }: { bridge: number }) {
     <svg viewBox="0 0 240 110" className="mt-1 w-full" role="img" aria-label="Cross-section of a long bone with outer cortical bone, inner trabecular bone and a fracture that closes as it heals.">
       <defs>
         <pattern id="trabecular" width="10" height="10" patternUnits="userSpaceOnUse">
-          <path d="M0 0 L10 10 M10 0 L0 10" stroke="#a69c88" strokeWidth="1" />
+          <path d="M0 0 L10 10 M10 0 L0 10" stroke="#59616a" strokeWidth="1" />
         </pattern>
       </defs>
       <rect x="10" y="20" width="220" height="70" fill="url(#trabecular)" />
       <rect x="10" y="20" width="220" height="14" fill="#e8dfc9" />
       <rect x="10" y="76" width="220" height="14" fill="#e8dfc9" />
-      <rect x={120 - gap} y="16" width={gap * 2} height="78" fill="#12100e" />
+      <rect x={120 - gap} y="16" width={gap * 2} height="78" fill="#eef1f3" />
       {bridge < 0.3 && <rect x={120 - gap} y="24" width={gap * 2} height="62" fill="#8a2f2a" opacity="0.8" />}
       {bridge >= 0.3 && bridge < 1 && <ellipse cx="120" cy="55" rx={30 * (1.2 - bridge)} ry="46" fill="none" stroke={SERIES_COLORS.blue} strokeWidth="3" />}
-      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#a69c88">
+      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#59616a">
         <text x="12" y="14">Cortical (compact) bone</text>
         <text x="12" y="104">Trabecular (spongy) bone inside</text>
       </g>
@@ -205,6 +206,26 @@ export default function MusculoskeletalLab() {
         </p>
       </Group>
 
+      <Group title="Where muscles attach">
+        <p className="mt-1 text-[0.84rem] leading-snug text-dust">The origin is the end attached to a fixed bone, and the insertion is the end attached to the bone being pulled.</p>
+        <ul className="mt-1">
+          {ATTACHMENTS.map((item) => (
+            <li key={item.part} className="border-t border-line py-1.5 text-[0.84rem] leading-snug">
+              <button type="button" className="cursor-pointer italic underline" onClick={() => useBodyStore.getState().revealPart(item.part)}>
+                {item.name}
+              </button>
+              <span className="block text-dust">Origin: {item.origin}.</span>
+              <span className="block text-dust">Insertion: {item.insertion}.</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-1 text-[0.76rem] text-dust">
+          <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs" target="_blank" rel="noreferrer">OpenStax A&amp;P 2e, 11.5</a>,{' '}
+          <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs" target="_blank" rel="noreferrer">11.6</a> and{' '}
+          <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/11-1-interactions-of-skeletal-muscles-their-fascicle-arrangement-and-their-lever-systems" target="_blank" rel="noreferrer">11.1</a>
+        </p>
+      </Group>
+
       <Group title="Joint types">
         <ul className="mt-1">
           {JOINTS.map((joint) => (
@@ -224,7 +245,7 @@ export default function MusculoskeletalLab() {
           'The 3D body has no rig, so it does not move. A stick figure shows each movement, and the muscles light up on the 3D body.',
           'Which muscles lead each movement is a simplified teaching pattern. Levels and timing are illustrative, not electromyography data.',
           'The sourced textbook gives no joint angle ranges, so none are shown.',
-          'Muscle origins and insertions are shown only by where the muscle shapes lie, and they are not labelled.',
+          'Attachments are listed for eight major muscles. Attachment points are not marked on the 3D model.',
           'The contracted sarcomere length is illustrative.',
           'The fracture stages are a general teaching sequence. This is not guidance for any injury.',
         ]}

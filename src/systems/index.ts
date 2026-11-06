@@ -62,10 +62,10 @@ export const SYSTEM_PLUGINS: BodySystemPlugin[] = [
     anatomy: ['nervous'],
     model: lazy(() => import('./nervous/Scene')),
     ui: lazy(() => import('./nervous/Lab')),
-    layers: { skin: 0.1, skeleton: 0.3, nerves: 1, muscle: 0.25 },
+    layers: { skin: 0.1, skeleton: 0.2, nerves: 1, organs: 1 },
     update: (dt, _sim, previous) => ({ elapsed: (previous.elapsed ?? 0) + dt, restingPotential: factNumber('resting-membrane') }),
     dataSources: ['resting-membrane', 'ap-threshold', 'ap-peak', 'ap-duration', 'spinal-nerves', 'cranial-nerves'],
-    limits: ['Brain regions are a 2D map, and peripheral nerve routes are hand-placed.'],
+    limits: ['Peripheral nerve routes are hand-placed.'],
   },
   {
     id: 'musculoskeletal',
@@ -95,7 +95,7 @@ export const SYSTEM_PLUGINS: BodySystemPlugin[] = [
     id: 'endocrine',
     name: 'Endocrine',
     summary: 'Glands and the insulin and glucagon feedback loop.',
-    anatomy: ['reproductive'],
+    anatomy: ['endocrine', 'reproductive'],
     model: lazy(() => import('./endocrine/Scene')),
     ui: lazy(() => import('./endocrine/Lab')),
     layers: { skin: 0.1, skeleton: 0.2, organs: 1 },
@@ -103,7 +103,7 @@ export const SYSTEM_PLUGINS: BodySystemPlugin[] = [
       const next = stepGlucose({ ...initialGlucose(), ...(previous as Partial<GlucoseState>) }, dt)
       return { glucose: next.glucose, insulin: next.insulin, glucagon: next.glucagon, gut: next.gut, exercise: next.exercise }
     },
-    dataSources: ['glucose-normal-textbook', 'glucose-fasting', 'glucose-prediabetes'],
+    dataSources: ['glucose-normal-textbook', 'glucose-fasting', 'glucose-prediabetes', 'glucose-diabetes-fasting'],
     limits: ['The feedback directions are sourced, and all rates are illustrative.'],
   },
   {

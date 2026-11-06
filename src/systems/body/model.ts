@@ -15,11 +15,11 @@ export function lifeStage(age: number): LifeStage {
   if (age < 1) return { id: 'infant', name: 'Infant', pulseFact: 'pulse-infant', breathingFact: 'breathing-rate-under-1', sleepFact: age < 0.34 ? 'sleep-newborn' : 'sleep-infant', note: 'Growth is rapid in the first year.' }
   if (age < 13) {
     const pulseFact = age < 3 ? 'pulse-child-1-2' : age < 5 ? 'pulse-child-3-4' : age < 7 ? 'pulse-child-5-6' : age < 10 ? 'pulse-child-7-9' : 'pulse-10-plus'
-    return { id: 'child', name: 'Child', pulseFact, breathingFact: age >= 8 ? 'breathing-rate-age-10' : null, sleepFact: age >= 6 ? 'sleep-school' : null, note: 'Bones keep growing in length through childhood.' }
+    return { id: 'child', name: 'Child', pulseFact, breathingFact: age >= 8 ? 'breathing-rate-age-10' : null, sleepFact: age >= 6 ? 'sleep-school' : age >= 3 ? 'sleep-preschool' : 'sleep-toddler', note: 'Bones keep growing in length through childhood.' }
   }
   if (age < 18) return { id: 'adolescent', name: 'Adolescent', pulseFact: 'pulse-10-plus', breathingFact: 'breathing-rate-adolescent-adult', sleepFact: 'sleep-teen', note: 'Growth spurts occur at puberty. Bones stop growing in length in early adulthood.' }
-  if (age < 65) return { id: 'adult', name: 'Adult', pulseFact: 'pulse-10-plus', breathingFact: 'breathing-rate-adolescent-adult', sleepFact: age <= 60 ? 'sleep-adult' : null, note: age < 30 ? 'Bone density is still rising toward its peak at about 30.' : 'From about age 30, organs slowly lose some of their reserve capacity.' }
-  return { id: 'older-adult', name: 'Older adult', pulseFact: 'pulse-10-plus', breathingFact: 'breathing-rate-adolescent-adult', sleepFact: 'sleep-older', note: 'Bone density and muscle mass fall with age, and height decreases as the trunk and spine shorten.' }
+  if (age < 65) return { id: 'adult', name: 'Adult', pulseFact: 'pulse-10-plus', breathingFact: 'breathing-rate-adolescent-adult', sleepFact: age <= 60 ? 'sleep-adult' : 'sleep-61-64', note: age < 30 ? 'Bone density is still rising toward its peak at about 30.' : 'From about age 30, organs slowly lose some of their reserve capacity.' }
+  return { id: 'older-adult', name: 'Older adult', pulseFact: 'pulse-10-plus', breathingFact: 'breathing-rate-adolescent-adult', sleepFact: 'sleep-older', note: 'Bone density and muscle mass fall with age, and height decreases as the trunk and spine shorten. MedlinePlus says muscle changes often begin in the 20s in men and in the 40s in women.' }
 }
 
 /** Share of organ reserve remaining, from the source's average of 1 percent lost each year after age 30. */
@@ -73,7 +73,7 @@ export interface BoneTrendPoint {
  * Relative bone density across life. Sources give the age of the peak, and the age that faster loss begins in females.
  * The rest of the curve, its heights included, is illustrative.
  */
-export function boneDensityCurve(referenceSex: SexProfile['referenceSex']): BoneTrendPoint[] {
+export function boneDensityCurve(referenceSex: NonNullable<SexProfile['referenceSex']>): BoneTrendPoint[] {
   const peak = factNumber('bone-density-peak')
   const fasterLoss = factNumber('bone-loss-female-onset')
   const points: BoneTrendPoint[] = []
@@ -90,11 +90,25 @@ export function boneDensityCurve(referenceSex: SexProfile['referenceSex']): Bone
   return points
 }
 
+export interface BoneCurve {
+  label: string
+  points: BoneTrendPoint[]
+}
+
+/** The curves to plot for a profile. A profile with no reference sex gets both, because sources report nothing separate for it. */
+export function boneDensityCurves(referenceSex: SexProfile['referenceSex']): BoneCurve[] {
+  const curves: BoneCurve[] = []
+  if (referenceSex !== 'male') curves.push({ label: `Bone density, faster loss from about ${factNumber('bone-loss-female-onset')} (illustrative)`, points: boneDensityCurve('female') })
+  if (referenceSex !== 'female') curves.push({ label: 'Bone density, without that faster loss (illustrative)', points: boneDensityCurve('male') })
+  return curves
+}
+
 /** Scales the adult model only by size, which is illustrative. Width follows BMI around a middle value. */
-export function bodyScaleFor(heightCm: number, modelHeightMetres: number, bmiValue: number): { uniform: number; soft: number } {
+export function bodyScaleFor(heightCm: number, modelHeightMetres: number, bmiValue: number, bodyFatPercent: number): { uniform: number; soft: number } {
   const uniform = heightCm / (modelHeightMetres * 100)
   const middle = (factNumber('bmi-underweight-below') + factNumber('bmi-overweight-from')) / 2
-  const soft = Math.max(0.82, Math.min(1.35, Math.sqrt(bmiValue / middle)))
+  const fromFat = 1 + (bodyFatPercent - 25) * 0.003
+  const soft = Math.max(0.82, Math.min(1.4, Math.sqrt(bmiValue / middle) * fromFat))
   return { uniform, soft }
 }
 

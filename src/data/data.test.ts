@@ -41,6 +41,10 @@ describe('anatomy catalog', () => {
     }
   })
 
+  it('never lists a part\'s own system as connected', () => {
+    for (const candidate of PARTS) expect(candidate.connected, candidate.id).not.toContain(candidate.system)
+  })
+
   it('has a source for every system', () => {
     for (const candidate of PARTS) expect(SYSTEM_SOURCES[candidate.system].length).toBeGreaterThan(0)
   })
@@ -78,6 +82,84 @@ describe('anatomy catalog', () => {
   })
 })
 
+describe('anatomical sanity of the built models', () => {
+  for (const [name, body] of Object.entries(modelManifest.bodies)) {
+    const c = (id: string) => body.parts[id].centre
+
+    it(`puts asymmetric organs on the correct side in the ${name} body`, () => {
+      // The body's left is +x.
+      expect(c('heart')[0]).toBeGreaterThan(0)
+      expect(c('stomach')[0]).toBeGreaterThan(0)
+      expect(c('spleen')[0]).toBeGreaterThan(0)
+      expect(c('liver')[0]).toBeLessThan(0.02)
+      expect(c('gallbladder')[0]).toBeLessThan(0)
+      expect(c('lung-left')[0]).toBeGreaterThan(0)
+      expect(c('lung-right')[0]).toBeLessThan(0)
+    })
+
+    it(`shows whole organs, not just their blood vessels, in the ${name} body`, () => {
+      // These organs were once replaced by files named like Blood_Vasculature_Liver, which have a different size and source.
+      expect(body.parts.liver.radius).toBeGreaterThan(body.parts.gallbladder.radius)
+      expect(body.parts.liver.triangles).toBeGreaterThan(5000)
+      expect(body.parts.heart.radius).toBeLessThan(0.14)
+      expect(body.parts['heart-left-ventricle'].triangles).toBeGreaterThan(3000)
+      expect(body.parts.spleen.radius).toBeLessThan(0.1)
+    })
+
+    it(`includes the eyes inside the head in the ${name} body`, () => {
+      expect(body.parts.eyes.centre[1]).toBeGreaterThan(c('mandible')[1])
+      expect(body.parts.eyes.centre[1]).toBeLessThan(body.height)
+      // Each eye is about 24 mm across, so the pair spans a little more than the distance between the pupils.
+      expect(body.parts['eye-pupil'].centre[2]).toBeGreaterThan(body.parts.eyes.centre[2])
+      expect(Math.abs(body.parts.eyes.centre[0])).toBeLessThan(0.01)
+      expect(body.parts.eyes.centre[2]).toBeGreaterThan(c('brain-occipital')[2])
+    })
+
+    it(`has paired muscles and arteries on both sides in the ${name} body`, () => {
+      // BodyParts3D has left-side intercostals only, and files foot arteries under names shared with the hand.
+      expect(Math.abs(c('chest-wall-muscles')[0])).toBeLessThan(0.012)
+      expect(Math.abs(c('arm-arteries')[0])).toBeLessThan(0.012)
+      expect(body.parts['arm-arteries'].centre[1]).toBeGreaterThan(body.height * 0.5)
+    })
+
+    it(`puts the heart's chambers in their correct places in the ${name} body`, () => {
+      // The atria sit above the ventricles, and the left side of the heart is further left than the right side.
+      expect(c('heart-left-atrium')[1]).toBeGreaterThan(c('heart-left-ventricle')[1] - 0.01)
+      expect(c('heart-right-atrium')[1]).toBeGreaterThan(c('heart-right-ventricle')[1] - 0.01)
+      expect(c('heart-left-ventricle')[0]).toBeGreaterThan(c('heart-right-ventricle')[0])
+    })
+
+    it(`puts the brain's regions in their correct places in the ${name} body`, () => {
+      expect(c('brain-frontal')[2]).toBeGreaterThan(c('brain-occipital')[2])
+      expect(c('brain-cerebellum')[1]).toBeLessThan(c('brain-parietal')[1])
+      expect(c('brain-brainstem')[1]).toBeLessThan(c('brain-thalamus')[1])
+    })
+
+    it(`orders parts from top to bottom in the ${name} body`, () => {
+      const y = (id: string) => c(id)[1]
+      expect(y('brain-frontal')).toBeGreaterThan(y('lung-left'))
+      expect(y('lung-left')).toBeGreaterThan(y('liver'))
+      expect(y('liver')).toBeGreaterThan(y('small-intestine'))
+      expect(y('small-intestine')).toBeGreaterThan(y('bladder'))
+      expect(y('femur')).toBeGreaterThan(y('tibia'))
+      expect(y('tibia')).toBeGreaterThan(y('foot-bones'))
+    })
+
+    it(`orders parts from front to back in the ${name} body`, () => {
+      expect(c('vertebral-column')[2]).toBeLessThan(c('sternum')[2])
+      expect(c('patella')[2]).toBeGreaterThan(c('hamstrings')[2])
+      expect(c('gluteus-maximus')[2]).toBeLessThan(c('quadriceps')[2])
+    })
+
+    it(`keeps every part within the ${name} body's height`, () => {
+      for (const part of Object.values(body.parts)) {
+        expect(part.centre[1]).toBeGreaterThan(0)
+        expect(part.centre[1]).toBeLessThan(body.height)
+      }
+    })
+  }
+})
+
 describe('sex profiles', () => {
   it('shows only the structures each profile has', () => {
     const names = (id: string) => partsForProfile(profile(id)).map((candidate) => candidate.id)
@@ -87,6 +169,20 @@ describe('sex profiles', () => {
     expect(names('male')).not.toContain('uterus')
     expect(names('cais')).toContain('testes')
     expect(names('cais')).not.toContain('uterus')
+  })
+
+  it('does not imply that the CAIS profile has no vagina, and says the model is a placeholder', () => {
+    const cais = profile('cais')
+    expect(partsForProfile(cais).map((candidate) => candidate.id)).toContain('vagina')
+    expect(cais.modelNote).toContain('placeholder')
+    expect(partsForProfile(profile('male')).map((candidate) => candidate.id)).not.toContain('vagina')
+    expect(partsForProfile(profile('klinefelter')).map((candidate) => candidate.id)).not.toContain('vagina')
+  })
+
+  it('gives a model note to every variation', () => {
+    for (const candidate of SEX_PROFILES.filter((item) => item.group === 'variation')) {
+      expect(candidate.modelNote, candidate.id).toBeTruthy()
+    }
   })
 
   it('lets a custom profile combine any structures', () => {

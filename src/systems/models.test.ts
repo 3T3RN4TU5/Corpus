@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { factNumber, factRange } from '../data/physiology'
 import { DEFAULT_CUSTOM, resolveProfile } from '../data/sexProfiles'
+import { pluginForAnatomy, SYSTEM_PLUGINS } from '.'
 import { simulateDay, DEFAULT_PLAN } from '../sim/day'
 import { encodeView, decodeView } from '../store/shareState'
 import type { LayerState } from '../store/useBodyStore'
 import { LAYERS, type LayerId } from '../data/anatomy'
-import { bmi, boneDensityCurve, lifeStage, organReserve, restingEnergy, weeklyWeightChangeKg } from './body/model'
-import { circulation, cyclePhases, ecgAt, heartAt, maxHeartRate } from './circulatory/model'
+import { bmi, boneDensityCurve, boneDensityCurves, lifeStage, organReserve, restingEnergy, weeklyWeightChangeKg } from './body/model'
+import { circulation, cyclePhases, ecgAt, heartAt, limitDiastolic, limitSystolic, maxHeartRate, maxHeartRateText } from './circulatory/model'
 import { restVsExercise, youngVsOld } from './compare/model'
 import { absorbedAt, fatShare, mealEnergy, mealTimeline, stageAt, timelineCurves, totalDuration } from './digestive/model'
 import { eat, glucoseBand, initialGlucose, stepGlucose } from './endocrine/model'
@@ -53,8 +54,23 @@ describe('circulatory', () => {
     expect(phases.ventricularDiastole).toBeCloseTo(0.43)
   })
 
+  it('fits ventricular diastole exactly into the time outside systole', () => {
+    const phases = cyclePhases(75)
+    const outsideSystole = phases.period - phases.ventricularSystole
+    expect(outsideSystole - phases.atrialSystole).toBeCloseTo(phases.ventricularDiastole)
+    expect(phases.atrialEnd).toBeLessThanOrEqual(phases.ventricularStart)
+  })
+
+  it('contracts the ventricles after the QRS complex starts them', () => {
+    const phases = cyclePhases(75)
+    expect(phases.ventricularStart).toBeCloseTo(factNumber('conduction-sa-to-ventricles') / 1000)
+    expect(heartAt(phases.ventricularStart - 0.01, 75, 120, 80).phase).toBe('diastole')
+    expect(heartAt(phases.ventricularStart + 0.01, 75, 120, 80).phase).toBe('ventricular-systole')
+    expect(heartAt(phases.atrialStart + 0.01, 75, 120, 80).phase).toBe('atrial-systole')
+  })
+
   it('opens the right valves in each phase', () => {
-    const systole = heartAt(0.2, 75, 120, 80)
+    const systole = heartAt(0.3, 75, 120, 80)
     expect(systole.phase).toBe('ventricular-systole')
     expect(systole.semilunarOpen).toBe(true)
     expect(systole.avOpen).toBe(false)
@@ -71,6 +87,34 @@ describe('circulatory', () => {
     }
   })
 
+  it('ejects the stroke volume shown, at rest and at every exercise level', () => {
+    for (const exercise of [0, 0.5, 1]) {
+      const { heartRate, strokeVolume } = circulation({ ...base, exercise })
+      const volumes = Array.from({ length: 800 }, (_, i) => heartAt((i / 800) * (60 / heartRate), heartRate, 120, 80, strokeVolume).leftVentricleMl)
+      expect(Math.max(...volumes) - Math.min(...volumes)).toBeCloseTo(strokeVolume, 0)
+    }
+  })
+
+  it('stays within the sourced end volumes at rest', () => {
+    const volumes = Array.from({ length: 800 }, (_, i) => heartAt(i / 1000, 75, 120, 80).leftVentricleMl)
+    expect(Math.max(...volumes)).toBeCloseTo(factNumber('end-diastolic-volume'), 0)
+    expect(Math.min(...volumes)).toBeGreaterThanOrEqual(factRange('end-systolic-volume')[0])
+    expect(Math.min(...volumes)).toBeLessThanOrEqual(factRange('end-systolic-volume')[1] + 0.01)
+  })
+
+  it('keeps systolic pressure above diastolic pressure', () => {
+    expect(limitDiastolic(110, 100)).toBe(99)
+    expect(limitDiastolic(70, 100)).toBe(70)
+    expect(limitSystolic(90, 100)).toBe(101)
+    expect(limitSystolic(130, 100)).toBe(130)
+  })
+
+  it('shows the maximum heart rate estimate for adults only', () => {
+    expect(maxHeartRateText(40)).toBe('180 bpm')
+    expect(maxHeartRateText(18)).toBe('202 bpm')
+    expect(maxHeartRateText(12)).toBe('Adult estimate only')
+  })
+
   it('puts the R wave at the sourced conduction time', () => {
     const phases = cyclePhases(75)
     let best = 0
@@ -82,7 +126,7 @@ describe('circulatory', () => {
         peakAt = t
       }
     }
-    expect(peakAt).toBeCloseTo(0.25, 2)
+    expect(peakAt).toBeCloseTo(factNumber('conduction-sa-to-ventricles') / 1000, 2)
   })
 })
 
@@ -108,7 +152,8 @@ describe('respiratory', () => {
   it('uses the sourced gas gradients', () => {
     expect(gasGradients()).toEqual({ oxygenGradient: 64, carbonDioxideGradient: 5 })
     expect(capillaryGas(0).oxygen).toBe(40)
-    expect(capillaryGas(1).oxygen).toBeGreaterThan(100)
+    expect(capillaryGas(1).oxygen).toBeCloseTo(factNumber('leaving-po2'))
+    expect(capillaryGas(1).carbonDioxide).toBeCloseTo(factNumber('alveolar-pco2'))
   })
 })
 
@@ -157,6 +202,13 @@ describe('nervous', () => {
     expect(membranePotential(10).voltage).toBe(factNumber('resting-membrane'))
   })
 
+  it('finishes the whole event, undershoot included, within the sourced duration', () => {
+    const duration = factNumber('ap-duration')
+    expect(membranePotential(duration * 0.99).phase).toBe('hyperpolarization')
+    expect(membranePotential(duration)).toEqual({ voltage: factNumber('resting-membrane'), phase: 'resting' })
+    expect(membranePotential(duration * 0.999).voltage).toBeCloseTo(factNumber('resting-membrane'), 0)
+  })
+
   it('goes through the reflex steps in order', () => {
     expect(reflexStepAt(0).id).toBe('tap')
     expect(reflexStepAt(0.5).id).toBe('cord')
@@ -186,6 +238,51 @@ describe('musculoskeletal', () => {
     const stages = healingStages()
     expect(stages[0].name).toBe('Hematoma')
     expect(stages[stages.length - 1].bridge).toBe(1)
+  })
+})
+
+describe('system plugins', () => {
+  const sim = { ageYears: 30, sexProfileId: 'female', weightKg: 70, heightCm: 175, bodyFatPercent: 25, activityLevel: 'moderate' as const, hydration: 1, sleepHours: 8, stress: 0.2 }
+
+  it('each lists real data sources, and limits', () => {
+    for (const plugin of SYSTEM_PLUGINS) {
+      expect(plugin.limits.length, plugin.id).toBeGreaterThan(0)
+      for (const id of plugin.dataSources) expect(() => factNumber(id), id).not.toThrow()
+    }
+  })
+
+  it('each returns finite values when updated', () => {
+    for (const plugin of SYSTEM_PLUGINS) {
+      const result = plugin.update(60, sim, {})
+      for (const value of Object.values(result)) expect(Number.isFinite(value), plugin.id).toBe(true)
+    }
+  })
+
+  it('covers every anatomy system that has a simulation button', () => {
+    for (const system of ['cardiovascular', 'respiratory', 'digestive', 'nervous', 'skeletal', 'muscular', 'urinary', 'lymphatic', 'integumentary', 'endocrine'] as const) {
+      expect(pluginForAnatomy(system), system).toBeDefined()
+    }
+  })
+})
+
+describe('consistency', () => {
+  it('uses the same adult resting heart rate range across sources', () => {
+    expect(factRange('heart-rate-rest-adult')).toEqual(factRange('pulse-10-plus'))
+  })
+
+  it('keeps the bones of the skeleton adding up', () => {
+    expect(factNumber('bones-axial') + factNumber('bones-appendicular')).toBe(factNumber('bones-adult-total'))
+  })
+
+  it('keeps cardiac output equal to heart rate times stroke volume', () => {
+    expect((factNumber('heart-rate-rest-adult') * factNumber('stroke-volume-rest')) / 1000).toBeCloseTo(factNumber('cardiac-output-rest'), 2)
+    expect((factNumber('exercise-hr') * factNumber('exercise-sv')) / 1000).toBeCloseTo(factNumber('exercise-co'), 1)
+  })
+
+  it('keeps heart volumes consistent with the sourced stroke volume range', () => {
+    const stroke = factNumber('end-diastolic-volume') - factNumber('end-systolic-volume')
+    expect(stroke).toBeGreaterThanOrEqual(factRange('stroke-volume-rest')[0])
+    expect(stroke).toBeLessThanOrEqual(factRange('stroke-volume-rest')[1])
   })
 })
 
@@ -311,6 +408,15 @@ describe('life stages and body composition', () => {
     const peak = curve.reduce((best, point) => (point.density > best.density ? point : best))
     expect(peak.age).toBe(factNumber('bone-density-peak'))
     expect(curve[80].density).toBeLessThan(boneDensityCurve('male')[80].density)
+  })
+
+  it('plots both bone curves for a profile with no reference sex, and one otherwise', () => {
+    const both = boneDensityCurves(null)
+    expect(both).toHaveLength(2)
+    expect(both[0].points).toEqual(boneDensityCurve('female'))
+    expect(both[1].points).toEqual(boneDensityCurve('male'))
+    expect(boneDensityCurves('female').map((curve) => curve.points)).toEqual([boneDensityCurve('female')])
+    expect(boneDensityCurves('male').map((curve) => curve.points)).toEqual([boneDensityCurve('male')])
   })
 })
 

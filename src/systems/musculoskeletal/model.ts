@@ -17,6 +17,25 @@ export const JOINTS: Joint[] = [
   { type: 'Plane', axes: 'Multiaxial, limited by ligaments', examples: 'Between wrist bones and between ankle bones', note: 'Flat surfaces glide over each other.' },
 ]
 
+export interface Attachment {
+  part: string
+  name: string
+  origin: string
+  insertion: string
+}
+
+/** Attachments as stated in OpenStax A&P 2e, sections 11.1, 11.5 and 11.6. Where it gives no insertion, this says so. */
+export const ATTACHMENTS: Attachment[] = [
+  { part: 'deltoid', name: 'Deltoid', origin: 'Trapezius, clavicle, acromion and spine of the scapula', insertion: 'Deltoid tuberosity of the humerus' },
+  { part: 'pectoralis-major', name: 'Pectoralis major', origin: 'Clavicle, sternum, cartilage of the upper ribs, and the external oblique aponeurosis', insertion: 'Greater tubercle of the humerus' },
+  { part: 'biceps-brachii', name: 'Biceps brachii', origin: 'Coracoid process, and the tubercle above the glenoid cavity', insertion: 'Not stated in this source' },
+  { part: 'triceps-brachii', name: 'Triceps brachii', origin: 'Infraglenoid tubercle of the scapula, and the back of the humerus', insertion: 'Not stated in this source' },
+  { part: 'gluteus-maximus', name: 'Gluteus maximus', origin: 'Dorsal ilium, sacrum and coccyx', insertion: 'Not stated in this source' },
+  { part: 'quadriceps', name: 'Rectus femoris (quadriceps)', origin: 'Anterior inferior iliac spine, and the upper edge of the acetabulum', insertion: 'Patella through the quadriceps tendon, then the tibial tuberosity through the patellar ligament' },
+  { part: 'gastrocnemius', name: 'Gastrocnemius', origin: 'Medial and lateral condyles of the femur', insertion: 'Calcaneus through the calcaneal (Achilles) tendon' },
+  { part: 'tibialis-anterior', name: 'Tibialis anterior', origin: 'Lateral condyle and upper shaft of the tibia, and the interosseous membrane', insertion: 'Not stated in this source' },
+]
+
 export type MovementId = 'walk' | 'run' | 'lift' | 'squat'
 
 export interface Movement {

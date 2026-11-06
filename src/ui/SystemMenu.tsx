@@ -26,7 +26,7 @@ export function SystemMenu() {
 
   return (
     <div ref={host} className="relative">
-      <button type="button" className="control bg-ink" aria-expanded={open} aria-haspopup="true" onClick={() => setOpen(!open)}>
+      <button type="button" className="control control-primary" aria-expanded={open} aria-haspopup="true" onClick={() => setOpen(!open)}>
         Simulate
       </button>
       {open && (

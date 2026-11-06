@@ -53,7 +53,7 @@ function SkinDiagram({ selected, onSelect, dilation, sweat }: { selected: string
       <path d="M180 100 Q172 104 180 110 Q190 116 180 122" fill="none" stroke="#5aa7ff" strokeWidth="3" pointerEvents="none" />
       <line x1="180" y1="100" x2="180" y2="12" stroke="#5aa7ff" strokeWidth="2" pointerEvents="none" />
       {[0, 0.25, 0.5, 0.75].map((phase) => (
-        <circle key={phase} data-drop data-phase={phase} cx="180" cy="96" r="2.5" fill="#d6ecff" pointerEvents="none" />
+        <circle key={phase} data-drop data-phase={phase} cx="180" cy="96" r="2.5" fill="#0072b2" pointerEvents="none" />
       ))}
     </svg>
   )

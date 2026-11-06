@@ -23,6 +23,8 @@ export function Toolbar() {
   const quality = useBodyStore((state) => state.quality)
   const setQuality = useBodyStore((state) => state.setQuality)
   const resetView = useBodyStore((state) => state.resetView)
+  const dragMode = useBodyStore((state) => state.dragMode)
+  const setDragMode = useBodyStore((state) => state.setDragMode)
 
   return (
     <div className="flex flex-wrap items-end gap-x-5 gap-y-3 p-3">
@@ -44,6 +46,20 @@ export function Toolbar() {
           </button>
           <button type="button" className="control" onClick={resetView}>
             Reset
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <p id="drag-label" className="eyebrow mb-1">
+          Drag to
+        </p>
+        <div role="radiogroup" aria-labelledby="drag-label" className="flex gap-1">
+          <button type="button" role="radio" aria-checked={dragMode === 'rotate'} className="control" onClick={() => setDragMode('rotate')}>
+            Rotate
+          </button>
+          <button type="button" role="radio" aria-checked={dragMode === 'move'} className="control" title="Slide the view up, down, left and right. Reset brings it back." onClick={() => setDragMode('move')}>
+            Move
           </button>
         </div>
       </div>

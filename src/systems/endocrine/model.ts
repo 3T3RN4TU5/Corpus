@@ -69,7 +69,7 @@ export const GLANDS: Gland[] = [
   { name: 'Pancreas', hormones: 'Insulin, glucagon', role: 'Regulates blood glucose.' },
   { name: 'Pituitary', hormones: 'Growth hormone, ADH, oxytocin and others', role: 'Directs many other glands.' },
   { name: 'Thyroid', hormones: 'T3, T4', role: 'Sets the pace of metabolism.' },
-  { name: 'Adrenal glands', hormones: 'Cortisol, aldosterone, adrenaline', role: 'Respond to stress and balance salt and water.' },
+  { name: 'Adrenal glands', hormones: 'Cortisol, aldosterone, epinephrine', role: 'Respond to stress and balance salt and water.' },
   { name: 'Ovaries', hormones: 'Estrogen, progesterone', role: 'Regulate reproductive cycles and development.' },
   { name: 'Testes', hormones: 'Testosterone', role: 'Regulate sperm production and development.' },
   { name: 'Thymus', hormones: 'Thymosins', role: 'Supports T cell maturation.' },

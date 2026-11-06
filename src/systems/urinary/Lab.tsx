@@ -22,9 +22,9 @@ function Nephron({ index }: { index: number }) {
   return (
     <svg viewBox="0 0 240 150" className="mt-1 w-full" role="img" aria-label="Diagram of a nephron, from the glomerulus through the tubules to the collecting duct.">
       <circle cx="40" cy="34" r="20" fill="#7a2c26" stroke="#c8402f" />
-      <path d="M58 30 C80 10 96 50 110 30 C124 10 130 40 110 58 L110 128 Q118 140 126 128 L126 60 C136 40 150 56 170 34 C186 16 200 30 214 30 L214 142" fill="none" stroke="#e3c370" strokeWidth="6" strokeLinejoin="round" />
-      <circle cx={point.x} cy={point.y} r="8" fill="none" stroke="#ff6a3d" strokeWidth="2.5" />
-      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#a69c88">
+      <path d="M58 30 C80 10 96 50 110 30 C124 10 130 40 110 58 L110 128 Q118 140 126 128 L126 60 C136 40 150 56 170 34 C186 16 200 30 214 30 L214 142" fill="none" stroke="#c9a23c" strokeWidth="6" strokeLinejoin="round" />
+      <circle cx={point.x} cy={point.y} r="8" fill="none" stroke="#c4431a" strokeWidth="2.5" />
+      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#59616a">
         <text x="16" y="66">Glomerulus</text>
         <text x="62" y="16">Proximal</text>
         <text x="74" y="110">Loop</text>
@@ -44,7 +44,8 @@ export default function UrinaryLab() {
   const live = useRef(state)
   const lastTime = useRef(0)
   const figures = useMemo(() => filtration(profile), [profile])
-  const remaining = useMemo(() => waterRemaining(hydration), [hydration])
+  const remaining = useMemo(() => waterRemaining(hydration, figures.filtrateValue), [hydration, figures])
+  // The share of capacity at which the simulated bladder empties is illustrative.
   const voidAt = factNumber('bladder-capacity') * 0.7
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function UrinaryLab() {
       urinaryLive.volume = live.current.volume
     }
     setState((current) => (Math.abs(current.volume - live.current.volume) > 3 || current.voids !== live.current.voids ? { ...live.current } : current))
-    const next = Math.floor(performance.now() / 3500) % NEPHRON_STAGES.length
+    const next = useClock.getState().playing ? Math.floor(performance.now() / 3500) % NEPHRON_STAGES.length : stage
     setStage((current) => (current === next ? current : next))
   })
 
@@ -95,7 +96,7 @@ export default function UrinaryLab() {
       <Limits
         items={[
           'Hydration is a simple setting from low to high. Urine output runs in a straight line from the sourced minimum to the top of the normal range, which is illustrative.',
-          'Urine flows at a steady rate and the bladder empties completely at a fixed volume. Real timing depends on many factors, including hormones, meals and choice.',
+          'Urine flows at a steady rate and the bladder empties completely at a fixed volume, 70% of the sourced capacity, which is illustrative. Real timing depends on many factors, including hormones, meals and choice.',
           'The diagram shows one nephron in schematic form. Water percentages between the tubule stages are built from sourced figures and simplified.',
           'The bladder change in the 3D body is exaggerated so that it can be seen.',
         ]}

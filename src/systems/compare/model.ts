@@ -47,7 +47,7 @@ export function restVsExercise(age: number): Comparison {
 export function youngVsOld(youngAge: number, oldAge: number): Comparison {
   const boneYoung = youngAge <= factNumber('bone-density-peak') ? 'Rising toward its peak' : 'Past its peak'
   const boneOld = oldAge <= factNumber('bone-density-peak') ? 'Rising toward its peak' : 'Past its peak, falling'
-  const sleepFor = (age: number) => (age >= 65 ? 'sleep-older' : age >= 18 ? 'sleep-adult' : 'sleep-teen')
+  const sleepFor = (age: number) => (age >= 65 ? 'sleep-older' : age >= 61 ? 'sleep-61-64' : age >= 18 ? 'sleep-adult' : 'sleep-teen')
   const sleepLabel = (age: number) => {
     const [low, high] = factRange(sleepFor(age))
     return low === high ? `${low} or more hours` : `${low} to ${high} hours`

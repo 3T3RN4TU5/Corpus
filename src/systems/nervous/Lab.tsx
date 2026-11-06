@@ -12,8 +12,27 @@ const VOLTAGE_SERIES = [{ label: 'Membrane potential, mV', color: SERIES_COLORS.
 const AP_LOOP_SECONDS = 4
 const AP_SLOWDOWN = 800
 
+/** Each region on the map lights up the matching part of the 3D brain. */
+const BRAIN_PART: Record<string, string> = {
+  frontal: 'brain-frontal',
+  parietal: 'brain-parietal',
+  occipital: 'brain-occipital',
+  temporal: 'brain-temporal',
+  hippocampus: 'brain-hippocampus',
+  thalamus: 'brain-thalamus',
+  hypothalamus: 'brain-hypothalamus',
+  cerebellum: 'brain-cerebellum',
+  brainstem: 'brain-brainstem',
+}
+
 function BrainMap() {
   const [selected, setSelected] = useState(BRAIN_REGIONS[0])
+  useEffect(() => {
+    nervousLive.region = BRAIN_PART[selected.id]
+    return () => {
+      nervousLive.region = null
+    }
+  }, [selected])
   return (
     <>
       <svg viewBox="0 0 210 185" className="mt-1 w-full" role="group" aria-label="Side view of the brain. Choose a region to read about it.">
@@ -33,7 +52,7 @@ function BrainMap() {
               }
             }}
           >
-            <path d={region.shape} fill={region.color} stroke={selected.id === region.id ? '#ff6a3d' : '#12100e'} strokeWidth={selected.id === region.id ? 2 : 1} opacity={selected.id === region.id ? 1 : 0.82} />
+            <path d={region.shape} fill={region.color} stroke={selected.id === region.id ? '#c4431a' : '#ffffff'} strokeWidth={selected.id === region.id ? 2 : 1} opacity={selected.id === region.id ? 1 : 0.82} />
           </g>
         ))}
       </svg>
@@ -66,9 +85,9 @@ function NeuronDiagram() {
   return (
     <svg ref={svg} viewBox="0 0 240 120" className="mt-1 w-full" role="img" aria-label="Diagram of a neuron. A signal travels along the axon, and neurotransmitter crosses the synapse to the next cell.">
       <circle cx="26" cy="60" r="20" fill="#7f6a5a" />
-      <rect x="44" y="56" width="146" height="8" fill="#a69c88" />
+      <rect x="44" y="56" width="146" height="8" fill="#59616a" />
       {[60, 92, 124, 156].map((x) => (
-        <rect key={x} x={x} y="52" width="26" height="16" rx="6" fill="#ece4d2" opacity="0.5" />
+        <rect key={x} x={x} y="52" width="26" height="16" rx="6" fill="#59616a" opacity="0.55" />
       ))}
       <path d="M190 40 Q204 60 190 80 L184 80 L184 40 Z" fill="#7f6a5a" />
       <rect x="220" y="30" width="16" height="60" rx="6" fill="#5a7fa8" />
@@ -76,7 +95,7 @@ function NeuronDiagram() {
       {vesicles.map((vesicle) => (
         <circle key={vesicle.id} data-vesicle data-delay={vesicle.delay} cx="196" cy={vesicle.y} r="2.2" fill={SERIES_COLORS.pink} />
       ))}
-      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#a69c88">
+      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#59616a">
         <text x="6" y="100">cell body</text>
         <text x="96" y="100">axon, myelin</text>
         <text x="186" y="108">synapse</text>
@@ -119,7 +138,7 @@ export default function NervousLab() {
   return (
     <>
       <Group title="Brain regions">
-        <p className="text-[0.84rem] leading-snug text-dust">Choose a region on this schematic map.</p>
+        <p className="text-[0.84rem] leading-snug text-dust">Choose a region on this map and it lights up in the 3D brain. You can also click regions directly in the 3D view.</p>
         <BrainMap />
       </Group>
 
@@ -161,7 +180,7 @@ export default function NervousLab() {
       <Facts ids={FACT_IDS} />
       <Limits
         items={[
-          'Brain regions are a schematic 2D map. The 3D brain is one selectable part, so its regions cannot be clicked in 3D yet.',
+          'The 2D map is schematic. The 3D brain regions are grouped from a detailed atlas of about 140 structures.',
           'The source gives no size for the hyperpolarization undershoot, or for how long each phase lasts, so the curve shape is illustrative.',
           'The reflex plays at a speed you can watch. Its real speed is not shown, and step timing is illustrative.',
           'The source sets out the stretch reflex in general terms. The route through the femoral nerve and the kick are simplified, and the body model does not move.',

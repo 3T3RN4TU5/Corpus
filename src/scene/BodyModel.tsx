@@ -20,6 +20,21 @@ const CLICK_DRAG_LIMIT_PX = 5
 export const HOME_CAMERA: [number, number, number] = [0, 0.95, 3.7]
 export const HOME_TARGET: [number, number, number] = [0, 0.88, 0]
 
+/**
+ * How each tissue reflects light. Wet tissue has a glossy clear layer over it, and bone is mostly matte. These are artistic
+ * choices to make shapes easy to read. They are not measured optical properties.
+ */
+const TISSUE: Record<LayerId, { roughness: number; clearcoat: number; clearcoatRoughness: number; sheen: number }> = {
+  skin: { roughness: 0.58, clearcoat: 0.12, clearcoatRoughness: 0.55, sheen: 0.25 },
+  fat: { roughness: 0.42, clearcoat: 0.4, clearcoatRoughness: 0.35, sheen: 0 },
+  muscle: { roughness: 0.46, clearcoat: 0.55, clearcoatRoughness: 0.32, sheen: 0.2 },
+  skeleton: { roughness: 0.62, clearcoat: 0.08, clearcoatRoughness: 0.6, sheen: 0 },
+  organs: { roughness: 0.34, clearcoat: 0.85, clearcoatRoughness: 0.2, sheen: 0 },
+  vessels: { roughness: 0.3, clearcoat: 0.8, clearcoatRoughness: 0.22, sheen: 0 },
+  nerves: { roughness: 0.42, clearcoat: 0.5, clearcoatRoughness: 0.3, sheen: 0 },
+  lymph: { roughness: 0.34, clearcoat: 0.7, clearcoatRoughness: 0.25, sheen: 0 },
+}
+
 const layerOrder = new Map(LAYERS.map((layer, index) => [layer.id, LAYERS.length - index]))
 
 interface PartPlacement {
@@ -64,6 +79,7 @@ const PartMesh = memo(function PartMesh({ part, geometry, place, centre }: { par
   const selected = useBodyStore((state) => state.selectedId === part.id)
   const hovered = useBodyStore((state) => state.hoveredId === part.id)
   const clipped = useBodyStore((state) => state.clipAxis !== 'none')
+  const simple = useBodyStore((state) => state.quality === 'low')
   const mesh = useRef<Mesh>(null)
 
   // Simulations move and light parts through this loop, so animation never re-renders React.
@@ -92,7 +108,8 @@ const PartMesh = memo(function PartMesh({ part, geometry, place, centre }: { par
   const transparent = appearance.opacity < 1
   const side = clipped ? DoubleSide : FrontSide
   // These settings change the compiled shader, so the material must be replaced when they change.
-  const materialKey = `${clipped}-${transparent}`
+  const materialKey = `${clipped}-${transparent}-${simple}`
+  const tissue = TISSUE[part.layer]
 
   return (
     <mesh
@@ -114,11 +131,17 @@ const PartMesh = memo(function PartMesh({ part, geometry, place, centre }: { par
           side={side}
         />
       ) : (
-        <meshStandardMaterial
+        <meshPhysicalMaterial
           key={materialKey}
           color={part.color}
-          roughness={part.layer === 'skeleton' ? 0.72 : part.layer === 'skin' ? 0.62 : 0.45}
+          roughness={tissue.roughness}
           metalness={0}
+          clearcoat={simple ? 0 : tissue.clearcoat}
+          clearcoatRoughness={tissue.clearcoatRoughness}
+          sheen={simple ? 0 : tissue.sheen}
+          sheenRoughness={0.6}
+          sheenColor={part.color}
+          envMapIntensity={simple ? 0.5 : 1}
           emissive={ACCENT}
           emissiveIntensity={selected ? 0.5 : hovered ? 0.16 : 0}
           transparent={transparent}

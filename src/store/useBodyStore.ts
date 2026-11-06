@@ -2,9 +2,10 @@ import { create } from 'zustand'
 import { getPart, LAYERS, type LayerId } from '../data/anatomy'
 import { DEFAULT_CUSTOM, resolveProfile, type CustomSexConfig, type SexProfile } from '../data/sexProfiles'
 import { MIN_PICKABLE_OPACITY } from '../scene/appearance'
-import { prefersReducedMotion } from '../sim/clock'
+import { setReducedMotionPreference, systemPrefersReducedMotion } from '../sim/clock'
 import { decodeView } from './shareState'
 
+export type DragMode = 'rotate' | 'move'
 export type Quality = 'low' | 'medium' | 'high'
 export type ClipAxis = 'none' | 'axial' | 'sagittal' | 'coronal'
 export type ActivityLevel = 'sedentary' | 'light' | 'moderate' | 'vigorous'
@@ -48,6 +49,8 @@ interface BodyStore {
   /** Position of the slice along its axis, from 0 to 1. */
   clipPosition: number
   quality: Quality
+  /** What a plain drag does: turn the view, or slide it up, down, left and right. */
+  dragMode: DragMode
   selectedId: string | null
   hoveredId: string | null
   /** Changes whenever the camera should fly. The target is `cameraTargetId`, or the home view when null. */
@@ -56,6 +59,8 @@ interface BodyStore {
   /** The simulation panel that is open, if any. */
   openSystem: string | null
   reducedMotion: boolean
+  /** The layers to return to when a simulation closes. */
+  layersBeforeLab: Record<LayerId, LayerState> | null
   setReducedMotion: (on: boolean) => void
 
   setOpenSystem: (id: string | null, layers?: Partial<Record<LayerId, number>>) => void
@@ -68,6 +73,7 @@ interface BodyStore {
   setClipAxis: (axis: ClipAxis) => void
   setClipPosition: (position: number) => void
   setQuality: (quality: Quality) => void
+  setDragMode: (dragMode: DragMode) => void
   setSexProfile: (id: string) => void
   setCustom: (patch: Partial<CustomSexConfig>) => void
   selectPart: (id: string | null) => void
@@ -96,20 +102,28 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
   clipAxis: 'none',
   clipPosition: 0.5,
   quality: 'medium',
+  dragMode: 'rotate',
   selectedId: null,
   hoveredId: null,
   cameraNonce: 0,
   cameraTargetId: null,
   openSystem: null,
-  reducedMotion: prefersReducedMotion(),
-  setReducedMotion: (reducedMotion) => set({ reducedMotion }),
+  reducedMotion: systemPrefersReducedMotion(),
+  setReducedMotion: (reducedMotion) => {
+    setReducedMotionPreference(reducedMotion)
+    set({ reducedMotion })
+  },
+  layersBeforeLab: null,
 
   setOpenSystem: (openSystem, layers) =>
     set((state) => ({
       openSystem,
       selectedId: openSystem ? null : state.selectedId,
       isolate: openSystem ? false : state.isolate,
-      layers: layers
+      layersBeforeLab: openSystem ? (state.layersBeforeLab ?? state.layers) : null,
+      layers: !openSystem && state.layersBeforeLab
+        ? state.layersBeforeLab
+        : layers
         ? (Object.fromEntries(
             LAYERS.map(({ id }) => [
               id,
@@ -134,6 +148,7 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
   setClipAxis: (clipAxis) => set({ clipAxis }),
   setClipPosition: (clipPosition) => set({ clipPosition }),
   setQuality: (quality) => set({ quality }),
+  setDragMode: (dragMode) => set({ dragMode }),
 
   setSexProfile: (sexProfileId) => {
     set((state) => ({ sim: { ...state.sim, sexProfileId } }))
@@ -179,7 +194,8 @@ function clearUnavailableSelection(
 ) {
   const { selectedId } = get()
   const part = selectedId ? getPart(selectedId) : undefined
-  if (part?.requires && !selectProfile(get()).structures.includes(part.requires)) {
+  const profile = selectProfile(get())
+  if (part?.requires && !profile.structures.includes(part.requires) && !profile.alsoShows?.includes(part.id)) {
     set({ selectedId: null, isolate: false })
   }
 }

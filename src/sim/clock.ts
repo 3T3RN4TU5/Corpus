@@ -36,6 +36,17 @@ export const useClock = create<ClockState>((set, get) => ({
 }))
 
 /** Motion preference, used to slow or skip purely decorative animation. */
+export function systemPrefersReducedMotion(): boolean {
+  return typeof window !== 'undefined' && Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+}
+
+let reducedMotion = systemPrefersReducedMotion()
+
+export function setReducedMotionPreference(on: boolean): void {
+  reducedMotion = on
+}
+
+/** Follows the person's choice in the app, which starts from their system setting. */
 export function prefersReducedMotion(): boolean {
-  return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  return reducedMotion
 }

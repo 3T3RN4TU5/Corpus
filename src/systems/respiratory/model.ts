@@ -58,11 +58,15 @@ export function gasGradients(): GasExchange {
   }
 }
 
-/** How blood gases approach the alveolar pressures along a capillary. The curve's shape is illustrative. */
+/**
+ * How blood gases change along a capillary, from the sourced values in returning blood to those in blood leaving the
+ * lungs. The source gives 100 mm Hg of oxygen for that blood, a little below the 104 mm Hg in alveolar air. The curve's
+ * shape is illustrative.
+ */
 export function capillaryGas(share: number): { oxygen: number; carbonDioxide: number } {
-  const approach = 1 - Math.exp(-share * 5)
+  const approach = (1 - Math.exp(-share * 5)) / (1 - Math.exp(-5))
   return {
-    oxygen: factNumber('returning-po2') + (factNumber('alveolar-po2') - factNumber('returning-po2')) * approach,
+    oxygen: factNumber('returning-po2') + (factNumber('leaving-po2') - factNumber('returning-po2')) * approach,
     carbonDioxide: factNumber('returning-pco2') - (factNumber('returning-pco2') - factNumber('alveolar-pco2')) * approach,
   }
 }

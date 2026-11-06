@@ -5,7 +5,7 @@ import { Caption, Facts, Group, Limits, LiveChart, SERIES_COLORS, Stat, useAnima
 import { eat, exercise, GLANDS, glucoseBand, initialGlucose, stepGlucose } from './model'
 import { endocrineLive } from './Scene'
 
-const FACT_IDS = ['glucose-normal-textbook', 'glucose-fasting', 'glucose-prediabetes']
+const FACT_IDS = ['glucose-normal-textbook', 'glucose-fasting', 'glucose-prediabetes', 'glucose-diabetes-fasting']
 const GLUCOSE = [{ label: 'Blood glucose, mg/dL', color: SERIES_COLORS.yellow }]
 const HORMONES = [
   { label: 'Insulin signal', color: SERIES_COLORS.blue },
@@ -79,7 +79,7 @@ export default function EndocrineLab() {
           'This models one person without diabetes, using a simple feedback loop. Do not use it to judge your own glucose or decide on food or medicine.',
           'The direction of each effect is sourced, but every rate in the loop is illustrative. So the height and timing of the curve are not predictions.',
           'Insulin and glucagon are relative signals from 0 to 1, not measured concentrations.',
-          'Only the pancreas, thymus, ovaries and testes appear in the 3D body. The other glands are listed here only.',
+          'All listed glands appear in the 3D body. The thyroid is a simple illustrative shape, because neither anatomy dataset includes it. Parathyroid glands are not included.',
           'Hormone levels do not change with age or sex in this model.',
         ]}
       />

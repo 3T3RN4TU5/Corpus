@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { factNumber, factRange, getFact } from '../../data/physiology'
 import { Choice, Facts, Group, Limits, SERIES_COLORS } from '../labKit'
 
-const FACT_IDS = ['handwash-scrub', 'hand-sanitizer-alcohol', 'hospital-hand-hygiene-effect', 'brushing-daily', 'flossing-daily', 'fluoride-water-effect', 'sleep-newborn', 'sleep-infant', 'sleep-school', 'sleep-teen', 'sleep-adult', 'sleep-older', 'urine-daily', 'sweat-rest', 'filtrate-reabsorbed', 'activity-weekly']
+const FACT_IDS = ['handwash-scrub', 'hand-sanitizer-alcohol', 'hospital-hand-hygiene-effect', 'brushing-daily', 'flossing-daily', 'fluoride-water-effect', 'sleep-newborn', 'sleep-infant', 'sleep-toddler', 'sleep-preschool', 'sleep-school', 'sleep-teen', 'sleep-adult', 'sleep-61-64', 'sleep-older', 'urine-daily', 'sweat-rest', 'filtrate-reabsorbed', 'activity-weekly']
 
 const EXCRETION = [
   { name: 'Sweat', removes: 'Mostly water, with some salt, antibodies and traces of metabolic waste.', role: 'Its main job is cooling the body, not clearing waste.', source: 'OpenStax A&P 2e, 5.2 Accessory Structures of the Skin', url: 'https://openstax.org/books/anatomy-and-physiology-2e/pages/5-2-accessory-structures-of-the-skin' },
@@ -74,9 +74,12 @@ function Scenario({ id }: { id: ScenarioId }) {
     const rows = [
       ['0 to 3 months', 'sleep-newborn'],
       ['4 to 12 months', 'sleep-infant'],
+      ['1 to 2 years', 'sleep-toddler'],
+      ['3 to 5 years', 'sleep-preschool'],
       ['6 to 12 years', 'sleep-school'],
       ['13 to 17 years', 'sleep-teen'],
       ['18 to 60 years', 'sleep-adult'],
+      ['61 to 64 years', 'sleep-61-64'],
       ['65 years and older', 'sleep-older'],
     ]
     return (

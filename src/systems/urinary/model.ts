@@ -11,6 +11,8 @@ export function urinePerDay(hydration: number): number {
 export interface FiltrationFigures {
   gfr: string
   filtrate: string
+  /** Mid value used by the simulation, in litres per day. */
+  filtrateValue: number
   /** Mid value used by the simulation, in mL per minute. */
   gfrValue: number
   note: string | null
@@ -20,11 +22,12 @@ export interface FiltrationFigures {
 export function filtration(profile: Pick<SexProfile, 'referenceSex'>): FiltrationFigures {
   const female = factNumber('gfr-female')
   const male = factNumber('gfr-male')
-  if (profile.referenceSex === 'female') return { gfr: `${female} mL/min`, filtrate: `${factNumber('filtrate-female')} L/day`, gfrValue: female, note: null }
-  if (profile.referenceSex === 'male') return { gfr: `${male} mL/min`, filtrate: `${factNumber('filtrate-male')} L/day`, gfrValue: male, note: null }
+  if (profile.referenceSex === 'female') return { gfr: `${female} mL/min`, filtrate: `${factNumber('filtrate-female')} L/day`, filtrateValue: factNumber('filtrate-female'), gfrValue: female, note: null }
+  if (profile.referenceSex === 'male') return { gfr: `${male} mL/min`, filtrate: `${factNumber('filtrate-male')} L/day`, filtrateValue: factNumber('filtrate-male'), gfrValue: male, note: null }
   return {
     gfr: `${female} to ${male} mL/min`,
     filtrate: `${factNumber('filtrate-female')} to ${factNumber('filtrate-male')} L/day`,
+    filtrateValue: (factNumber('filtrate-female') + factNumber('filtrate-male')) / 2,
     gfrValue: (female + male) / 2,
     note: 'The source gives female and male values only, so both are shown.',
   }
@@ -60,9 +63,9 @@ export const NEPHRON_STAGES: NephronStage[] = [
 ]
 
 /** Illustrative: share of the filtered water still in the tubule after each stage, built from sourced percentages. */
-export function waterRemaining(hydration: number): number[] {
+export function waterRemaining(hydration: number, filtrateLitres: number): number[] {
   const afterPct = 1 - factNumber('reabsorb-pct-water') / 100
   const afterLoop = afterPct - factNumber('reabsorb-loop-water') / 100
-  const finalShare = (urinePerDay(hydration) / factNumber('filtrate-male')) * 1
+  const finalShare = urinePerDay(hydration) / filtrateLitres
   return [1, afterPct, afterLoop, Math.max(afterLoop * 0.6, finalShare), finalShare]
 }

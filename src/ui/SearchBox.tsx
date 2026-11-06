@@ -44,7 +44,7 @@ export function SearchBox() {
         aria-controls="search-results"
         aria-activedescendant={showList && results[active] ? `search-${results[active].id}` : undefined}
         placeholder="Find a bone, muscle or organ"
-        className="sheet w-full px-3 py-2 text-base text-bone placeholder:text-dust"
+        className="sheet w-full !rounded-full px-4 py-2 text-base text-bone placeholder:text-dust"
         value={query}
         onChange={(event) => {
           setQuery(event.target.value)

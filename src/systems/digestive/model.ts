@@ -58,7 +58,7 @@ export function mealTimeline(meal: Meal): Stage[] {
   add('esophagus', 'Esophagus', swallow, `Swallow: ${factRange('swallow-solid').join(' to ')} s`, [], 'Peristalsis, a wave of muscle contraction, pushes the bolus down to the stomach.')
   add('stomach', 'Stomach', stomach, `${stomachLow} to ${stomachHigh} h, or ${fatty} h or longer if fatty`, ['Pepsin', 'Lingual lipase', 'Gastric lipase'], 'Mixing waves and acid turn the food into chyme, and pepsin begins protein digestion. Acid stops salivary amylase.')
   add('small', 'Small intestine', small, `${factRange('small-intestine-transit').join(' to ')} h`, ['Pancreatic amylase', 'Trypsin', 'Chymotrypsin', 'Carboxypeptidase', 'Pancreatic lipase', 'Sucrase, maltase, lactase', 'Aminopeptidase, dipeptidase'], 'Bile from the liver and gallbladder breaks fat into small droplets. Pancreatic and brush-border enzymes finish digestion, and villi absorb the nutrients.')
-  add('large', 'Large intestine', large, `${factRange('large-intestine-transit').join(' to ')} h`, [], 'Water and salts are absorbed, bacteria act on the remaining material, and feces form.')
+  add('large', 'Large intestine', large, `${factRange('large-intestine-transit').join(' to ')} h`, [], 'Water and salts are absorbed, bacteria act on the remaining material, and feces form. Feces collect in the rectum until they leave the body.')
   return stages
 }
 

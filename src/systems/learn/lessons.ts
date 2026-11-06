@@ -29,8 +29,8 @@ export const LESSONS: Lesson[] = [
     ],
     quiz: [
       { question: 'What does cardiac output measure?', options: ['Blood pumped per minute', 'Pressure in the aorta', 'Number of heartbeats in a day'], answer: 0, why: 'It is heart rate multiplied by stroke volume, usually in litres per minute.' },
-      { question: 'What happens to a vessel\'s resistance if its radius is halved?', options: ['It doubles', 'It rises 4 times', 'It rises 16 times'], answer: 2, why: 'Resistance depends on the fourth power of radius, and 2 to the fourth power is 16.' },
-      { question: 'When are the aortic and pulmonary valves open?', options: ['During ventricular systole', 'During atrial systole', 'During diastole'], answer: 0, why: 'They open when the ventricles contract and eject blood.' },
+      { question: 'What happens to a vessel\'s resistance if its radius is halved?', options: ['It doubles', 'It rises 4 times', 'It rises 16 times'], answer: 2, why: 'Resistance rises with the inverse fourth power of radius, and 2 to the fourth power is 16.' },
+      { question: 'When are the aortic and pulmonary valves open?', options: ['During ventricular systole', 'During atrial systole', 'During diastole'], answer: 0, why: 'They open during ventricular systole, once pressure in the contracting ventricles rises high enough to eject blood.' },
     ],
   },
   {
@@ -118,7 +118,7 @@ export const LESSONS: Lesson[] = [
     points: ['Raised blood glucose brings insulin, which helps cells take up glucose.', 'Low blood glucose brings glucagon, which releases glucose from the liver.', 'This is negative feedback, which keeps glucose near a stable level.'],
     quiz: [
       { question: 'Which hormone lowers blood glucose?', options: ['Insulin', 'Glucagon', 'Oxytocin'], answer: 0, why: 'Insulin helps muscle and fat cells take up glucose.' },
-      { question: `What is a normal fasting glucose, in mg/dL?`, options: [`${factRange('glucose-fasting').join(' to ')}`, '126 or more', 'Below 40'], answer: 0, why: '126 mg/dL or higher usually means diabetes.' },
+      { question: `What is a normal fasting glucose, in mg/dL?`, options: [`${factRange('glucose-fasting').join(' to ')}`, `${factNumber('glucose-diabetes-fasting')} or more`, 'Below 40'], answer: 0, why: `${factNumber('glucose-diabetes-fasting')} mg/dL or higher usually means diabetes.` },
     ],
   },
   {

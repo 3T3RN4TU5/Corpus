@@ -8,6 +8,7 @@ const STRUCTURE_NAMES: Record<ReproStructure, string> = {
   uterus: 'Uterus',
   testes: 'Testes',
   prostate: 'Prostate',
+  penis: 'Penis',
 }
 
 function ProfileOption({ profile, checked, onChoose }: { profile: Pick<SexProfile, 'id' | 'name'>; checked: boolean; onChoose: () => void }) {
@@ -76,7 +77,7 @@ export function SexPanel() {
   const prevalence = profile.prevalenceFactId ? getFact(profile.prevalenceFactId) : null
 
   return (
-    <section aria-labelledby="sex-heading" className="border-t border-line p-4">
+    <section aria-labelledby="sex-heading" className="sheet p-4">
       <h2 id="sex-heading" className="eyebrow">
         Sex
       </h2>

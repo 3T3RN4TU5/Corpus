@@ -6,4 +6,5 @@ export const circulatoryLive = {
   systolic: factNumber('bp-systolic'),
   diastolic: factNumber('bp-diastolic'),
   cardiacOutput: factNumber('cardiac-output-rest'),
+  strokeVolume: factNumber('stroke-volume-rest'),
 }

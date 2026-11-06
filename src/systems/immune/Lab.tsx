@@ -45,7 +45,7 @@ export default function ImmuneLab() {
     const context = element?.getContext('2d')
     if (!element || !context) return
     const scale = element.width / 100
-    context.fillStyle = '#1b1815'
+    context.fillStyle = '#eef1f4'
     context.fillRect(0, 0, element.width, element.height)
     context.fillStyle = SERIES_COLORS.orange
     for (const pathogen of state.current.pathogens) {
@@ -54,7 +54,7 @@ export default function ImmuneLab() {
       context.fill()
     }
     context.strokeStyle = SERIES_COLORS.blue
-    context.fillStyle = 'rgba(90,167,255,0.28)'
+    context.fillStyle = 'rgba(0,114,178,0.22)'
     context.lineWidth = 1.5
     for (const cell of state.current.neutrophils) {
       context.beginPath()

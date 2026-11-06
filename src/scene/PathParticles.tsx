@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
-import { AdditiveBlending, BufferAttribute, BufferGeometry, CatmullRomCurve3, Color, DataTexture, FloatType, LinearFilter, RGBAFormat, ShaderMaterial, Vector3 } from 'three'
+import { BufferAttribute, BufferGeometry, CatmullRomCurve3, Color, DataTexture, FloatType, LinearFilter, RGBAFormat, ShaderMaterial, Vector3 } from 'three'
 import { useClock } from '../sim/clock'
 
 export interface ParticlePath {
@@ -71,7 +71,7 @@ const FRAGMENT = /* glsl */ `
   void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
-    gl_FragColor = vec4(vColor, 1.0 - smoothstep(0.25, 0.5, d));
+    gl_FragColor = vec4(vColor, 0.95 * (1.0 - smoothstep(0.32, 0.5, d)));
   }
 `
 
@@ -120,7 +120,6 @@ export function PathParticles({ paths, count, lapsPerSecond, size = 16 }: Props)
         transparent: true,
         depthWrite: false,
         depthTest: false,
-        blending: AdditiveBlending,
         uniforms: {
           uPositions: { value: textures.positionTexture },
           uColors: { value: textures.colorTexture },

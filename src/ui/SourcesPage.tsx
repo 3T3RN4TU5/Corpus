@@ -1,5 +1,6 @@
 import { SYSTEM_NAMES, SYSTEM_SOURCES, type SystemId } from '../data/anatomy'
-import { formatFact, physiology, type PhysiologyEntry, type Source } from '../data/physiology'
+import { SYSTEM_PLUGINS } from '../systems'
+import { formatFact, getFact, physiology, type PhysiologyEntry, type Source } from '../data/physiology'
 import { SEX_PROFILES } from '../data/sexProfiles'
 
 function groupBySource(entries: PhysiologyEntry[]) {
@@ -93,25 +94,34 @@ export default function SourcesPage() {
           ))}
         </ul>
 
+        <h3 className="eyebrow mt-10">Simulations</h3>
+        <ul className="mt-2">
+          {SYSTEM_PLUGINS.map((plugin) => (
+            <li key={plugin.id} className="border-t border-line py-2 text-[0.95rem] leading-snug">
+              <span className="italic">{plugin.name}.</span> <span className="text-dust">Key values: {plugin.dataSources.map((id) => getFact(id).label.toLowerCase()).join(', ')}. {plugin.limits.join(' ')}</span>
+            </li>
+          ))}
+        </ul>
+
         <h3 className="eyebrow mt-10">3D models</h3>
         <ul className="mt-2 leading-snug">
           <li className="border-t border-line py-2">
             <a href="https://github.com/hubmapconsortium/ccf-3d-reference-object-library" target="_blank" rel="noreferrer">
               HuBMAP Human Reference Atlas, CCF 3D Reference Object Library
             </a>
-            , licensed under CC BY 4.0. Female and male skin, organs and trunk blood vessels, pelvis, vertebrae and spinal cord. Reduced in detail and compressed for this app.
+            , licensed under CC BY 4.0. Female and male skin, eyes, brain, organs and trunk blood vessels, pelvis, vertebrae and spinal cord. Reduced in detail and compressed for this app.
           </li>
           <li className="border-t border-line py-2">
-            <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/" target="_blank" rel="noreferrer">
+            <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/desc.html" target="_blank" rel="noreferrer">
               BodyParts3D, © The Database Center for Life Science
             </a>
-            . Skeleton, muscles, limb vessels, stomach, esophagus and testes. Reduced in detail, compressed, and reshaped to fit each body. The database lists CC BY 4.0, and the files themselves carry CC BY-SA 2.1 Japan.
+            . Skeleton, teeth, muscles, limb vessels, stomach, esophagus, tongue, some glands and male external genital structures. Reduced in detail, compressed, and reshaped to fit each body. The database lists CC BY 4.0, and the files themselves carry CC BY-SA 2.1 Japan.
           </li>
         </ul>
 
         <h3 className="eyebrow mt-10">What is illustrative</h3>
         <p className="mt-2 leading-snug">
-          BodyParts3D comes from one male body. Its skeleton and muscles were fitted to the female body by computer, so their shape is not female-specific, and hands in particular do not line up exactly. Peripheral nerves, lymph nodes, the thoracic duct, rectus abdominis, latissimus dorsi and the fat layer are hand-placed or simple shapes. Sex profiles use the female or male body model with typical organs, and reduced organ sizes in some profiles are illustrative. The function descriptions are short summaries written for this app, with the textbook chapter listed above as the reference.
+          BodyParts3D comes from one male body. Its skeleton and muscles were fitted to the female body by computer, so their shape is not female-specific, and hands are posed by computer to fit each body's open hand. Its intercostal muscles and some small back muscles exist on the left side only, so the right side is a mirror image. Peripheral nerves, lymph nodes, the thoracic duct, the thyroid, rectus abdominis, latissimus dorsi and the fat layer are hand-placed or simple shapes. Sex profiles use the female or male body model with typical organs, and reduced organ sizes in some profiles are illustrative. The function descriptions are short summaries written for this app, with the textbook chapter listed above as the reference.
         </p>
       </div>
     </div>

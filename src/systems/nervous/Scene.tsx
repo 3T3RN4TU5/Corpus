@@ -9,7 +9,7 @@ import { reflexPath, reflexReturnPath, spinalPath } from '../bodyPaths'
 import { SERIES_COLORS } from '../labKit'
 import { reflexStepAt } from './model'
 
-export const nervousLive = { reflexLoop: 6 }
+export const nervousLive: { reflexLoop: number; region: string | null } = { reflexLoop: 6, region: null }
 
 export default function NervousScene() {
   const body = useBodyStore(useShallow((state) => selectProfile(state).body))
@@ -28,6 +28,7 @@ export default function NervousScene() {
     const step = reflexStepAt(share)
     bodyEffects.glow.clear()
     step.glow.forEach((id) => bodyEffects.glow.set(id, 0.65))
+    if (nervousLive.region) bodyEffects.glow.set(nervousLive.region, 0.8)
   })
 
   return <PathParticles paths={paths} count={500} lapsPerSecond={0.5} size={20} />

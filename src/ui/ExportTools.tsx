@@ -68,7 +68,7 @@ export function ExportTools() {
           aria-pressed={reduced}
           onClick={() => {
             setReduced(!reduced)
-            if (!reduced) useClock.getState().setPlaying(false)
+            useClock.getState().setPlaying(reduced)
           }}
         >
           Reduce motion

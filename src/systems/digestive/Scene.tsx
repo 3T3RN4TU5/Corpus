@@ -3,7 +3,9 @@ import { useMemo, useRef } from 'react'
 import type { Mesh } from 'three'
 import { CatmullRomCurve3, Vector3 } from 'three'
 import { useShallow } from 'zustand/react/shallow'
+import { PathParticles, type ParticlePath } from '../../scene/PathParticles'
 import { bodyEffects } from '../../sim/bodyEffects'
+import { SERIES_COLORS } from '../labKit'
 import { useClock } from '../../sim/clock'
 import { selectProfile, useBodyStore } from '../../store/useBodyStore'
 import { digestivePath } from '../bodyPaths'
@@ -40,6 +42,10 @@ export default function DigestiveScene() {
   }, [body])
   const marker = useRef<Mesh>(null)
   const point = useMemo(() => new Vector3(), [])
+  const foodPaths = useMemo<ParticlePath[]>(
+    () => [{ weight: 1, points: digestivePath(body).points, colors: [{ at: 0, color: SERIES_COLORS.yellow }, { at: 1, color: SERIES_COLORS.orange }] }],
+    [body],
+  )
 
   useFrame(() => {
     const stages = digestiveLive.stages
@@ -54,6 +60,14 @@ export default function DigestiveScene() {
     bodyEffects.glow.clear()
     const part = STAGE_PART[stage.id]
     if (part) bodyEffects.glow.set(part, 0.35)
+    // Peristalsis is a wave of contraction, shown here as a pulse along the esophagus and the intestines.
+    if (stage.id === 'esophagus' || stage.id === 'small' || stage.id === 'large') {
+      const wave = 0.5 + 0.5 * Math.sin(performance.now() / 260)
+      bodyEffects.glow.set(STAGE_PART[stage.id], 0.2 + 0.35 * wave)
+      bodyEffects.scale.set(STAGE_PART[stage.id], [1 + 0.03 * wave, 1, 1 + 0.03 * wave])
+    } else {
+      for (const id of ['esophagus', 'small-intestine', 'large-intestine']) bodyEffects.scale.delete(id)
+    }
     if (stage.id === 'stomach') {
       // The size and speed of the churning are exaggerated so that they can be seen.
       const churn = Math.sin(time * ((2 * Math.PI) / 20))
@@ -70,9 +84,12 @@ export default function DigestiveScene() {
   })
 
   return (
+    <>
+    <PathParticles paths={foodPaths} count={260} lapsPerSecond={0.02} size={12} />
     <mesh ref={marker} renderOrder={60} raycast={() => null}>
       <sphereGeometry args={[0.016, 16, 12]} />
       <meshBasicMaterial color="#f0d24b" depthTest={false} transparent />
     </mesh>
+    </>
   )
 }

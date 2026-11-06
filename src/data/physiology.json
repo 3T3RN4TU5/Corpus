@@ -578,6 +578,23 @@
     "confidence": "approximate"
   },
   {
+    "id": "atrial-filling-share",
+    "label": "Share of ventricular filling added by atrial contraction",
+    "value": null,
+    "unit": "%",
+    "range": [
+      20,
+      30
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.3 Cardiac Cycle",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-3-cardiac-cycle"
+    },
+    "confidence": "approximate"
+  },
+  {
     "id": "end-diastolic-volume",
     "label": "End-diastolic volume",
     "value": 130,
@@ -694,7 +711,8 @@
       "title": "OpenStax A&P 2e, 20.2 Blood Flow, Blood Pressure, and Resistance",
       "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-2-blood-flow-blood-pressure-and-resistance"
     },
-    "confidence": "high"
+    "confidence": "high",
+    "note": "MedlinePlus describes normal adult readings as lower than 120/80 and higher than 90/60."
   },
   {
     "id": "bp-diastolic",
@@ -758,7 +776,7 @@
   },
   {
     "id": "vital-capacity",
-    "label": "Vital capacity",
+    "label": "Vital capacity (sex not stated by the source)",
     "value": null,
     "unit": "mL",
     "range": [
@@ -771,7 +789,8 @@
       "title": "OpenStax A&P 2e, 22.3 The Process of Breathing",
       "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing"
     },
-    "confidence": "approximate"
+    "confidence": "approximate",
+    "note": "The source gives one range without saying which sex it describes. Its top end is above the source's female total lung capacity of 4200 mL, so it cannot apply to every sex."
   },
   {
     "id": "tlc-male",
@@ -861,6 +880,20 @@
     "id": "returning-pco2",
     "label": "Carbon dioxide pressure in blood returning to the lungs",
     "value": 45,
+    "unit": "mm Hg",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 22.4 Gas Exchange",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-4-gas-exchange"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "leaving-po2",
+    "label": "Oxygen pressure in blood leaving the lungs, in the pulmonary veins",
+    "value": 100,
     "unit": "mm Hg",
     "range": null,
     "ageGroup": "adult",
@@ -1901,6 +1934,20 @@
     "confidence": "high"
   },
   {
+    "id": "glucose-diabetes-fasting",
+    "label": "Fasting blood glucose that usually means diabetes, from",
+    "value": 126,
+    "unit": "mg/dL",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "MedlinePlus Medical Encyclopedia: Blood sugar test",
+      "url": "https://medlineplus.gov/ency/article/003482.htm"
+    },
+    "confidence": "high"
+  },
+  {
     "id": "wbc-count",
     "label": "White blood cell count",
     "value": null,
@@ -2096,7 +2143,7 @@
     "id": "plasma-to-lymph",
     "label": "Fluid drained by the lymphatic system",
     "value": 3,
-    "unit": "L",
+    "unit": "L/day",
     "range": null,
     "ageGroup": "adult",
     "sex": "all",
@@ -2105,7 +2152,7 @@
       "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/21-1-anatomy-of-the-lymphatic-and-immune-systems"
     },
     "confidence": "approximate",
-    "note": "From 20 L released and 17 L reabsorbed. The source gives no time period."
+    "note": "From 20 L released and 17 L reabsorbed each day."
   },
   {
     "id": "bmi-underweight-below",
@@ -2470,6 +2517,85 @@
     "source": {
       "title": "OpenStax A&P 2e, 23.3 The Mouth, Pharynx, and Esophagus",
       "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "conduction-sa-to-ventricles",
+    "label": "Impulse travel, SA node to ventricular depolarization",
+    "value": 225,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.2 Cardiac Muscle and Electrical Activity",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-2-cardiac-muscle-and-electrical-activity"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "atria-contract-after-p",
+    "label": "Atria begin contracting after the P wave starts",
+    "value": 25,
+    "unit": "ms",
+    "range": null,
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "OpenStax A&P 2e, 19.2 Cardiac Muscle and Electrical Activity",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-2-cardiac-muscle-and-electrical-activity"
+    },
+    "confidence": "approximate"
+  },
+  {
+    "id": "sleep-toddler",
+    "label": "Recommended sleep, 1 to 2 years",
+    "value": null,
+    "unit": "h",
+    "range": [
+      11,
+      14
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sleep-preschool",
+    "label": "Recommended sleep, 3 to 5 years",
+    "value": null,
+    "unit": "h",
+    "range": [
+      10,
+      13
+    ],
+    "ageGroup": "child",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
+    },
+    "confidence": "high"
+  },
+  {
+    "id": "sleep-61-64",
+    "label": "Recommended sleep, 61 to 64 years",
+    "value": null,
+    "unit": "h",
+    "range": [
+      7,
+      9
+    ],
+    "ageGroup": "adult",
+    "sex": "all",
+    "source": {
+      "title": "CDC: About Sleep",
+      "url": "https://www.cdc.gov/sleep/about/index.html"
     },
     "confidence": "high"
   }

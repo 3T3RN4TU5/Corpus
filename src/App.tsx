@@ -29,6 +29,7 @@ export function App() {
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>(null)
   const selectedId = useBodyStore((state) => state.selectedId)
   const openSystem = useBodyStore((state) => state.openSystem)
+  const xray = useBodyStore((state) => state.xray)
 
   useEffect(() => {
     const onChange = () => setHash(window.location.hash)
@@ -43,7 +44,7 @@ export function App() {
 
   return (
     <div className="relative h-dvh overflow-hidden">
-      <main className="stage absolute inset-0" aria-label="3D body viewer">
+      <main className="stage absolute inset-0" data-xray={xray} data-lab={Boolean(openSystem)} aria-label="3D body viewer">
         {/* On wider screens the canvas fills only the space the panels leave free, so they never cover the body. */}
         <div className={`absolute inset-0 pb-24 pt-28 md:bottom-[10.5rem] md:left-[19rem] md:pb-0 md:pt-14 2xl:bottom-[6.5rem] ${openSystem ? 'md:right-[26rem]' : ''}`}>
           <Suspense fallback={<LoadingPlate />}>
@@ -53,7 +54,7 @@ export function App() {
       </main>
 
       <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-wrap items-start justify-between gap-x-3 gap-y-2 p-4 md:flex-nowrap md:justify-start md:gap-6">
-        <h1 className="reveal pointer-events-auto font-display text-3xl italic leading-none md:text-4xl">Corpus</h1>
+        <h1 className="wordmark reveal pointer-events-auto font-display text-3xl italic leading-none md:text-5xl">Corpus</h1>
         <div className="pointer-events-auto order-last w-full min-w-0 md:order-none md:mx-auto md:w-auto md:max-w-md md:flex-1">
           <SearchBox />
         </div>
@@ -66,7 +67,7 @@ export function App() {
       </header>
 
       <aside
-        className={`${mobilePanel === 'layers' || mobilePanel === 'sex' ? 'block' : 'hidden'} sheet absolute inset-x-4 bottom-24 z-20 max-h-[58dvh] overflow-y-auto md:reveal md:bottom-8 md:left-4 md:right-auto md:top-20 md:block md:max-h-none md:w-72`}
+        className={`${mobilePanel === 'layers' || mobilePanel === 'sex' ? 'block' : 'hidden'} absolute inset-x-4 bottom-24 z-20 max-h-[58dvh] space-y-3 overflow-y-auto md:reveal md:bottom-8 md:left-4 md:right-auto md:top-20 md:block md:max-h-none md:w-72`}
       >
         <div className={mobilePanel === 'sex' ? 'hidden md:block' : ''}>
           <LayerPanel />
@@ -101,8 +102,8 @@ export function App() {
             </button>
           ))}
         </nav>
-        <p role="note" className="text-center font-mono text-[0.68rem] leading-tight text-bone">
-          {DISCLAIMER}
+        <p role="note" className="text-center font-mono text-[0.68rem] leading-tight">
+          <span className="note-pill">{DISCLAIMER}</span>
         </p>
       </footer>
 

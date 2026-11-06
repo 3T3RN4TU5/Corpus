@@ -1,7 +1,7 @@
 import type { BodyId } from './models'
 import type { DataSex, Source } from './physiology'
 
-export type ReproStructure = 'ovaries' | 'uterus' | 'testes' | 'prostate'
+export type ReproStructure = 'ovaries' | 'uterus' | 'testes' | 'prostate' | 'penis'
 
 export interface SexProfile {
   id: string
@@ -22,9 +22,11 @@ export interface SexProfile {
   prevalenceFactId?: string
   /** States what the model shows that the cited source does not describe. */
   modelNote?: string
+  /** Part ids to keep even though a structure they normally require is absent, so that the model does not imply an absence no source states. */
+  alsoShows?: string[]
 }
 
-export const REPRO_STRUCTURES: ReproStructure[] = ['ovaries', 'uterus', 'testes', 'prostate']
+export const REPRO_STRUCTURES: ReproStructure[] = ['ovaries', 'uterus', 'testes', 'prostate', 'penis']
 
 const FEMALE_SOURCE: Source = {
   title: 'OpenStax A&P 2e, 27.2 Anatomy and Physiology of the Ovarian Reproductive System',
@@ -58,7 +60,7 @@ export const SEX_PROFILES: SexProfile[] = [
     chromosomes: '46,XY',
     summary: 'Typical male anatomy, with testes and a prostate.',
     referenceSex: 'male',
-    structures: ['testes', 'prostate'],
+    structures: ['testes', 'prostate', 'penis'],
     body: 'male',
     testesPosition: 'external',
     ovaryScale: 1,
@@ -83,6 +85,9 @@ export const SEX_PROFILES: SexProfile[] = [
       url: 'https://medlineplus.gov/genetics/condition/androgen-insensitivity-syndrome/',
     },
     prevalenceFactId: 'prevalence-cais',
+    alsoShows: ['vagina'],
+    modelNote:
+      'This uses the typical female body model. The vagina is a female-typical placeholder, because the cited page does not describe it. The testes are placed by hand in the pelvis, and the model does not show the sparse or absent pubic and underarm hair the page describes.',
   },
   {
     id: 'klinefelter',
@@ -91,7 +96,7 @@ export const SEX_PROFILES: SexProfile[] = [
     chromosomes: '47,XXY (about 10% are mosaic 46,XY/47,XXY)',
     summary: 'Testes are typically small and produce a reduced amount of testosterone.',
     referenceSex: null,
-    structures: ['testes', 'prostate'],
+    structures: ['testes', 'prostate', 'penis'],
     body: 'male',
     testesPosition: 'external',
     ovaryScale: 1,

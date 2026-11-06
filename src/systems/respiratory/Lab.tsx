@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import { factNumber } from '../../data/physiology'
+import { factNumber, factRange } from '../../data/physiology'
 import { useClock } from '../../sim/clock'
 import { selectProfile, useBodyStore } from '../../store/useBodyStore'
 import { Caption, Choice, Facts, Group, Limits, LiveChart, SERIES_COLORS, Stat, useAnimationFrame } from '../labKit'
@@ -15,7 +15,7 @@ const LEVELS: { id: ActivityLevel; name: string }[] = [
 ]
 
 const VOLUME_SERIES = [{ label: 'Air breathed in, mL', color: SERIES_COLORS.blue }]
-const FACT_IDS = ['breathing-rate-adolescent-adult', 'breathing-rate-under-1', 'breathing-rate-age-10', 'tidal-volume', 'vital-capacity', 'tlc-female', 'tlc-male', 'erv-male', 'alveolar-po2', 'alveolar-pco2', 'returning-po2', 'returning-pco2', 'atmospheric-po2', 'alveolus-diameter', 'respiratory-membrane']
+const FACT_IDS = ['breathing-rate-adolescent-adult', 'breathing-rate-under-1', 'breathing-rate-age-10', 'tidal-volume', 'vital-capacity', 'tlc-female', 'tlc-male', 'erv-male', 'alveolar-po2', 'alveolar-pco2', 'leaving-po2', 'arterial-po2', 'returning-po2', 'returning-pco2', 'atmospheric-po2', 'alveolus-diameter', 'respiratory-membrane']
 
 /** A zoomed view of one alveolus and its capillary, with oxygen entering and carbon dioxide leaving. */
 function AlveolusDiagram() {
@@ -44,13 +44,13 @@ function AlveolusDiagram() {
 
   return (
     <svg ref={svg} viewBox="0 0 240 170" className="mt-2 w-full" role="img" aria-label="Diagram of an alveolus above a capillary. Oxygen moves from the air into the blood, and carbon dioxide moves from the blood into the air.">
-      <path d="M20 96 Q20 18 120 18 Q220 18 220 96 Z" fill="#26313f" stroke="#a69c88" />
-      <rect x="20" y="96" width="200" height="8" fill="#a69c88" opacity="0.6" />
-      <rect x="20" y="104" width="200" height="44" rx="10" fill="#4a1d1a" stroke="#c8402f" />
+      <path d="M20 96 Q20 18 120 18 Q220 18 220 96 Z" fill="#d5e4f3" stroke="#59616a" />
+      <rect x="20" y="96" width="200" height="8" fill="#59616a" opacity="0.6" />
+      <rect x="20" y="104" width="200" height="44" rx="10" fill="#f0c2bb" stroke="#c8402f" />
       {dots.map((dot) => (
         <circle key={dot.id} data-gas={dot.oxygen ? 'o2' : 'co2'} data-phase={dot.phase} data-row={dot.row} r="3" fill={dot.oxygen ? SERIES_COLORS.orange : SERIES_COLORS.blue} />
       ))}
-      <g fontFamily="IBM Plex Mono, monospace" fontSize="9" fill="#ece4d2">
+      <g fontFamily="IBM Plex Mono, monospace" fontSize="9" fill="#1d2126">
         <text x="120" y="38" textAnchor="middle">Alveolus (air)</text>
         <text x="120" y="163" textAnchor="middle">Capillary (blood)</text>
       </g>
@@ -59,7 +59,7 @@ function AlveolusDiagram() {
 }
 
 export default function RespiratoryLab() {
-  const [level, setLevel] = useState<ActivityLevel>('sedentary')
+  const [level, setLevel] = useState<ActivityLevel>(useBodyStore.getState().sim.activityLevel)
   const [inhaling, setInhaling] = useState(true)
   const profile = useBodyStore(useShallow(selectProfile))
   const output = useMemo(() => breathing(level), [level])
@@ -101,6 +101,9 @@ export default function RespiratoryLab() {
         <Stat label="Air moved each minute" value={`${output.minuteVentilation.toFixed(1)} L`} />
         <Stat label="Total lung capacity" value={capacity} />
       </dl>
+      <p className="text-[0.84rem] leading-snug text-dust">
+        The source gives vital capacity as {factRange('vital-capacity').join(' to ')} mL without saying which sex that describes. Its top end is above the source's female total lung capacity of {factNumber('tlc-female')} mL, so it cannot apply to every sex.
+      </p>
 
       <Group title="Zoom: gas exchange in an alveolus">
         <AlveolusDiagram />
@@ -111,14 +114,14 @@ export default function RespiratoryLab() {
           <Stat label="Blood CO₂, entering to leaving" value={`${start.carbonDioxide} to ${end.carbonDioxide.toFixed(0)} mm Hg`} />
         </dl>
         <p className="text-[0.84rem] leading-snug text-dust">
-          Gases cross by simple diffusion, moving from higher to lower pressure. The carbon dioxide difference is smaller, but carbon dioxide dissolves far more easily than oxygen.
+          Gases cross by simple diffusion, moving from higher to lower pressure. The carbon dioxide difference is smaller, but carbon dioxide dissolves far more easily than oxygen. The source gives {factNumber('alveolar-po2')} mm Hg of oxygen in alveolar air and {factNumber('leaving-po2')} mm Hg in blood leaving the lungs, without explaining the gap.
         </p>
       </Group>
 
       <Facts ids={FACT_IDS} />
       <Limits
         items={[
-          'The sourced textbook gives no numbers for breathing during exercise. The rise in rate and depth with activity is illustrative, built up from sourced resting values.',
+          'The sourced textbook gives no numbers for breathing during exercise. The rise in rate and depth with activity is illustrative, built up from sourced resting values. Vigorous breaths use half of the middle of the vital capacity range for every profile, and breathing in takes one third of each breath. Both are illustrative.',
           'The chest movement in the 3D body is exaggerated so it can be seen. The lungs scale evenly, and they do not change shape as real lungs do.',
           'The gas particles show direction only. Their number and speed are not to scale.',
           'The airway tree in this model stops at the larger bronchi, and alveoli appear only in the diagram.',

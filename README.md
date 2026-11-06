@@ -28,7 +28,7 @@ Then open http://localhost:5173.
 
 ## What it includes
 
-**The body.** Real anatomy models for a female and a male body, with eight layers: skin, fat, muscle, skeleton, organs, vessels, nerves and lymph. You can change each layer's opacity, use X-ray mode, slice the body in three directions, isolate a part, click or search for any of about 85 parts, and read sourced facts about each one.
+**The body.** Real anatomy models for a female and a male body, with eight layers: skin, fat, muscle, skeleton, organs, vessels, nerves and lymph. You can change each layer's opacity, use X-ray mode, slice the body in three directions, isolate a part, click or search for any of about 120 parts, and read sourced facts about each one.
 
 **Every sex.** Female and male profiles, four named intersex variations, and a custom builder for any combination of structures. Where sources report only female and male reference ranges, other profiles show both and say so, rather than implying a value.
 
@@ -51,7 +51,7 @@ Then open http://localhost:5173.
 | Compare | Rest and exercise, or younger and older adults |
 | Lessons and quizzes | A lesson and quiz per system, with progress saved in the browser |
 
-**Also:** screenshots, video recording, shareable links, keyboard access (arrow keys orbit the view, and every part can be reached from a list), captions on animations, a colour-blind-safe chart palette, a reduced motion option, a phone layout, Low, Medium and High quality, and offline use after a first visit.
+**Also:** screenshots, video recording, shareable links, zoom toward the cursor or pinch point, a Rotate or Move switch for dragging, keyboard access (arrow keys orbit the view, and every part can be reached from a list), captions on animations, a colour-blind-safe chart palette, a reduced motion option, a phone layout, Low, Medium and High quality, and offline use after a first visit.
 
 ## How it is organized
 
@@ -81,29 +81,36 @@ Add a folder under `src/systems/` and register it in `src/systems/index.ts`. Eac
 **Anatomy**
 
 - BodyParts3D comes from one male body. Its skeleton and muscles are fitted to the female body by computer, so their shape is not female-specific. No open full-body female skeleton or muscle data was found.
-- The fit is approximate. Hands in particular do not line up exactly with the skin, because the source bodies pose them differently.
+- The fit is approximate. Each bone is seated on its neighbour using where the two touch in BodyParts3D, and hands and feet are posed by computer to fit each body's skin, so finger and toe bones may sit slightly off centre, and a small share of bone points were pulled inside the skin.
+- The spine and hip bones come from the atlas and the rest of the skeleton from BodyParts3D, and their shapes differ. Some bones sink into their neighbours where the two datasets meet: the femoral head into the hip by up to about 14 mm, and discs, rib heads and costal cartilages into the vertebrae and sternum by up to about 14 mm. These overlaps are mostly hidden inside the joints. Run `tools/blender/audit_joints.py` for the current figures.
+- BodyParts3D has 23 intervertebral discs and no disc for the atlas female body's sixth lumbar vertebra. Foot and hand proportions are stretched by computer, not measured from these bodies.
+- BodyParts3D has the intercostal muscles and some small back muscles on the left side only, so the right side is a mirror image of the left.
 - Rectus abdominis and latissimus dorsi are simple illustrative shapes, and masseter, temporalis and internal oblique are missing, because BodyParts3D does not include them.
 - Peripheral nerves, lymph nodes and the thoracic duct are hand-placed. The fat layer is the skin moved inward, and it does not show real fat distribution.
 - Skin has no realistic texture.
 - The body does not move, because it has no rig. Movements are shown with a stick figure, and working muscles glow on the 3D body.
-- The 3D brain is one part. Regions are selected on a 2D map instead.
+- Neither dataset includes breast tissue, the thyroid, parathyroid or parotid glands, eyelids in a usable form, hair or the female urethra. The thyroid is a simple illustrative shape, and the others are left out, along with most ligaments.
+- The BodyParts3D skull is sized to fit inside each body's scalp. The atlas eyes, with their muscles and nerves, are moved into that skull's sockets, so they may not line up exactly with the eye area of the skin. The clear cornea and lens are left out so that the iris can be seen, and the iris colour is one example.
+- 3D heart chambers change size with the beat, but do not model wall thickening. Valve movement is shown in the 2D diagram.
 
 **Sex profiles**
 
 - The four intersex variations are examples, not a complete list.
 - All profiles use the female or male body model with typical organs. No open models of these variations were found, so external differences are not shown. Each affected profile says so.
 - Reduced organ sizes in Turner and Klinefelter profiles are illustrative. Undescended testes are placed by hand in the pelvis.
+- The complete androgen insensitivity profile shows the female model's vagina as a placeholder, because its cited page does not describe it. In the custom builder, the vagina still appears only with the uterus.
 - Hormones are not modelled by sex, and gender identity and gender-affirming care are not covered.
 
 **Life stages**
 
 - The model is always an adult body. Age changes the numbers and text, but not body proportions. Height only scales the whole model.
-- Body fat percentage is stored but changes no numbers yet. Stress and sleep settings in `SimulationState` are stored but unused.
+- Body fat changes only how wide the soft layers look, and changes no numbers. Sleep is compared with CDC guidance but affects nothing else. Stress is stored but not modelled, because the sources used give no usable figures.
 
 **Simulations**
 
 - Sourced values anchor each simulation, but many curves between them are illustrative. Each panel has a **What this simplifies** section, and `physiology.json` marks each value's confidence.
 - Blood, lymph and reflex routes are illustrative paths, not traced vessels or nerves.
+- The heart diagram leaves out the two moments when all four valves are shut, because the source gives no duration for them.
 - Microscopic views are 2D diagrams, not 3D zooms.
 - Some sourced pages disagree with themselves, such as 100 and 110 mg/dL as the upper limit of normal glucose. These are noted where they matter.
 - Function descriptions and quizzes were written for this app from the cited sources. They have not been reviewed by a clinician.

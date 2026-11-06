@@ -34,8 +34,9 @@ export function membranePotential(msAfterThreshold: number): { voltage: number; 
     const fall = (t - RISE_END) / (FALL_END - RISE_END)
     return { voltage: peak + (undershoot - peak) * (0.5 - 0.5 * Math.cos(fall * Math.PI)), phase: 'repolarization' }
   }
-  if (t < 1.6) {
-    const recover = (t - FALL_END) / (1.6 - FALL_END)
+  // The source says the whole event, including the undershoot and the return to rest, fits in the stated duration.
+  if (t < 1) {
+    const recover = (t - FALL_END) / (1 - FALL_END)
     return { voltage: undershoot + (resting - undershoot) * recover, phase: 'hyperpolarization' }
   }
   return { voltage: resting, phase: 'resting' }

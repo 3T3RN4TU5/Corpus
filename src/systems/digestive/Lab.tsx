@@ -24,7 +24,7 @@ function VilliDiagram({ active }: { active: boolean }) {
   useAnimationFrame(() => {
     const element = svg.current
     if (!element) return
-    const t0 = performance.now() / 4000
+    const t0 = useClock.getState().time / 1000
     element.querySelectorAll<SVGCircleElement>('[data-dot]').forEach((dot) => {
       const t = (t0 + Number(dot.dataset.phase)) % 1
       dot.setAttribute('cy', (20 + t * 112).toFixed(1))
@@ -42,7 +42,7 @@ function VilliDiagram({ active }: { active: boolean }) {
       {dots.map((dot) => (
         <circle key={dot.id} data-dot data-phase={dot.phase} cx={dot.villus + dot.offset} cy="20" r="2.4" fill={dot.color} />
       ))}
-      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#a69c88">
+      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#59616a">
         <text x="12" y="155">Blood vessels (red) and lymph (green) carry nutrients away</text>
       </g>
     </svg>

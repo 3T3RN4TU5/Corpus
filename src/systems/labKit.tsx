@@ -5,7 +5,7 @@ import { formatFact, getFact } from '../data/physiology'
 import { SPEEDS, useClock } from '../sim/clock'
 
 /** Colours chosen to stay distinct with common colour vision differences. */
-export const SERIES_COLORS = { orange: '#ff8a3d', blue: '#5aa7ff', green: '#54d6a0', yellow: '#f0d24b', pink: '#ff7eb6', white: '#ece4d2' }
+export const SERIES_COLORS = { orange: '#d55e00', blue: '#0072b2', green: '#009e73', yellow: '#b58900', pink: '#cc3f8b', white: '#3a4149' }
 
 export function Slider(props: {
   label: string
@@ -157,7 +157,7 @@ export function TimeControls() {
   )
 }
 
-const CHART_AXIS = { stroke: '#a69c88', grid: { stroke: '#3a342d', width: 1 }, ticks: { stroke: '#3a342d' }, font: '10px "IBM Plex Mono"' }
+const CHART_AXIS = { stroke: '#565d80', grid: { stroke: '#ece6d9', width: 1 }, ticks: { stroke: '#d9d1c0' }, font: '10px "IBM Plex Mono"' }
 
 export interface ChartSeries {
   label: string
@@ -255,7 +255,7 @@ export function TimelineChart({ x, series, height = 150, yRange, xLabel, marker 
               const px = u.valToPos(at, 'x', true)
               const ctx = u.ctx
               ctx.save()
-              ctx.strokeStyle = '#ff6a3d'
+              ctx.strokeStyle = '#cf4217'
               ctx.lineWidth = 1
               ctx.beginPath()
               ctx.moveTo(px, u.bbox.top)
