@@ -81,16 +81,6 @@ def _both(mesh):
     return [mesh, _mirror(mesh)]
 
 
-def _nodes(centre_mm, spread_mm, count=7):
-    pieces = []
-    for i in range(count):
-        a = i * 2.4
-        k = (i + 1) / count
-        offset = np.array([np.cos(a) * spread_mm[0], np.sin(a) * spread_mm[1], np.sin(a * 1.3) * spread_mm[2]]) * k
-        pieces.append(_sphere((np.array(centre_mm) + offset) / 1000.0, 0.0055))
-    return pieces
-
-
 def _surface_muscle(skin, stations_mm, front, half_width_mm, thickness_mm):
     """A flat shape that follows just under the skin, at the given (x, z) stations."""
     centres, rx, rz = [], [], []
@@ -104,17 +94,15 @@ def _surface_muscle(skin, stations_mm, front, half_width_mm, thickness_mm):
     return _sweep(_catmull(centres, steps=4), np.interp(np.linspace(0, 1, (len(centres) - 1) * 4 + 1), np.linspace(0, 1, len(rx)), rx), np.full((len(centres) - 1) * 4 + 1, rz[0]), 12)
 
 
+def sphere_mesh():
+    """A small unit sphere, used for each lymph node."""
+    return _sphere((0, 0, 0), 1.0, rings=5, segments=8)
+
+
 def build(skin, thyroid_cartilage=None):
     """Returns {part id: [(vertices, triangles), ...]} in BodyParts3D coordinates."""
     parts = {
-        "sciatic-nerve": _both(_tube([(40, -50, 900), (90, -30, 800), (92, -38, 600), (88, -48, 400), (85, -40, 200), (82, -50, 30)], 3.2)),
-        "femoral-nerve": _both(_tube([(50, -90, 950), (82, -130, 790), (86, -125, 650), (84, -112, 500)], 2.4)),
-        "arm-nerves": _both(_tube([(30, -60, 1400), (100, -72, 1330), (190, -82, 1250), (212, -92, 1040), (246, -92, 820), (292, -96, 720)], 2.3)),
-        "vagus-nerve": _both(_tube([(20, -60, 1500), (26, -72, 1380), (20, -72, 1250), (14, -62, 1100)], 1.8)),
         "thoracic-duct": [_tube([(5, -90, 1060), (0, -80, 1250), (10, -85, 1380), (30, -90, 1430)], 2.4)],
-        "cervical-nodes": _nodes((45, -70, 1450), (12, 16, 40)) + [_mirror(p) for p in _nodes((45, -70, 1450), (12, 16, 40))],
-        "axillary-nodes": _nodes((150, -70, 1250), (14, 24, 26)) + [_mirror(p) for p in _nodes((150, -70, 1250), (14, 24, 26))],
-        "inguinal-nodes": _nodes((85, -150, 790), (24, 10, 14)) + [_mirror(p) for p in _nodes((85, -150, 790), (24, 10, 14))],
         "rectus-abdominis": _both(_surface_muscle(skin, [(38, 800, 0.6), (40, 880, 0.85), (42, 960, 1.0), (42, 1040, 1.0), (42, 1120, 1.0), (42, 1190, 0.8)], True, 34, 7)),
         "latissimus-dorsi": _both(_surface_muscle(skin, [(60, 960, 0.5), (90, 1040, 0.85), (115, 1120, 1.0), (135, 1200, 0.9), (150, 1260, 0.5)], False, 55, 6)),
     }

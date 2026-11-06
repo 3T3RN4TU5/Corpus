@@ -46,14 +46,20 @@ for layer, ids in {
     "skeleton": "skull mandible teeth ear-nose-cartilage vertebral-column rib-cage sternum clavicle scapula humerus radius ulna hand-bones pelvis femur patella tibia fibula foot-bones".split(),
     "organs": "brain-frontal brain-parietal brain-temporal brain-occipital brain-insula-cingulate brain-hippocampus brain-thalamus brain-hypothalamus brain-basal-ganglia brain-cerebellum brain-brainstem brain-inner eyes eye-iris eye-pupil tongue salivary-glands pharynx heart heart-left-ventricle heart-right-ventricle heart-left-atrium heart-right-atrium heart-valves lung-left lung-right trachea esophagus stomach liver gallbladder bile-ducts pancreas spleen thyroid adrenal-glands pituitary-pineal small-intestine large-intestine kidneys ureters bladder uterus vagina ovaries testes prostate penis".split(),
     "vessels": "aorta carotid-arteries arm-arteries leg-arteries vena-cava jugular-veins arm-veins leg-veins pulmonary-vessels coronary-vessels abdominal-vessels".split(),
-    "nerves": "spinal-cord optic-nerves vagus-nerve arm-nerves sciatic-nerve femoral-nerve".split(),
-    "lymph": "thoracic-duct thymus cervical-nodes axillary-nodes inguinal-nodes".split(),
+    "nerves": "spinal-cord optic-nerves cranial-nerves vagus-nerve spinal-nerve-roots sympathetic-trunk intercostal-nerves brachial-plexus axillary-nerve musculocutaneous-nerve radial-nerve median-nerve ulnar-nerve lumbar-nerves femoral-nerve obturator-nerve sciatic-nerve tibial-nerve fibular-nerve".split(),
+    "lymph": "thoracic-duct thymus tonsils cervical-nodes axillary-nodes thoracic-nodes abdominal-nodes pelvic-nodes inguinal-nodes".split(),
 }.items():
     for part_id in ids:
         LAYER[part_id] = layer
 
-ILLUSTRATIVE = {"thyroid", "sciatic-nerve", "femoral-nerve", "arm-nerves", "vagus-nerve", "thoracic-duct", "cervical-nodes", "axillary-nodes", "inguinal-nodes", "rectus-abdominis", "latissimus-dorsi"}
+ILLUSTRATIVE = {"thyroid", "thoracic-duct", "rectus-abdominis", "latissimus-dorsi"}
 CLOSED_BONES = ("rib-cage", "sternum", "clavicle", "scapula", "humerus", "radius", "ulna", "femur", "patella", "tibia", "fibula", "vertebral-column")
+NODE_PARTS = {"cervical-nodes", "axillary-nodes", "thoracic-nodes", "abdominal-nodes", "pelvic-nodes", "inguinal-nodes"}
+# Lymph nodes are small enough that mesh reduction breaks them, so each is redrawn as a small sphere at its source position.
+# Real nodes range from a few millimetres to about two centimetres, so sizes are kept within that and raised to stay visible.
+NODE_RADIUS_RANGE = (0.003, 0.008)
+NODE_SIZE_FACTOR = 1.6
+NODE_SHAPE = illustrative.sphere_mesh()
 ANKLE_FOLLOWERS = ("leg-arteries", "leg-veins", "deep-calf-muscles", "tibialis-anterior", "gastrocnemius")
 HEAD_UNIT = ("skull", "mandible", "teeth")
 HAND_VESSEL = re.compile(r"digital|palmar|metacarpal", re.I)
@@ -213,6 +219,29 @@ log("mapped parts", len(bp3d_parts), "unused names", len(unmapped))
 (Path(log_path).parent / "unused_bp3d_names.txt").write_text("\n".join(sorted(unmapped)))
 source_skin_v, source_skin_t = bp3d["Skin"]
 source_measure = measure(source_skin_v, source_skin_t)
+# Nerves and lymph nodes come from Z-Anatomy, whose bones are BodyParts3D's in another position. The bones they share say how
+# to move Z-Anatomy's coordinates into BodyParts3D's.
+zanatomy = np.load(raw / "zanatomy" / "extracted.npz")
+zanatomy_keys = sorted({key.rsplit("|", 1)[0] for key in zanatomy.files})
+box_corners = lambda v: np.array([[x, y, z] for x in (v[:, 0].min(), v[:, 0].max()) for y in (v[:, 1].min(), v[:, 1].max()) for z in (v[:, 2].min(), v[:, 2].max())])
+shared_bones = [key.split("|")[1] for key in zanatomy_keys if key.startswith("bone|")]
+zanatomy_points = np.vstack([box_corners(zanatomy[f"bone|{name}|v"]) for name in shared_bones]).astype(np.float64)
+bp3d_points = np.vstack([box_corners(bp3d[name][0]) for name in shared_bones])
+to_bp3d = rigid_fit(zanatomy_points, bp3d_points)
+log("Z-Anatomy to BodyParts3D, worst bone box corner (mm)", round(float(np.linalg.norm(to_bp3d(zanatomy_points) - bp3d_points, axis=1).max()) * 1000, 1))
+ZANATOMY_RULES = {kind: [(re.compile(pattern, re.I), part) for pattern, part in RULES[f"zanatomy_{kind}"]] for kind in ("nerve", "lymph")}
+zanatomy_parts = {}
+for key in zanatomy_keys:
+    kind, name = key.split("|")
+    if kind not in ZANATOMY_RULES:
+        continue
+    part = next((part for pattern, part in ZANATOMY_RULES[kind] if pattern.search(name)), None)
+    if part is None:
+        log("Z-Anatomy piece has no part:", name)
+    elif part != "SKIP":
+        zanatomy_parts.setdefault(part, []).append((to_bp3d(zanatomy[f"{key}|v"].astype(np.float64)), zanatomy[f"{key}|t"]))
+log("Z-Anatomy parts", {part: len(pieces) for part, pieces in zanatomy_parts.items()})
+
 hand_placed = illustrative.build(source_skin_v, bp3d["Thyroid cartilage"][0] if "Thyroid cartilage" in bp3d else None)
 
 BODIES = {"female": ("VH_Female", "VH_F_", "Allen_F_Brain"), "male": ("VH_Male", "VH_M_", "Allen_M_Brain")}
@@ -423,6 +452,32 @@ for body, (folder, prefix, _) in BODIES.items():
         skin_v,
     )
 
+    # Nerves and lymph nodes run alongside the bones, so they follow the fitted bones.
+    bone_field = [(merged_bones[name], bone_place[name]) for name in merged_bones]
+    bone_field += list(joints.vertebra_maps(bp3d, vertebrae).values())
+    bone_field += [(bp3d[f"{side_name} hip bone"][0], joints.box_map(bp3d[f"{side_name} hip bone"][0], hip_targets[side_name])) for side_name in ("Left", "Right")]
+    bone_field += [(np.vstack([v for _, (v, _) in bp3d_parts["skull"]]), head_place)]
+    for side_key in ("left", "right"):
+        on_side = lambda part: np.vstack([v for _, (v, _) in bp3d_parts[part] if (v[:, 0].mean() > 0) == (side_key == "left")])
+        bone_field += [(on_side("hand-bones"), hand_rigs[side_key]), (on_side("foot-bones"), foot_place[side_key])]
+    along_bones = joints.follow_bones(bone_field)
+    for part, pieces in zanatomy_parts.items():
+        if part not in NODE_PARTS:
+            sources[(part, "zanatomy")] = [(along_bones(vertices), triangles) for vertices, triangles in pieces]
+            continue
+        spheres = []
+        for vertices, triangles in pieces:
+            centres, radii = joints.separate_nodes(vertices, triangles)
+            placed = along_bones(centres)
+            radii = np.clip(radii * NODE_SIZE_FACTOR, *NODE_RADIUS_RANGE)
+            for centre, radius in zip(placed, radii):
+                location, normal, _, _ = fit_tree.find_nearest(Vector(centre.tolist()))
+                # A whole node stays inside the skin, instead of being flattened against it.
+                if -(Vector(centre.tolist()) - location).dot(normal) < radius + 0.002:
+                    centre = np.array(location - normal * (radius + 0.002))
+                spheres.append((NODE_SHAPE[0] * radius + centre, NODE_SHAPE[1]))
+        sources[(part, "zanatomy")] = spheres
+
     # The atlas eyes come from a different body, so each is moved into the skull's socket at its own size, along with
     # the muscles and nerve attached to it. The vitreous body marks the socket, because BodyParts3D's "Right sclera"
     # file also holds a piece of the left eye.
@@ -509,8 +564,9 @@ for body, (folder, prefix, _) in BODIES.items():
         log(f"  start {part}/{source}: {count} triangles, {sum(1 for _ in pieces)} pieces")
         obj = to_object(part, vertices, triangles)
         share = count / sum(len(t) for _, t in all_pieces[part])
-        decimated_copy(obj, min(1.0, part_budget[part] * share / max(1, count)))
-        if source != "hra" and part != "skin":
+        if part not in NODE_PARTS:
+            decimated_copy(obj, min(1.0, part_budget[part] * share / max(1, count)))
+        if source != "hra" and part != "skin" and part not in NODE_PARTS:
             moved = keep_inside_skin(obj, skin_tree)
             if moved:
                 log(f"  moved inside skin: {part}/{source}: {moved} of {len(obj.data.vertices)} vertices")

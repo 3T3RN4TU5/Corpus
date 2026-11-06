@@ -446,8 +446,8 @@
     "skeleton": 170000,
     "organs": 260000,
     "vessels": 60000,
-    "nerves": 24000,
-    "lymph": 6000
+    "nerves": 190000,
+    "lymph": 36000
   },
   "low_lod_ratio": 0.35,
   "hra_heart": [
@@ -546,6 +546,110 @@
     [
       ".*",
       "eyes"
+    ]
+  ],
+  "zanatomy_nerve": [
+    [
+      "olfactory|oculomotor|trochlear|trigeminal|abducens|facial nerve|glossopharyngeal|accessory nerve|hypoglossal|ophthalmic|maxillary|mandibular|buccal|lingual|inferior alveolar|mental nerve|mylohyoid|chorda",
+      "cranial-nerves"
+    ],
+    [
+      "vagus",
+      "vagus-nerve"
+    ],
+    [
+      "posterior femoral cutaneous|sciatic|gluteal|pudendal|piriformis|quadratus femoris",
+      "sciatic-nerve"
+    ],
+    [
+      "cauda equina|root of spinal|spinal ganglion",
+      "spinal-nerve-roots"
+    ],
+    [
+      "sympathetic",
+      "sympathetic-trunk"
+    ],
+    [
+      "intercostal",
+      "intercostal-nerves"
+    ],
+    [
+      "genitofemoral|ilio-inguinal|iliohypogastric|lateral femoral cutaneous",
+      "lumbar-nerves"
+    ],
+    [
+      "fibular|dorsal cutaneous nerve of foot",
+      "fibular-nerve"
+    ],
+    [
+      "femoral|saphenous",
+      "femoral-nerve"
+    ],
+    [
+      "obturator",
+      "obturator-nerve"
+    ],
+    [
+      "tibial|plantar|sural",
+      "tibial-nerve"
+    ],
+    [
+      "median nerve|anterior interosseous",
+      "median-nerve"
+    ],
+    [
+      "axillary nerve|superior lateral brachial",
+      "axillary-nerve"
+    ],
+    [
+      "radial nerve|posterior interosseous|posterior antebrachial|inferior lateral brachial",
+      "radial-nerve"
+    ],
+    [
+      "ulnar nerve",
+      "ulnar-nerve"
+    ],
+    [
+      "musculocutaneous|lateral antebrachial",
+      "musculocutaneous-nerve"
+    ],
+    [
+      "brachial plexus|pectoral|suprascapular|subclavian|long thoracic|dorsal scapular|thoracodorsal|subscapular|medial brachial|medial antebrachial",
+      "brachial-plexus"
+    ]
+  ],
+  "zanatomy_lymph": [
+    [
+      "spleen|thymus",
+      "SKIP"
+    ],
+    [
+      "tonsil",
+      "tonsils"
+    ],
+    [
+      "axillary|interpectoral|infraclavicular|brachial nodes|cubital|supratrochlear",
+      "axillary-nodes"
+    ],
+    [
+      "jugul|cervical|submandibular|submental|supraclavicular|parotid|mastoid|occipital|retropharyngeal|auricular|bucinator|mandibular node|nasolabial|thyroid nodes|pretracheal",
+      "cervical-nodes"
+    ],
+    [
+      "inguinal|lacunar|popliteal|tibial node|fibular node",
+      "inguinal-nodes"
+    ],
+    [
+      "iliac|obturator|sacral|gluteal|vesical|pararectal|epigastric",
+      "pelvic-nodes"
+    ],
+    [
+      "tracheobronchial|intrapulmonary|juxta-oesophageal|paratracheal thoracic|prevertebral|intercostal|parasternal|superior diaphragmatic|pericardial|brachiocephalic|azygos|ligamentum arteriosum",
+      "thoracic-nodes"
+    ],
+    [
+      ".",
+      "abdominal-nodes"
     ]
   ]
 }

@@ -50,6 +50,59 @@ def closing_move(child, place_child, parents):
     return np.mean(moves, axis=0) if moves else np.zeros(3)
 
 
+def separate_nodes(vertices, triangles):
+    """Splits a mesh of many separate lymph nodes into each node's centre and size."""
+    parent = list(range(len(vertices)))
+
+    def root(index):
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    for a, b, c in triangles.tolist():
+        parent[root(b)] = root(a)
+        parent[root(c)] = root(a)
+    groups = {}
+    for index in range(len(vertices)):
+        groups.setdefault(root(index), []).append(index)
+    centres, radii = [], []
+    for members in groups.values():
+        points = vertices[members]
+        centre = (points.min(axis=0) + points.max(axis=0)) / 2
+        centres.append(centre)
+        radii.append(float(np.linalg.norm(points - centre, axis=1).max()))
+    return np.array(centres), np.array(radii)
+
+
+def follow_bones(entries):
+    """Returns a placement that moves any point with its nearest bones. entries: a list of (source bone, how it is placed).
+
+    The warp kinks the upper thigh and cannot follow a hand's pose, so structures that run alongside bones, such as nerves,
+    stay in place better by following the bones themselves.
+    """
+    samples = [_thin(bone, 40)[:40].astype(np.float32) for bone, _ in entries]
+    places = [place for _, place in entries]
+
+    def place(points):
+        result = np.zeros_like(points)
+        for start in range(0, len(points), 1500):
+            chunk = points[start : start + 1500]
+            single = chunk.astype(np.float32)
+            gaps = np.stack([((single[:, None, :] - sample[None, :, :]) ** 2).sum(axis=2).min(axis=1) for sample in samples], axis=1)
+            weights = 1 / (gaps + 1e-5) ** 2
+            weights /= weights.sum(axis=1, keepdims=True)
+            used = np.nonzero(weights.max(axis=0) > 0.004)[0]
+            weights = weights[:, used] / weights[:, used].sum(axis=1, keepdims=True)
+            moved = np.zeros_like(chunk)
+            for column, index in enumerate(used):
+                moved += places[index](chunk) * weights[:, column, None]
+            result[start : start + 1500] = moved
+        return result
+
+    return place
+
+
 def vertebra_maps(bp3d, vertebrae):
     """How each BodyParts3D vertebra maps onto the atlas's vertebra of the same name."""
     aliases = {"First cervical vertebra": "Atlas", "Second cervical vertebra": "Axis"}
