@@ -191,7 +191,7 @@ export function LiveChart({ series, sample, windowLength, height = 120, yRange, 
         legend: { show: true, live: false },
         cursor: { show: false },
         scales: { x: { time: false }, y: yRange ? { range: yRange } : {} },
-        axes: [{ ...CHART_AXIS, label: xLabel, labelSize: xLabel ? 14 : 0, labelFont: '10px "IBM Plex Mono"' }, { ...CHART_AXIS, size: 40 }],
+        axes: [{ ...CHART_AXIS, label: xLabel, labelSize: xLabel ? 14 : 0, labelFont: '10px "IBM Plex Mono"' }, { ...CHART_AXIS, size: 52, space: 18 }],
         series: [{}, ...series.map((item) => ({ label: item.label, stroke: item.color, width: 1.5, points: { show: false } }))],
       },
       data as uPlot.AlignedData,
@@ -245,7 +245,7 @@ export function TimelineChart({ x, series, height = 150, yRange, xLabel, marker 
         legend: { show: true, live: false },
         cursor: { show: false },
         scales: { x: { time: false }, y: yRange ? { range: yRange } : {} },
-        axes: [{ ...CHART_AXIS, label: xLabel, labelSize: xLabel ? 14 : 0, labelFont: '10px "IBM Plex Mono"' }, { ...CHART_AXIS, size: 44 }],
+        axes: [{ ...CHART_AXIS, label: xLabel, labelSize: xLabel ? 14 : 0, labelFont: '10px "IBM Plex Mono"' }, { ...CHART_AXIS, size: 52, space: 18 }],
         series: [{}, ...series.map((item) => ({ label: item.label, stroke: item.color, width: 1.5, points: { show: false } }))],
         hooks: {
           draw: [

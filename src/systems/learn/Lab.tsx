@@ -17,7 +17,7 @@ function shuffled(count: number, seed: number): number[] {
   return order
 }
 
-function Quiz({ lesson, onFinish }: { lesson: Lesson; onFinish: (score: number) => void }) {
+function Quiz({ lesson, onFinish, onRetry }: { lesson: Lesson; onFinish: (score: number) => void; onRetry: () => void }) {
   const [answers, setAnswers] = useState<Record<number, number>>({})
   const orders = useMemo(() => lesson.quiz.map((item, index) => shuffled(item.options.length, index + lesson.id.length * 3)), [lesson])
   const answeredAll = Object.keys(answers).length === lesson.quiz.length
@@ -56,6 +56,11 @@ function Quiz({ lesson, onFinish }: { lesson: Lesson; onFinish: (score: number) 
         <p role="status" className="border-t border-line pt-2 font-mono text-[0.86rem]">
           Score: {score} of {lesson.quiz.length}
         </p>
+      )}
+      {Object.keys(answers).length > 0 && (
+        <button type="button" className="control mt-2" onClick={onRetry}>
+          Try again
+        </button>
       )}
     </div>
   )
@@ -115,10 +120,7 @@ export default function LearnLab() {
         </button>
       )}
       <Group title="Quiz">
-        <Quiz key={attempt} lesson={lesson} onFinish={(score) => setProgress(saveScore(progress, lesson.id, score, lesson.quiz.length))} />
-        <button type="button" className="control mt-2" onClick={() => setAttempt(attempt + 1)}>
-          Try again
-        </button>
+        <Quiz key={attempt} lesson={lesson} onFinish={(score) => setProgress(saveScore(progress, lesson.id, score, lesson.quiz.length))} onRetry={() => setAttempt(attempt + 1)} />
       </Group>
     </>
   )

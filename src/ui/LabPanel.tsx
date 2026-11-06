@@ -47,7 +47,7 @@ export function LabPanel() {
           ×
         </button>
       </div>
-      <TimeControls />
+      {plugin.timeless ? <div className="mt-2 border-t border-line" /> : <TimeControls />}
       <Suspense fallback={<p className="eyebrow mt-3">Loading simulation</p>}>
         <Lab />
       </Suspense>

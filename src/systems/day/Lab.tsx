@@ -4,6 +4,13 @@ import { useClock } from '../../sim/clock'
 import { computeDay } from '../../sim/useWorker'
 import { Caption, Group, Limits, SERIES_COLORS, Slider, Stat, TimelineChart, useAnimationFrame } from '../labKit'
 
+/** Rounds first, so that a tiny loss reads "0.0 L" and not "-0.0 L". */
+function formatWaterChange(litres: number): string {
+  const rounded = Math.round(litres * 10) / 10
+  if (rounded === 0) return '0.0 L'
+  return `${rounded > 0 ? '+' : ''}${rounded.toFixed(1)} L`
+}
+
 const hourLabel = (hour: number) => `${String(Math.floor(hour) % 24).padStart(2, '0')}:${String(Math.round((hour % 1) * 60) % 60).padStart(2, '0')}`
 
 function describe(events: DayEvent[], hour: number): string {
@@ -78,7 +85,7 @@ export default function DayLab() {
           <dl className="grid grid-cols-2 gap-x-3">
             <Stat label="Heart rate" value={`${Math.round(result.heartRate[index])} bpm`} tone={SERIES_COLORS.orange} />
             <Stat label="Glucose" value={`${Math.round(result.glucose[index])} mg/dL`} tone={SERIES_COLORS.yellow} />
-            <Stat label="Body water change" value={`${result.hydration[index] >= 0 ? '+' : ''}${result.hydration[index].toFixed(1)} L`} tone={SERIES_COLORS.blue} />
+            <Stat label="Body water change" value={formatWaterChange(result.hydration[index])} tone={SERIES_COLORS.blue} />
             <Stat label="Temperature" value={`${result.temperature[index].toFixed(1)} °C`} tone={SERIES_COLORS.green} />
           </dl>
           <TimelineChart x={result.hours} series={charts.heart} height={95} marker={marker} />

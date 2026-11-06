@@ -40,13 +40,13 @@ function HeartDiagram({ svg }: { svg: React.RefObject<SVGSVGElement | null> }) {
       <line data-valve="mitral" x1="148" y1="88" x2="188" y2="88" stroke="#1d2126" strokeWidth="4" strokeLinecap="round" />
       <line data-valve="pulmonary" x1="20" y1="118" x2="20" y2="150" stroke="#b58900" strokeWidth="4" strokeLinecap="round" />
       <line data-valve="aortic" x1="220" y1="118" x2="220" y2="150" stroke="#b58900" strokeWidth="4" strokeLinecap="round" />
-      <g fontFamily="IBM Plex Mono, monospace" fontSize="9" fill="#ffffff" textAnchor="middle">
+      <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#ffffff" textAnchor="middle">
         <text x="72" y="55">Right atrium</text>
         <text x="168" y="55">Left atrium</text>
         <text x="74" y="135">Right ventricle</text>
         <text x="166" y="135">Left ventricle</text>
-        <text x="72" y="81" fill="#1d2126" stroke="#ffffff" strokeWidth="2.5" paintOrder="stroke">tricuspid</text>
-        <text x="168" y="81" fill="#1d2126" stroke="#ffffff" strokeWidth="2.5" paintOrder="stroke">mitral</text>
+        <text x="72" y="79" fill="#1d2126" stroke="#ffffff" strokeWidth="2.5" paintOrder="stroke">tricuspid</text>
+        <text x="168" y="79" fill="#1d2126" stroke="#ffffff" strokeWidth="2.5" paintOrder="stroke">mitral</text>
       </g>
       <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#59616a">
         <text x="-24" y="112">pulmonary</text>

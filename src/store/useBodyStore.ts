@@ -185,7 +185,7 @@ export const useBodyStore = create<BodyStore>((set, get) => ({
   setHovered: (hoveredId) => {
     if (get().hoveredId !== hoveredId) set({ hoveredId })
   },
-  resetView: () => set((state) => ({ cameraNonce: state.cameraNonce + 1, cameraTargetId: null })),
+  resetView: () => set((state) => ({ cameraNonce: state.cameraNonce + 1, cameraTargetId: null, isolate: false })),
 }))
 
 function clearUnavailableSelection(

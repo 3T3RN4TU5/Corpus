@@ -53,7 +53,7 @@ export function App() {
         </div>
       </main>
 
-      <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-wrap items-start justify-between gap-x-3 gap-y-2 p-4 md:flex-nowrap md:justify-start md:gap-6">
+      <header data-xray={xray} className="site-header pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-wrap items-start justify-between gap-x-3 gap-y-2 p-4 md:flex-nowrap md:justify-start md:gap-6">
         <h1 className="wordmark reveal pointer-events-auto font-display text-3xl italic leading-none md:text-5xl">Corpus</h1>
         <div className="pointer-events-auto order-last w-full min-w-0 md:order-none md:mx-auto md:w-auto md:max-w-md md:flex-1">
           <SearchBox />

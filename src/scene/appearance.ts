@@ -36,7 +36,9 @@ export function partAppearance(part: Part, input: AppearanceInput): Appearance {
 
   if (xray) {
     const soft = XRAY_SOFT_TISSUE.includes(part.layer)
-    return { visible: true, opacity: (soft ? 0.05 : 0.6) * layer.opacity, pickable: !soft, xray: true }
+    // These layers add up where they overlap, so bright organs in front of bone would turn solid white.
+    const glow = soft ? 0.04 : part.layer === 'organs' ? 0.1 : 0.34
+    return { visible: true, opacity: glow * layer.opacity, pickable: !soft, xray: true }
   }
 
   return { visible: true, opacity: layer.opacity, pickable: layer.opacity >= MIN_PICKABLE_OPACITY, xray: false }

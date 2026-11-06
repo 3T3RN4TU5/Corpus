@@ -43,7 +43,8 @@ function VilliDiagram({ active }: { active: boolean }) {
         <circle key={dot.id} data-dot data-phase={dot.phase} cx={dot.villus + dot.offset} cy="20" r="2.4" fill={dot.color} />
       ))}
       <g fontFamily="IBM Plex Mono, monospace" fontSize="8" fill="#59616a">
-        <text x="12" y="155">Blood vessels (red) and lymph (green) carry nutrients away</text>
+        <text x="115" y="148" textAnchor="middle">Blood vessels (red) and lymph (green)</text>
+        <text x="115" y="157" textAnchor="middle">carry nutrients away</text>
       </g>
     </svg>
   )

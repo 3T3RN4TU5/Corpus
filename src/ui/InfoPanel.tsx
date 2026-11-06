@@ -57,6 +57,7 @@ export function InfoPanel() {
 
       <h3 className="eyebrow mt-4">3D model</h3>
       <p className="mt-1 text-[0.88rem] leading-snug text-dust">{modelProvenance(profile.body, part.id)}</p>
+      {profile.alsoShows?.includes(part.id) && profile.modelNote && <p className="mt-1 text-[0.88rem] leading-snug text-dust">{profile.modelNote}</p>}
 
       <h3 className="eyebrow mt-4">Connected systems</h3>
       <ul className="mt-1 flex flex-wrap gap-1.5">

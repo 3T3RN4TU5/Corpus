@@ -176,6 +176,7 @@ export const SYSTEM_PLUGINS: BodySystemPlugin[] = [
   {
     id: 'compare',
     name: 'Compare',
+    timeless: true,
     summary: 'Rest and exercise, or a younger and an older adult, side by side.',
     anatomy: [],
     model: null,
@@ -188,6 +189,7 @@ export const SYSTEM_PLUGINS: BodySystemPlugin[] = [
   {
     id: 'learn',
     name: 'Lessons and quizzes',
+    timeless: true,
     summary: 'A short lesson and quiz for each system, with saved progress.',
     anatomy: [],
     model: null,

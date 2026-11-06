@@ -24,4 +24,6 @@ export interface BodySystemPlugin {
   dataSources: string[]
   /** Plain statements of what the system simplifies or leaves out. */
   limits: string[]
+  /** True when nothing in the panel moves with time, so that the play controls would do nothing. */
+  timeless?: boolean
 }

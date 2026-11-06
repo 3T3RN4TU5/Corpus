@@ -29,7 +29,7 @@ function Nephron({ index }: { index: number }) {
         <text x="62" y="16">Proximal</text>
         <text x="74" y="110">Loop</text>
         <text x="146" y="16">Distal</text>
-        <text x="156" y="120">Collecting duct</text>
+        <text x="208" y="120" textAnchor="end">Collecting duct</text>
       </g>
     </svg>
   )
