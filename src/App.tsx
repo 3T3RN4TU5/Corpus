@@ -60,7 +60,7 @@ export function App() {
         </div>
         <div className="pointer-events-auto flex items-start gap-3">
           <SystemMenu />
-          <a className="eyebrow pt-2 !text-bone" href="#sources">
+          <a className={`eyebrow pt-2 ${xray ? '!text-white' : '!text-bone'}`} href="#sources">
             Sources
           </a>
         </div>
