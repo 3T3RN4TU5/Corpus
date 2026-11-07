@@ -140,6 +140,113 @@ def reshape_face(skin_v, skin_t, face_v, face_t, oval, cuts=2):
     return moved, triangles, int(opening.sum())
 
 
+def eyelid_outline(centre, half_width, upper, lower, tilt, side, samples=320):
+    """The edge of an eye opening as (x, height) points: two curves that meet at the corners of the eye."""
+    across = np.linspace(-1, 1, samples // 2 + 1)
+    shape = 1 - across**2
+    slope = tilt * across
+    top = np.column_stack([centre[0] + side * across * half_width, centre[1] + slope + upper * shape])
+    bottom = np.column_stack([centre[0] + side * across * half_width, centre[1] + slope - lower * shape])
+    return np.vstack([top, bottom[::-1][1:-1]])
+
+
+def open_eyelids(vertices, triangles, openings, half_width=0.014, upper=0.0055, lower=0.0045, tilt=0.0012, cuts=2, wall=0.007, smooth_rings=5):
+    """Cuts eye openings with smooth edges into a finished skin. openings: a list of (x, height, side), where side is 1 when the
+    outer corner of the eye lies toward +x.
+
+    The face area gets finer triangles, and the points along each cut move onto the outline, so the edge follows a curve and not
+    the triangles. A short wall runs back from the edge, as lid tissue does, so no gap shows beside the eyeball at the corners.
+    """
+    mesh = bpy.data.meshes.new("eyelids")
+    mesh.from_pydata(vertices.tolist(), [], triangles.tolist())
+    built = bmesh.new()
+    built.from_mesh(mesh)
+    bmesh.ops.remove_doubles(built, verts=built.verts, dist=0.00002)
+    face_depth = vertices[:, 1].min() + 0.12
+
+    def in_front(points):
+        return points[:, 1] < face_depth
+
+    outlines = []
+    for x, height, side in openings:
+        outlines.append(eyelid_outline((x, height), half_width, upper, lower, tilt, side))
+        built.verts.ensure_lookup_table()
+        built.edges.ensure_lookup_table()
+        points = np.array([list(vertex.co) for vertex in built.verts])
+        near = (np.abs(points[:, 0] - x) < half_width * 1.5) & (np.abs(points[:, 2] - height) < upper * 2.2) & in_front(points)
+        edges = [edge for edge in built.edges if near[edge.verts[0].index] and near[edge.verts[1].index]]
+        bmesh.ops.subdivide_edges(built, edges=edges, cuts=cuts, use_grid_fill=True)
+        bmesh.ops.triangulate(built, faces=built.faces)
+
+    walls = 0
+    for (x, height, side), outline in zip(openings, outlines):
+        built.faces.ensure_lookup_table()
+        centres = np.array([list(face.calc_center_median()) for face in built.faces])
+
+        def inside(points):
+            across = np.clip((points[:, 0] - x) * side / half_width, -1, 1)
+            shape = 1 - across**2
+            middle = height + tilt * across
+            return (np.abs(points[:, 0] - x) < half_width) & (points[:, 2] < middle + upper * shape) & (points[:, 2] > middle - lower * shape)
+
+        doomed = [built.faces[i] for i in np.nonzero(inside(centres) & in_front(centres))[0].tolist()]
+        bmesh.ops.delete(built, geom=doomed, context="FACES_ONLY")
+        loose = [vertex for vertex in built.verts if not vertex.link_faces]
+        bmesh.ops.delete(built, geom=loose, context="VERTS")
+
+        edge_faces = [edge for edge in built.edges if len(edge.link_faces) == 1]
+        rim_edges = []
+        for edge in edge_faces:
+            middle = (edge.verts[0].co + edge.verts[1].co) / 2
+            if abs(middle.x - x) < half_width * 1.2 and abs(middle.z - height) < upper * 1.6 and middle.y < face_depth:
+                rim_edges.append(edge)
+        rim = list({vertex for edge in rim_edges for vertex in edge.verts})
+        for vertex in rim:
+            gaps = (outline[:, 0] - vertex.co.x) ** 2 + (outline[:, 1] - vertex.co.z) ** 2
+            nearest = outline[int(gaps.argmin())]
+            vertex.co.x, vertex.co.z = float(nearest[0]), float(nearest[1])
+
+        # The scan's surface is uneven, so the edge's depth is evened out along the edge.
+        neighbours = {vertex: [edge.other_vert(vertex) for edge in rim_edges if vertex in edge.verts] for vertex in rim}
+        for _ in range(6):
+            depths = {vertex: sum(other.co.y for other in others) / max(1, len(others)) for vertex, others in neighbours.items()}
+            for vertex, depth in depths.items():
+                vertex.co.y = vertex.co.y * 0.4 + depth * 0.6
+
+        # The scan's creases leave slivers and spikes beside a new edge, so the skin just outside it is smoothed.
+        ring = set(rim)
+        band = set()
+        for _ in range(smooth_rings):
+            ring = {edge.other_vert(vertex) for vertex in ring for edge in vertex.link_edges} - set(rim) - band
+            band |= ring
+        for _ in range(10):
+            moved = {vertex: sum((edge.other_vert(vertex).co for edge in vertex.link_edges), Vector()) / len(vertex.link_edges) for vertex in band}
+            for vertex, position in moved.items():
+                vertex.co = vertex.co * 0.4 + position * 0.6
+
+        # The wall has its own points along the edge, so its shading does not darken the skin beside it.
+        front_points, back_points = {}, {}
+        for vertex in rim:
+            front_points[vertex] = built.verts.new(vertex.co)
+            back_points[vertex] = built.verts.new((x + (vertex.co.x - x) * 0.82, vertex.co.y + wall, height + (vertex.co.z - height) * 0.82))
+        for edge in rim_edges:
+            first, second = edge.verts
+            face = built.faces.new((front_points[first], front_points[second], back_points[second], back_points[first]))
+            face.normal_update()
+            middle = face.calc_center_median()
+            if face.normal.dot(Vector((x - middle.x, 0, height - middle.z))) < 0:
+                face.normal_flip()
+            walls += 1
+    bmesh.ops.triangulate(built, faces=built.faces)
+    built.verts.ensure_lookup_table()
+    built.faces.ensure_lookup_table()
+    points = np.array([list(vertex.co) for vertex in built.verts])
+    faces = np.array([[vertex.index for vertex in face.verts] for face in built.faces])
+    built.free()
+    bpy.data.meshes.remove(mesh)
+    return points, faces, walls
+
+
 def follow_bones(entries):
     """Returns a placement that moves any point with its nearest bones. entries: a list of (source bone, how it is placed).
 
