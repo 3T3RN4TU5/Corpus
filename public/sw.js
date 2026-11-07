@@ -1,5 +1,5 @@
 // Keeps the app and body models available offline after a first visit.
-const CACHE = 'corpus-v4'
+const CACHE = 'corpus-v5'
 
 self.addEventListener('install', () => self.skipWaiting())
 
@@ -30,7 +30,8 @@ self.addEventListener('fetch', (event) => {
       }
       const cached = await cache.match(request)
       if (cached) return cached
-      const fresh = await fetch(request)
+      // Model files keep their names when rebuilt, so this skips the browser's own cache, which could still hold an old copy.
+      const fresh = await fetch(request, { cache: 'reload' })
       if (fresh.ok) cache.put(request, fresh.clone())
       return fresh
     }),

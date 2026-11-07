@@ -30,7 +30,7 @@ blender --background --factory-startup --disable-autoexec --python tools/blender
 blender --background --factory-startup --python tools/blender/build_bodies.py -- .assets-raw public/models build.log
 ```
 
-Z-Anatomy is not part of `models:fetch`. Download `Z-Anatomy.zip` from its repository, and extract it into `.assets-raw/zanatomy`. Then copy `public/models/manifest.json` to `src/data/models.manifest.json`. Also change `CACHE` in `public/sw.js`, because model filenames stay the same and returning visitors would otherwise keep the old models. The two archives in `.assets-raw/bp3d` must first be extracted into folders with the same names. The BodyParts3D server drops long downloads, so `models:fetch` resumes and may take a while.
+Z-Anatomy is not part of `models:fetch`. Download `Z-Anatomy.zip` from its repository, and extract it into `.assets-raw/zanatomy`. Then copy `public/models/manifest.json` to `src/data/models.manifest.json`. Also change `CACHE` in `public/sw.js`, because model filenames stay the same and the offline cache would otherwise keep serving the old models. The two archives in `.assets-raw/bp3d` must first be extracted into folders with the same names. The BodyParts3D server drops long downloads, so `models:fetch` resumes and may take a while.
 
 ## Other assets
 
