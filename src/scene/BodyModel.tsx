@@ -10,7 +10,7 @@ import type { SexProfile } from '../data/sexProfiles'
 import { bodyEffects } from '../sim/bodyEffects'
 import { selectProfile, useBodyStore } from '../store/useBodyStore'
 import { getPlugin } from '../systems'
-import { partAppearance } from './appearance'
+import { partAppearance, SOLID_SKIN_OPACITY } from './appearance'
 import { setClipPlane } from './clip'
 import { pickLabels, type LabelCandidate } from './labels'
 
@@ -465,6 +465,8 @@ export function BodyModel() {
       const on = LAYERS.filter((layer) => state.layers[layer.id].visible).map((layer) => layer.id)
       const selected = state.selectedId ? getPart(state.selectedId) : undefined
       const extra: LayerId[] = state.isolate && selected ? [selected.layer, 'skin'] : []
+      // The eyes are stored with the organs, and show through the face when the skin is close to solid.
+      if (state.layers.skin.visible && state.layers.skin.opacity >= SOLID_SKIN_OPACITY) extra.push('organs')
       return [...new Set([...on, ...extra])]
     }),
   )

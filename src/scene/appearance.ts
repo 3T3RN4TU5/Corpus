@@ -8,6 +8,10 @@ export const FADED_OPACITY = 0.14
 
 const XRAY_SOFT_TISSUE: LayerId[] = ['skin', 'fat', 'muscle']
 
+/** The eyes show through the openings in the face, so they stay present whenever the skin is close to solid. */
+export const EYE_PARTS = ['eyes', 'eye-iris', 'eye-pupil']
+export const SOLID_SKIN_OPACITY = 0.6
+
 export interface AppearanceInput {
   layers: Record<LayerId, { visible: boolean; opacity: number }>
   xray: boolean
@@ -41,7 +45,11 @@ export function partAppearance(part: Part, input: AppearanceInput): Appearance {
   }
 
   const layer = layers[part.layer]
-  if (!layer.visible || layer.opacity <= 0) return HIDDEN
+  if (!layer.visible || layer.opacity <= 0) {
+    const skin = layers.skin
+    if (EYE_PARTS.includes(part.id) && !xray && skin.visible && skin.opacity >= SOLID_SKIN_OPACITY) return { visible: true, opacity: 1, pickable: true, xray: false }
+    return HIDDEN
+  }
 
   if (xray) {
     const soft = XRAY_SOFT_TISSUE.includes(part.layer)

@@ -440,7 +440,7 @@
     ]
   ],
   "budgets": {
-    "skin": 70000,
+    "skin": 110000,
     "fat": 30000,
     "muscle": 170000,
     "skeleton": 170000,

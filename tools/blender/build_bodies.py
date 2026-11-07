@@ -60,6 +60,7 @@ NODE_PARTS = {"cervical-nodes", "axillary-nodes", "thoracic-nodes", "abdominal-n
 NODE_RADIUS_RANGE = (0.003, 0.008)
 NODE_SIZE_FACTOR = 1.6
 NODE_SHAPE = illustrative.sphere_mesh()
+FACE_DETAIL_HEIGHT = 0.27
 ANKLE_FOLLOWERS = ("leg-arteries", "leg-veins", "deep-calf-muscles", "tibialis-anterior", "gastrocnemius")
 HEAD_UNIT = ("skull", "mandible", "teeth")
 HAND_VESSEL = re.compile(r"digital|palmar|metacarpal", re.I)
@@ -310,12 +311,20 @@ def budgets(pieces_by_part):
     return result
 
 
-def decimated_copy(obj, ratio):
+def decimated_copy(obj, ratio, protect_above=None):
+    """Reduces a mesh. Anything above protect_above is kept in detail for as long as there is other detail to remove."""
     if ratio >= 0.999:
         return
     modifier = obj.modifiers.new("reduce", "DECIMATE")
     modifier.decimate_type = "COLLAPSE"
     modifier.ratio = ratio
+    if protect_above is not None:
+        group = obj.vertex_groups.new(name="protected")
+        group.add([vertex.index for vertex in obj.data.vertices if vertex.co.z > protect_above], 1.0, "REPLACE")
+        modifier.vertex_group = group.name
+        # A high weight means free to collapse, so the group is inverted to protect what is in it.
+        modifier.invert_vertex_group = True
+        modifier.vertex_group_factor = 1000.0
     bpy.context.view_layer.objects.active = obj
     obj.select_set(True)
     bpy.ops.object.modifier_apply(modifier="reduce")
@@ -478,6 +487,17 @@ for body, (folder, prefix, _) in BODIES.items():
                 spheres.append((NODE_SHAPE[0] * radius + centre, NODE_SHAPE[1]))
         sources[(part, "zanatomy")] = spheres
 
+    # The male atlas face comes from a blurred scan with almost no mouth. BodyParts3D is also a male body and its face has eye
+    # openings that fit its own skull, so the atlas skin takes that shape. The female atlas face is kept, because a male face
+    # would not be accurate on it.
+    if body == "male":
+        eye_centre = (head_place(bp3d["Left vitreous body"][0]).mean(axis=0) + head_place(bp3d["Right vitreous body"][0]).mean(axis=0)) / 2
+        chin = np.vstack([head_place(v) for _, (v, _) in bp3d_parts["mandible"]])[:, 2].min()
+        oval = joints.face_oval(eye_centre, chin)
+        new_skin_v, new_skin_t, opened = joints.reshape_face(skin_v, skin_t, head_place(source_skin_v), source_skin_t, oval)
+        sources[("skin", "hra")] = [(new_skin_v, new_skin_t)]
+        log("  male face: skin has", len(new_skin_t), "triangles, opened", opened, "points for the eyes")
+
     # The atlas eyes come from a different body, so each is moved into the skull's socket at its own size, along with
     # the muscles and nerve attached to it. The vitreous body marks the socket, because BodyParts3D's "Right sclera"
     # file also holds a piece of the left eye.
@@ -565,7 +585,9 @@ for body, (folder, prefix, _) in BODIES.items():
         obj = to_object(part, vertices, triangles)
         share = count / sum(len(t) for _, t in all_pieces[part])
         if part not in NODE_PARTS:
-            decimated_copy(obj, min(1.0, part_budget[part] * share / max(1, count)))
+            # The face has the finest shapes in the skin, so it is the last place to lose detail.
+            protect_above = vertices[:, 2].max() - FACE_DETAIL_HEIGHT if (part, source) == ("skin", "hra") else None
+            decimated_copy(obj, min(1.0, part_budget[part] * share / max(1, count)), protect_above)
         if source != "hra" and part != "skin" and part not in NODE_PARTS:
             moved = keep_inside_skin(obj, skin_tree)
             if moved:
@@ -575,7 +597,7 @@ for body, (folder, prefix, _) in BODIES.items():
         log(f"  {part}/{source}: {count} -> {len(obj.data.polygons)}")
 
     # The fat layer is the skin moved inward along its normals. It shows no real fat distribution.
-    skin_obj = next(o for o, p, _ in objects if p == "skin")
+    skin_obj = next(o for o, p, s in objects if p == "skin" and s == "hra")
     fat_mesh = skin_obj.data.copy()
     normals = np.empty(len(fat_mesh.vertices) * 3)
     fat_mesh.vertex_normals.foreach_get("vector", normals)

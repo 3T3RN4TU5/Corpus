@@ -72,7 +72,7 @@
      "lod": "high",
      "layer": "skin",
      "source": "hra",
-     "bytes": 134808
+     "bytes": 180592
     },
     {
      "file": "female/hra-vessels-high.glb",
@@ -86,7 +86,7 @@
      "lod": "high",
      "layer": "fat",
      "source": "illustrative",
-     "bytes": 67296
+     "bytes": 67344
     },
     {
      "file": "female/illustrative-lymph-high.glb",
@@ -191,7 +191,7 @@
      "lod": "low",
      "layer": "skin",
      "source": "hra",
-     "bytes": 55724
+     "bytes": 81308
     },
     {
      "file": "female/hra-vessels-low.glb",
@@ -205,7 +205,7 @@
      "lod": "low",
      "layer": "fat",
      "source": "illustrative",
-     "bytes": 27452
+     "bytes": 27456
     },
     {
      "file": "female/illustrative-lymph-low.glb",
@@ -1693,12 +1693,12 @@
      "sources": [
       "hra"
      ],
-     "triangles": 70000,
+     "triangles": 110000,
      "illustrative": false,
      "centre": [
       0.0,
       0.8332,
-      -0.0
+      0.0
      ],
      "radius": 0.9774
     },
@@ -2146,10 +2146,10 @@
      "illustrative": true,
      "centre": [
       -0.0002,
-      0.8331,
-      0.0
+      0.8332,
+      -0.0
      ],
-     "radius": 0.9692
+     "radius": 0.9691
     }
    },
    "pelvisCentre": [
@@ -2157,7 +2157,7 @@
     0.8536729495972395,
     -0.03310603782301769
    ],
-   "triangles": 982548
+   "triangles": 1022548
   },
   "male": {
    "height": 1.8295187950134277,
@@ -2231,7 +2231,7 @@
      "lod": "high",
      "layer": "skin",
      "source": "hra",
-     "bytes": 126104
+     "bytes": 174044
     },
     {
      "file": "male/hra-vessels-high.glb",
@@ -2245,7 +2245,7 @@
      "lod": "high",
      "layer": "fat",
      "source": "illustrative",
-     "bytes": 65472
+     "bytes": 66796
     },
     {
      "file": "male/illustrative-lymph-high.glb",
@@ -2350,7 +2350,7 @@
      "lod": "low",
      "layer": "skin",
      "source": "hra",
-     "bytes": 55076
+     "bytes": 80596
     },
     {
      "file": "male/hra-vessels-low.glb",
@@ -2364,7 +2364,7 @@
      "lod": "low",
      "layer": "fat",
      "source": "illustrative",
-     "bytes": 27184
+     "bytes": 27496
     },
     {
      "file": "male/illustrative-lymph-low.glb",
@@ -3852,7 +3852,7 @@
      "sources": [
       "hra"
      ],
-     "triangles": 70000,
+     "triangles": 109999,
      "illustrative": false,
      "centre": [
       0.0,
@@ -4301,7 +4301,7 @@
      "sources": [
       "illustrative"
      ],
-     "triangles": 30000,
+     "triangles": 29999,
      "illustrative": true,
      "centre": [
       -0.0001,
@@ -4316,7 +4316,7 @@
     0.9891841188073158,
     -0.02984144538640976
    ],
-   "triangles": 955796
+   "triangles": 995794
   }
  },
  "unusedBodyPartsNames": 858

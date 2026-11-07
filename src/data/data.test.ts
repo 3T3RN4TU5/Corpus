@@ -273,6 +273,14 @@ describe('part appearance', () => {
     expect(partAppearance(part('skin'), input)).toMatchObject({ visible: true, pickable: false })
   })
 
+  it('keeps the eyes present behind solid skin, even with the organs off', () => {
+    const solid = { ...base, layers: { ...base.layers, skin: { visible: true, opacity: 1 }, organs: { visible: false, opacity: 1 } } }
+    expect(partAppearance(part('eye-iris'), solid).visible).toBe(true)
+    expect(partAppearance(part('liver'), solid).visible).toBe(false)
+    const faint = { ...solid, layers: { ...solid.layers, skin: { visible: true, opacity: 0.2 } } }
+    expect(partAppearance(part('eye-iris'), faint).visible).toBe(false)
+  })
+
   it('removes a hidden part, even when its layer is on', () => {
     expect(partAppearance(part('heart'), { ...base, hidden: true }).visible).toBe(false)
   })

@@ -6,7 +6,11 @@ every bone's shape and size.
 """
 import re
 
+import bmesh
+import bpy
 import numpy as np
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
 
 from hand_rig import _apply, _turn, _unit
 
@@ -73,6 +77,67 @@ def separate_nodes(vertices, triangles):
         centres.append(centre)
         radii.append(float(np.linalg.norm(points - centre, axis=1).max()))
     return np.array(centres), np.array(radii)
+
+
+def smoothstep(values):
+    values = np.clip(values, 0, 1)
+    return values * values * (3 - 2 * values)
+
+
+def face_oval(eye_centre, chin_height):
+    """An oval around the face in front of the head: (centre x, centre height, half width, half height, depth limit)."""
+    brow = eye_centre[2] + 0.05
+    return eye_centre[0], (brow + chin_height) / 2, 0.066, (brow - chin_height) / 2 + 0.012, eye_centre[1] + 0.035
+
+
+def oval_position(points, oval):
+    """0 at the centre of the oval and 1 at its edge. Points behind the face count as outside."""
+    centre_x, centre_z, half_x, half_z, depth = oval
+    distance = ((points[:, 0] - centre_x) / half_x) ** 2 + ((points[:, 2] - centre_z) / half_z) ** 2
+    return np.where(points[:, 1] < depth, distance, 9.0)
+
+
+def reshape_face(skin_v, skin_t, face_v, face_t, oval, cuts=2):
+    """Gives a skin the face shape of another mesh, while it stays one continuous surface.
+
+    The face area gets finer triangles, and each point moves straight back or forward onto the other face, by less toward the
+    edge of the oval. Where a sight line passes through an opening in the other face, such as an eye, the skin is opened too.
+    """
+    mesh = bpy.data.meshes.new("face")
+    mesh.from_pydata(skin_v.tolist(), [], skin_t.tolist())
+    built = bmesh.new()
+    built.from_mesh(mesh)
+    bmesh.ops.remove_doubles(built, verts=built.verts, dist=0.00002)
+    built.verts.ensure_lookup_table()
+    points = np.array([list(vertex.co) for vertex in built.verts])
+    near = oval_position(points, oval) < 1.05
+    built.edges.ensure_lookup_table()
+    edges = [edge for edge in built.edges if near[edge.verts[0].index] and near[edge.verts[1].index]]
+    bmesh.ops.subdivide_edges(built, edges=edges, cuts=cuts, use_grid_fill=True)
+    bmesh.ops.triangulate(built, faces=built.faces)
+    built.verts.ensure_lookup_table()
+    built.faces.ensure_lookup_table()
+
+    tree = BVHTree.FromPolygons([Vector(p) for p in face_v.tolist()], face_t.tolist())
+    points = np.array([list(vertex.co) for vertex in built.verts])
+    position = oval_position(points, oval)
+    weight = smoothstep((1 - position) / 0.45)
+    front = points[:, 1].min() - 0.2
+    behind_face = oval[4]
+    opening = np.zeros(len(points), dtype=bool)
+    moved = points.copy()
+    for index in np.nonzero(weight > 0)[0].tolist():
+        x, _, z = points[index]
+        hit = tree.ray_cast(Vector((x, front, z)), Vector((0, 1, 0)))[0]
+        if hit is None or hit.y > behind_face:
+            opening[index] = weight[index] > 0.5
+        else:
+            moved[index, 1] = points[index, 1] * (1 - weight[index]) + hit.y * weight[index]
+    triangles = np.array([[vertex.index for vertex in face.verts] for face in built.faces])
+    triangles = triangles[~opening[triangles].any(axis=1)]
+    built.free()
+    bpy.data.meshes.remove(mesh)
+    return moved, triangles, int(opening.sum())
 
 
 def follow_bones(entries):
