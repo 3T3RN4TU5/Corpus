@@ -492,34 +492,42 @@ for body, (folder, prefix, _) in BODIES.items():
     # The male atlas face comes from a blurred scan with almost no mouth. BodyParts3D is also a male body and its face has eye
     # openings that fit its own skull, so the atlas skin takes that shape. The female atlas face is kept, because a male face
     # would not be accurate on it.
+    lid_tree = fit_tree
     if body == "male":
         eye_centre = (head_place(bp3d["Left vitreous body"][0]).mean(axis=0) + head_place(bp3d["Right vitreous body"][0]).mean(axis=0)) / 2
         chin = np.vstack([head_place(v) for _, (v, _) in bp3d_parts["mandible"]])[:, 2].min()
         oval = joints.face_oval(eye_centre, chin)
-        new_skin_v, new_skin_t, opened = joints.reshape_face(skin_v, skin_t, head_place(source_skin_v), source_skin_t, oval)
+        new_skin_v, new_skin_t, hole_points = joints.reshape_face(skin_v, skin_t, head_place(source_skin_v), source_skin_t, oval)
         sources[("skin", "hra")] = [(new_skin_v, new_skin_t)]
-        log("  male face: skin has", len(new_skin_t), "triangles, opened", opened, "points for the eyes")
+        lid_tree = BVHTree.FromPolygons([Vector(p) for p in new_skin_v.tolist()], new_skin_t.tolist())
+        log("  male face: skin has", len(new_skin_t), "triangles,", len(hole_points), "points across the eye holes")
 
     # The atlas eyes come from a different body, so each is moved into the skull's socket at its own size, along with
     # the muscles and nerve attached to it. The vitreous body marks the socket, because BodyParts3D's "Right sclera"
     # file also holds a piece of the left eye.
+    eye_openings = []
     for key, suffix, side_name in (("Eye_L", "L", "Left"), ("Eye_R", "R", "Right")):
         eye_nodes = load_hra(body, key)
         sclera = next(v for n, (v, _) in eye_nodes.items() if re.search(rf"sclera_{suffix}$", n))
         socket = head_place(bp3d[f"{side_name} vitreous body"][0])
         shift = box_centre(socket) - box_centre(sclera)
+        # An open eye must sit behind its lids, so it stays with them, and the difference from the socket is logged. The female
+        # lids are scanned ones, which are not over the skull's sockets because the skull comes from another body. The male
+        # openings go where BodyParts3D has its eye holes.
+        middle = (skin_v[:, 0].min() + skin_v[:, 0].max()) / 2
+        side = 1 if box_centre(socket)[0] > middle else -1
         if body == "female":
-            # Her scanned lids are not over the skull's sockets, because the skull comes from another body. An open eye must sit
-            # behind its lids, so this eye stays with them, and the difference from the socket is logged.
-            middle = (skin_v[:, 0].min() + skin_v[:, 0].max()) / 2
-            side = 1 if box_centre(socket)[0] > middle else -1
             x, z = middle + side * FEMALE_EYE_OPENING[0], skin_v[:, 2].max() - FEMALE_EYE_OPENING[1]
-            lid = fit_tree.ray_cast(Vector((x, skin_v[:, 1].min() - 0.2, z)), Vector((0, 1, 0)))[0]
-            eyeball = np.vstack([v for n, (v, _) in eye_nodes.items() if re.search(r"sclera|cornea|iris", n)])
-            centre = box_centre(sclera)
-            in_socket = shift
-            shift = np.array([x - centre[0], lid.y + 0.001 - eyeball[:, 1].min(), z + 0.0005 - centre[2]])
-            log(f"  {side_name} eye is {np.round((shift - in_socket) * 1000, 1)} mm from its socket")
+        else:
+            hole = hole_points[(hole_points[:, 0] - middle) * side > 0]
+            x, z = (hole[:, 0].min() + hole[:, 0].max()) / 2, (hole[:, 2].min() + hole[:, 2].max()) / 2
+        lid = lid_tree.ray_cast(Vector((x, skin_v[:, 1].min() - 0.2, z)), Vector((0, 1, 0)))[0]
+        eyeball = np.vstack([v for n, (v, _) in eye_nodes.items() if re.search(r"sclera|cornea|iris", n)])
+        centre = box_centre(sclera)
+        in_socket = shift
+        shift = np.array([x - centre[0], lid.y + 0.001 - eyeball[:, 1].min(), z + 0.0005 - centre[2]])
+        log(f"  {side_name} eye is {np.round((shift - in_socket) * 1000, 1)} mm from its socket")
+        eye_openings.append((x, z, side))
         log(f"  {side_name} eye moved by {np.round(shift * 1000, 1)} mm")
         moved = {id(t) for _, t in eye_nodes.values()}
         for source_key, pieces in sources.items():
@@ -590,14 +598,13 @@ for body, (folder, prefix, _) in BODIES.items():
     skin_for_tree, skin_tree_t = weld(skin_v + offset, skin_t)
     skin_tree = BVHTree.FromPolygons([Vector(p) for p in skin_for_tree.tolist()], skin_tree_t.tolist())
 
-    def cut_female_eyes(obj):
+    def cut_eyes(obj):
         """Replaces a finished skin's mesh with one that has eye openings, and returns the uncut mesh."""
         coordinates = np.empty(len(obj.data.vertices) * 3)
         obj.data.vertices.foreach_get("co", coordinates)
         uncut = coordinates.reshape(-1, 3), np.array([list(polygon.vertices) for polygon in obj.data.polygons])
-        x, below_top = FEMALE_EYE_OPENING
-        height = uncut[0][:, 2].max() - below_top
-        replace_mesh(obj, *joints.open_eyelids(*uncut, [(x, height, 1), (-x, height, -1)])[:2])
+        placed = [(x + offset[0], z + offset[2], side) for x, z, side in eye_openings]
+        replace_mesh(obj, *joints.open_eyelids(*uncut, placed)[:2])
         return uncut
 
     def replace_mesh(obj, vertices, triangles):
@@ -622,8 +629,8 @@ for body, (folder, prefix, _) in BODIES.items():
             protect_above = vertices[:, 2].max() - FACE_DETAIL_HEIGHT if (part, source) == ("skin", "hra") else None
             decimated_copy(obj, min(1.0, part_budget[part] * share / max(1, count)), protect_above)
         # Reducing a mesh roughens any edge in it, so the eyes are cut afterwards.
-        if body == "female" and (part, source) == ("skin", "hra"):
-            uncut_skin = cut_female_eyes(obj)
+        if (part, source) == ("skin", "hra"):
+            uncut_skin = cut_eyes(obj)
         if source != "hra" and part != "skin" and part not in NODE_PARTS:
             moved = keep_inside_skin(obj, skin_tree)
             if moved:
@@ -692,12 +699,12 @@ for body, (folder, prefix, _) in BODIES.items():
         part_entry["radius"] = round(float(np.linalg.norm(high - low) / 2), 4)
 
     for obj, part, source in objects:
-        is_cut_skin = uncut_skin is not None and (part, source) == ("skin", "hra")
+        is_cut_skin = (part, source) == ("skin", "hra")
         if is_cut_skin:
             replace_mesh(obj, *uncut_skin)
         decimated_copy(obj, RULES["low_lod_ratio"])
         if is_cut_skin:
-            cut_female_eyes(obj)
+            cut_eyes(obj)
             obj.data.shade_smooth()
     export("low")
     body_info["triangles"] = sum(entry["triangles"] for entry in body_info["parts"].values())

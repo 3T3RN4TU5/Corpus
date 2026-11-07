@@ -101,7 +101,8 @@ def reshape_face(skin_v, skin_t, face_v, face_t, oval, cuts=2):
     """Gives a skin the face shape of another mesh, while it stays one continuous surface.
 
     The face area gets finer triangles, and each point moves straight back or forward onto the other face, by less toward the
-    edge of the oval. Where a sight line passes through an opening in the other face, such as an eye, the skin is opened too.
+    edge of the oval. Where a sight line passes through an opening in the other face, such as an eye, the skin stays closed,
+    with a smooth surface across the gap, and the points there are returned so that a clean opening can be cut later.
     """
     mesh = bpy.data.meshes.new("face")
     mesh.from_pydata(skin_v.tolist(), [], skin_t.tolist())
@@ -125,19 +126,24 @@ def reshape_face(skin_v, skin_t, face_v, face_t, oval, cuts=2):
     front = points[:, 1].min() - 0.2
     behind_face = oval[4]
     opening = np.zeros(len(points), dtype=bool)
+    missed = np.zeros(len(points), dtype=bool)
     moved = points.copy()
     for index in np.nonzero(weight > 0)[0].tolist():
         x, _, z = points[index]
         hit = tree.ray_cast(Vector((x, front, z)), Vector((0, 1, 0)))[0]
         if hit is None or hit.y > behind_face:
             opening[index] = weight[index] > 0.5
+            missed[index] = True
         else:
             moved[index, 1] = points[index, 1] * (1 - weight[index]) + hit.y * weight[index]
+    neighbours = {index: [edge.other_vert(built.verts[index]).index for edge in built.verts[index].link_edges] for index in np.nonzero(missed)[0].tolist()}
+    for _ in range(150):
+        for index, others in neighbours.items():
+            moved[index, 1] = moved[others, 1].mean()
     triangles = np.array([[vertex.index for vertex in face.verts] for face in built.faces])
-    triangles = triangles[~opening[triangles].any(axis=1)]
     built.free()
     bpy.data.meshes.remove(mesh)
-    return moved, triangles, int(opening.sum())
+    return moved, triangles, moved[opening]
 
 
 def eyelid_outline(centre, half_width, upper, lower, tilt, side, samples=320):

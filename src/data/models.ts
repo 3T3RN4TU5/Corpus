@@ -63,7 +63,7 @@ export function modelProvenance(body: BodyId, id: string): string {
     const parts = model.layer === 'lymph' ? 'Each node is drawn as a small sphere at its position in that atlas, not one person\'s actual node.' : 'Drawn a little thicker than the source, so that fine branches can be seen.'
     return `From Z-Anatomy, an open atlas modelled on one male body, moved to follow this body's fitted bones. ${parts}`
   }
-  if (id === 'skin' && body === 'male') return 'From the NIH Human Reference Atlas male model, based on the Visible Human Project. That face is a blurred scan, so the face takes its shape and eye openings from BodyParts3D.'
+  if (id === 'skin' && body === 'male') return 'From the NIH Human Reference Atlas male model, based on the Visible Human Project. That face is a blurred scan, so the face takes its shape and the position of its eye openings from BodyParts3D. The curve of the openings is illustrative.'
   if (id === 'skin' && body === 'female') return 'From the NIH Human Reference Atlas female model, based on the Visible Human Project. That scan has closed eyes, so the eye openings are drawn in: they follow her scanned lid line, but their shape is illustrative.'
   if ((id === 'eyes' || id === 'eye-iris' || id === 'eye-pupil') && body === 'female') return "From the NIH Human Reference Atlas female model, based on the Visible Human Project. Moved to sit behind her eye openings, about 8 mm from the centres of the fitted skull's sockets."
   const atlas = model.sources.includes('hra')

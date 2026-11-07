@@ -191,7 +191,7 @@
      "lod": "low",
      "layer": "skin",
      "source": "hra",
-     "bytes": 84848
+     "bytes": 84960
     },
     {
      "file": "female/hra-vessels-low.glb",
@@ -2217,7 +2217,7 @@
      "lod": "high",
      "layer": "organs",
      "source": "hra",
-     "bytes": 828048
+     "bytes": 828004
     },
     {
      "file": "male/hra-skeleton-high.glb",
@@ -2231,7 +2231,7 @@
      "lod": "high",
      "layer": "skin",
      "source": "hra",
-     "bytes": 174044
+     "bytes": 203688
     },
     {
      "file": "male/hra-vessels-high.glb",
@@ -2245,7 +2245,7 @@
      "lod": "high",
      "layer": "fat",
      "source": "illustrative",
-     "bytes": 66796
+     "bytes": 69816
     },
     {
      "file": "male/illustrative-lymph-high.glb",
@@ -2336,7 +2336,7 @@
      "lod": "low",
      "layer": "organs",
      "source": "hra",
-     "bytes": 447248
+     "bytes": 447192
     },
     {
      "file": "male/hra-skeleton-low.glb",
@@ -2350,7 +2350,7 @@
      "lod": "low",
      "layer": "skin",
      "source": "hra",
-     "bytes": 80596
+     "bytes": 89972
     },
     {
      "file": "male/hra-vessels-low.glb",
@@ -2364,7 +2364,7 @@
      "lod": "low",
      "layer": "fat",
      "source": "illustrative",
-     "bytes": 27496
+     "bytes": 29416
     },
     {
      "file": "male/illustrative-lymph-low.glb",
@@ -2928,14 +2928,14 @@
      "sources": [
       "hra"
      ],
-     "triangles": 2245,
+     "triangles": 2246,
      "illustrative": false,
      "centre": [
-      0.0001,
-      1.7002,
-      0.0917
+      0.0002,
+      1.7004,
+      0.0889
      ],
-     "radius": 0.0365
+     "radius": 0.0378
     },
     "eye-muscles": {
      "layer": "muscle",
@@ -2960,24 +2960,24 @@
      "illustrative": false,
      "centre": [
       0.0002,
-      1.7002,
-      0.0925
+      1.7004,
+      0.0896
      ],
-     "radius": 0.0324
+     "radius": 0.0337
     },
     "eyes": {
      "layer": "organs",
      "sources": [
       "hra"
      ],
-     "triangles": 13310,
+     "triangles": 13307,
      "illustrative": false,
      "centre": [
       0.0002,
-      1.7004,
-      0.0816
+      1.7006,
+      0.0788
      ],
-     "radius": 0.0463
+     "radius": 0.0477
     },
     "femoral-nerve": {
      "layer": "nerves",
@@ -3852,7 +3852,7 @@
      "sources": [
       "hra"
      ],
-     "triangles": 109999,
+     "triangles": 128600,
      "illustrative": false,
      "centre": [
       0.0,
@@ -4301,7 +4301,7 @@
      "sources": [
       "illustrative"
      ],
-     "triangles": 29999,
+     "triangles": 30000,
      "illustrative": true,
      "centre": [
       -0.0001,
@@ -4316,7 +4316,7 @@
     0.9891841188073158,
     -0.02984144538640976
    ],
-   "triangles": 995794
+   "triangles": 1014394
   }
  },
  "unusedBodyPartsNames": 858
